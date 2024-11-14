@@ -31,6 +31,7 @@
     ],
     "demo": [
         "demo/edi_exchange_type.xml",
+        "demo/edi_configuration.xml",
         "demo/exc_templ_order_response.xml",
     ],
 }

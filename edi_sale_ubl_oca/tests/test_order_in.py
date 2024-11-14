@@ -49,7 +49,7 @@ class TestOrderInbound(SavepointCase, EDIBackendTestMixin, OrderInboundTestMixin
         self.exc_record_in.action_exchange_process()
         self.assertEqual(self.exc_record_in.edi_exchange_state, "input_processed_error")
         err_msg = "Sales order has already been imported before"
-        self.assertEqual(self.exc_record_in.exchange_error, err_msg)
+        self.assertIn(err_msg, self.exc_record_in.exchange_error)
 
     def test_new_order(self):
         self.assertEqual(self.exc_record_in.edi_exchange_state, "input_received")

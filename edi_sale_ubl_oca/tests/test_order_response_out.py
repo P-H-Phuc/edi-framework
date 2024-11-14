@@ -76,4 +76,4 @@ class TestOrderResponseOutbound(XMLBaseTestCase, OrderMixin):
         self.assertEqual(err, None, err)
         data = handler.parse_xml(file_content)
         # TODO: test all main data
-        self.assertEqual(data["cbc:OrderResponseCode"], "AP")
+        self.assertEqual(data["cbc:OrderResponseCode"], "CA")

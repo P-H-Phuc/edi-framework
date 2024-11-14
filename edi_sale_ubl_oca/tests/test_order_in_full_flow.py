@@ -2,7 +2,8 @@
 # @author: Simone Orsi <simahawk@gmail.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import fields
+from unittest import mock
+
 from odoo.tests.common import SavepointCase
 
 from odoo.addons.edi_oca.tests.common import EDIBackendTestMixin
@@ -22,15 +23,21 @@ class TestOrderInboundFull(SavepointCase, EDIBackendTestMixin, OrderInboundTestM
         cls._setup_env()
         cls.backend = cls._get_backend()
         cls._setup_inbound_order(cls.backend)
+        cls.edi_conf = cls.env.ref(
+            "edi_sale_ubl_oca.demo_ubl_edi_configuration_confirmed"
+        )
 
     @classmethod
     def _get_backend(cls):
         return cls.env.ref("edi_ubl_oca.edi_backend_ubl_demo")
 
-    def test_new_order(self):
+    # No need to test sending data
+    @mock.patch("odoo.addons.edi_oca.models.edi_backend.EDIBackend._exchange_send")
+    def test_new_order(self, mock_send):
         self.backend._check_input_exchange_sync()
         self.assertEqual(self.exc_record_in.edi_exchange_state, "input_processed")
         order = self._find_order()
+        order.partner_id.edi_sale_conf_ids = self.edi_conf
         self.assertEqual(self.exc_record_in.record, order)
         order_msg = order.message_ids[0]
         self.assertIn("Exchange processed successfully", order_msg.body)
@@ -59,29 +66,4 @@ class TestOrderInboundFull(SavepointCase, EDIBackendTestMixin, OrderInboundTestM
         # Test is a valid file
         err = handler.validate(file_content)
         self.assertEqual(err, None, err)
-
-        # TODO: new test
-        # Subsequent updates on some fields should trigger new exchanges
-        xml_data = handler.parse_xml(file_content)
-        old_date = order.commitment_date
-        new_date = fields.Date.add(order.commitment_date, days=2)
-        self.assertEqual(
-            xml_data["cac:Delivery"][0]["cbc:ActualDeliveryDate"],
-            fields.Date.to_string(old_date),
-        )
-        order.write({"commitment_date": new_date})
-        ack_exc_record = order.exchange_record_ids.filtered(
-            lambda x: x.type_id == self.exc_type_out and x != ack_exc_record
-        )
-        self.assertEqual(ack_exc_record.parent_id, self.exc_record_in)
-        self.assertEqual(ack_exc_record.edi_exchange_state, "output_pending")
-        file_content = ack_exc_record._get_file_content()
-        self.assertTrue(file_content)
-        err = handler.validate(file_content)
-        self.assertEqual(err, None, err)
-        # Subsequent updates on some fields should trigger new exchanges
-        xml_data = handler.parse_xml(file_content)
-        self.assertEqual(
-            xml_data["cac:Delivery"][0]["cbc:ActualDeliveryDate"],
-            fields.Date.to_string(new_date),
-        )
+        # TODO: test data

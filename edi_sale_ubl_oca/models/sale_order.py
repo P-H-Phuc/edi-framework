@@ -88,12 +88,13 @@ class SaleOrderLine(models.Model):
     _name = "sale.order.line"
     _inherit = [
         "sale.order.line",
-        "edi.auto.exchange.consumer.mixin",
         "edi.id.mixin",
         "edi.state.consumer.mixin",
     ]
 
     def _edi_determine_lines_state(self, orig_vals):
+        # Make sure lines are up to date
+        self.flush()
         # Defaults
         for line in self:
             if not line.edi_exchange_ready:
