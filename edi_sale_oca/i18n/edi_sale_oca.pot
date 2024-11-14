@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -34,8 +34,8 @@ msgid "<strong>Previous record:</strong>"
 msgstr ""
 
 #. module: edi_sale_oca
-#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order__edi_disable_auto
-#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_line__edi_disable_auto
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order__disable_edi_auto
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_line__disable_edi_auto
 msgid "Disable auto"
 msgstr ""
 
@@ -45,8 +45,16 @@ msgid "Disable automated actions"
 msgstr ""
 
 #. module: edi_sale_oca
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order__display_name
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_import__display_name
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: edi_sale_oca
 #: model:ir.ui.menu,name:edi_sale_oca.menu_sale_edi_root
 #: model_terms:ir.ui.view,arch_db:edi_sale_oca.view_order_form
+#: model_terms:ir.ui.view,arch_db:edi_sale_oca.view_partner_form
 msgid "EDI"
 msgstr ""
 
@@ -124,8 +132,22 @@ msgid "Exchanges"
 msgstr ""
 
 #. module: edi_sale_oca
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order__id
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_import__id
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_line__id
+msgid "ID"
+msgstr ""
+
+#. module: edi_sale_oca
 #: model:ir.model.fields,help:edi_sale_oca.field_sale_order_line__edi_id
 msgid "Internal or external identifier for records."
+msgstr ""
+
+#. module: edi_sale_oca
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order____last_update
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_import____last_update
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_line____last_update
+msgid "Last Modified on"
 msgstr ""
 
 #. module: edi_sale_oca
@@ -155,24 +177,15 @@ msgid "Sales Order Line"
 msgstr ""
 
 #. module: edi_sale_oca
-#. odoo-python
 #: code:addons/edi_sale_oca/components/process.py:0
 #, python-format
 msgid "Sales order %s created"
 msgstr ""
 
 #. module: edi_sale_oca
-#. odoo-python
 #: code:addons/edi_sale_oca/components/process.py:0
 #, python-format
 msgid "Sales order has already been imported before"
-msgstr ""
-
-#. module: edi_sale_oca
-#. odoo-python
-#: code:addons/edi_sale_oca/components/process.py:0
-#, python-format
-msgid "Something went wrong with the importing wizard."
 msgstr ""
 
 #. module: edi_sale_oca
@@ -181,7 +194,7 @@ msgid "Source: EDI"
 msgstr ""
 
 #. module: edi_sale_oca
-#: model:ir.model.fields,help:edi_sale_oca.field_sale_order__edi_disable_auto
-#: model:ir.model.fields,help:edi_sale_oca.field_sale_order_line__edi_disable_auto
+#: model:ir.model.fields,help:edi_sale_oca.field_sale_order__disable_edi_auto
+#: model:ir.model.fields,help:edi_sale_oca.field_sale_order_line__disable_edi_auto
 msgid "When marked, EDI automatic processing will be avoided"
 msgstr ""
