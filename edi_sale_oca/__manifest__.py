@@ -24,4 +24,8 @@
         "views/edi_exchange_record.xml",
         "templates/exchange_chatter_msg.xml",
     ],
+    "demo": [
+        "demo/edi_backend.xml",
+        "demo/edi_exchange_type.xml",
+    ],
 }
