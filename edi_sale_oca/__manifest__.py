@@ -22,7 +22,6 @@
         "views/res_partner.xml",
         "views/sale_order.xml",
         "views/edi_exchange_record.xml",
-        "templates/exchange_chatter_msg.xml",
     ],
     "demo": [
         "demo/edi_backend.xml",
