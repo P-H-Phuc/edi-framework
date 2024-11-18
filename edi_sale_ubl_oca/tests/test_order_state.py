@@ -2,13 +2,12 @@
 # @author: Simone Orsi <simahawk@gmail.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import SavepointCase
 
-from odoo.addons.edi_oca.tests.common import EDIBackendTestMixin
+from odoo.addons.component.tests.common import SavepointComponentCase
 from odoo.addons.edi_sale_oca.tests.common import OrderMixin
 
 
-class TestOrderInbound(SavepointCase, EDIBackendTestMixin, OrderMixin):
+class TestOrderState(SavepointComponentCase, OrderMixin):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -19,17 +18,20 @@ class TestOrderInbound(SavepointCase, EDIBackendTestMixin, OrderMixin):
         cls.exc_record_in = cls.backend.create_record(
             cls.exc_type_in.code, {"edi_exchange_state": "input_received"}
         )
-        cls._setup_order(
-            origin_exchange_record_id=cls.exc_record_in.id,
-            line_defaults=dict(origin_exchange_record_id=cls.exc_record_in.id),
-        )
 
     @classmethod
     def _get_backend(cls):
         return cls.env.ref("edi_ubl_oca.edi_backend_ubl_demo")
 
+    def _create_order(self, **kwargs):
+        order = self._setup_order(
+            origin_exchange_record_id=self.exc_record_in.id,
+            line_defaults=dict(origin_exchange_record_id=self.exc_record_in.id),
+        )
+        return order
+
     def test_state_accepted(self):
-        order = self.sale
+        order = self._create_order()
         self.assertEqual(order.edi_state_id.code, order.EDI_STATE_ORDER_ACCEPTED)
         self.assertTrue(
             order.mapped("order_line.edi_state_id").code,
@@ -37,7 +39,7 @@ class TestOrderInbound(SavepointCase, EDIBackendTestMixin, OrderMixin):
         )
 
     def test_state_partially_accepted(self):
-        order = self.sale
+        order = self._create_order()
         orig_qties = {}
         for line in order.order_line:
             orig_qties[line.id] = line.product_uom_qty
@@ -122,12 +124,12 @@ class TestOrderInbound(SavepointCase, EDIBackendTestMixin, OrderMixin):
         )
 
     def test_state_rejected(self):
-        order = self.sale
+        order = self._create_order()
         order.action_cancel()
         self.assertEqual(order.edi_state_id.code, order.EDI_STATE_ORDER_REJECTED)
 
     def test_state_accepted_add_line(self):
-        order = self.sale
+        order = self._create_order()
         order.write({"state": "sale"})
         self.assertEqual(order.edi_state_id.code, order.EDI_STATE_ORDER_ACCEPTED)
         self.assertTrue(

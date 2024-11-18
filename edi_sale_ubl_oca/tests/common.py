@@ -5,10 +5,6 @@
 
 import os
 
-import xmlunittest
-
-from odoo.tests.common import SavepointCase
-
 from odoo.addons.sale_order_import_ubl.tests.common import get_test_data
 
 
@@ -39,19 +35,6 @@ def read_test_file(filename):
     path = os.path.join(os.path.dirname(__file__), "examples", filename)
     with open(path, "r") as thefile:
         return thefile.read()
-
-
-# TODO: reuse common class from edi_xml_oca
-class XMLBaseTestCase(SavepointCase, xmlunittest.XmlTestMixin):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
-        cls.backend = cls._get_backend()
-
-    @classmethod
-    def _get_backend(cls):
-        raise NotImplementedError()
 
 
 class OrderInboundTestMixin:

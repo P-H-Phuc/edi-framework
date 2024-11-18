@@ -5,11 +5,12 @@
 from freezegun import freeze_time
 
 from odoo.addons.edi_sale_oca.tests.common import OrderMixin
+from odoo.addons.edi_xml_oca.tests.common import XMLComponentTestCase
 
-from .common import XMLBaseTestCase, get_xml_handler
+from .common import get_xml_handler
 
 
-class TestOrderResponseOutbound(XMLBaseTestCase, OrderMixin):
+class TestOrderResponseOutbound(XMLComponentTestCase, OrderMixin):
 
     maxDiff = None
 
@@ -18,7 +19,8 @@ class TestOrderResponseOutbound(XMLBaseTestCase, OrderMixin):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls._setup_order()
+        cls.backend = cls._get_backend()
+        cls.order = cls._setup_order()
         cls.exc_type_in = cls.env.ref("edi_sale_ubl_oca.demo_edi_exc_type_order_in")
         cls.exc_type_out = cls.env.ref(
             "edi_sale_ubl_oca.demo_edi_exc_type_order_response_out"
@@ -27,14 +29,14 @@ class TestOrderResponseOutbound(XMLBaseTestCase, OrderMixin):
             "edi_sale_ubl_oca.demo_edi_exc_template_order_response_out"
         )
         vals = {
-            "model": cls.sale._name,
-            "res_id": cls.sale.id,
+            "model": cls.order._name,
+            "res_id": cls.order.id,
             "type_id": cls.exc_type_out.id,
         }
         cls.record = cls.backend.create_record(cls.exc_type_out.code, vals)
-        cls.sale.origin_exchange_record_id = cls.record
-        cls.sale.order_line.origin_exchange_record_id = cls.record
-        cls.sale._edi_update_state()
+        cls.order.origin_exchange_record_id = cls.record
+        cls.order.order_line.origin_exchange_record_id = cls.record
+        cls.order._edi_update_state()
 
     @classmethod
     def _get_backend(cls):
@@ -59,8 +61,8 @@ class TestOrderResponseOutbound(XMLBaseTestCase, OrderMixin):
 
         values = self.exc_tmpl._get_render_values(self.record)
         expected = [
-            ("seller_party", make_party(self.sale.company_id)),
-            ("buyer_party", make_party(self.sale.partner_id)),
+            ("seller_party", make_party(self.order.company_id)),
+            ("buyer_party", make_party(self.order.partner_id)),
         ]
         for k, v in expected:
             self.assertEqual(values[k], v, f"{k} is wrong")
@@ -69,8 +71,8 @@ class TestOrderResponseOutbound(XMLBaseTestCase, OrderMixin):
     def test_xml(self):
         self.record.action_exchange_generate()
         file_content = self.record._get_file_content()
-        with open("/tmp/ordrsp.test.xml", "w") as ff:
-            ff.write(file_content)
+        # with open("/tmp/ordrsp.test.xml", "w") as ff:
+        #     ff.write(file_content)
         handler = get_xml_handler(self.backend, self._schema_path)
         err = handler.validate(file_content)
         self.assertEqual(err, None, err)

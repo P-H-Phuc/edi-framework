@@ -3,18 +3,16 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import exceptions
-from odoo.tests.common import SavepointCase
 
-from odoo.addons.edi_oca.tests.common import EDIBackendTestMixin
+from odoo.addons.edi_oca.tests.common import EDIBackendCommonComponentTestCase
 
 from .common import OrderInboundTestMixin
 
 
-class TestOrderInbound(SavepointCase, EDIBackendTestMixin, OrderInboundTestMixin):
+class TestOrderInbound(EDIBackendCommonComponentTestCase, OrderInboundTestMixin):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.backend = cls._get_backend()
         cls._setup_inbound_order(cls.backend)
 
     @classmethod
