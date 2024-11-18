@@ -4,9 +4,7 @@
 
 from odoo.exceptions import UserError
 
-from odoo.addons.component.tests.common import TransactionComponentCase
-
-from .common import XMLTestCaseMixin
+from .common import XMLComponentTestCase
 
 TEST_XML = """<?xml version="1.0" encoding="UTF-8"?>
 <xs:element
@@ -17,17 +15,7 @@ TEST_XML = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 
-class XMLTestCase(TransactionComponentCase, XMLTestCaseMixin):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.backend = cls.env.ref("edi_oca.demo_edi_backend")
-        cls.handler = cls.backend._find_component(
-            cls.backend._name,
-            ["edi.xml"],
-            work_ctx={"schema_path": "edi_xml_oca:tests/fixtures/Test.xsd"},
-        )
-
+class XMLTestCase(XMLComponentTestCase):
     def test_xml_schema_fail(self):
         with self.assertRaises(ValueError):
             self.backend._find_component(
