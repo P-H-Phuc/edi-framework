@@ -46,5 +46,6 @@ class OrderMixin(object):
         if line_defaults:
             for line in vals["order_line"]:
                 line.update(line_defaults)
-        cls.sale = cls._create_sale_order(**vals)
-        cls.sale.action_confirm()
+        sale = cls._create_sale_order(**vals)
+        sale.action_confirm()
+        return sale
