@@ -15,7 +15,7 @@
     "depends": [
         "edi_oca",
         "edi_record_metadata_oca",
-        "sale_order_import",
+        "sale",
     ],
     "data": [
         "views/res_partner.xml",

@@ -177,18 +177,6 @@ msgid "Sales Order Line"
 msgstr ""
 
 #. module: edi_sale_oca
-#: code:addons/edi_sale_oca/components/process.py:0
-#, python-format
-msgid "Sales order %s created"
-msgstr ""
-
-#. module: edi_sale_oca
-#: code:addons/edi_sale_oca/components/process.py:0
-#, python-format
-msgid "Sales order has already been imported before"
-msgstr ""
-
-#. module: edi_sale_oca
 #: model_terms:ir.ui.view,arch_db:edi_sale_oca.view_sales_order_filter
 msgid "Source: EDI"
 msgstr ""
