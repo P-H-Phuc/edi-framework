@@ -18,12 +18,15 @@
         "sale",
     ],
     "data": [
+        "data/edi_configuration.xml",
         "views/res_partner.xml",
         "views/sale_order.xml",
+        "views/res_partner.xml",
         "views/edi_exchange_record.xml",
     ],
     "demo": [
         "demo/edi_backend.xml",
         "demo/edi_exchange_type.xml",
+        "demo/edi_configuration.xml",
     ],
 }
