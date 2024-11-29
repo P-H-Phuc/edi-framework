@@ -12,7 +12,11 @@ class TestOrderState(SavepointComponentCase, OrderMixin):
     def setUpClass(cls):
         super().setUpClass()
         # force metadata storage w/ proper key
-        cls.env = cls.env(context=dict(cls.env.context, edi_framework_action=True))
+        cls.env = cls.env(
+            context=dict(
+                cls.env.context, tracking_disable=True, edi_framework_action=True
+            )
+        )
         cls.backend = cls._get_backend()
         cls.exc_type_in = cls.env.ref("edi_sale_ubl_oca.demo_edi_exc_type_order_in")
         cls.exc_record_in = cls.backend.create_record(
@@ -31,6 +35,7 @@ class TestOrderState(SavepointComponentCase, OrderMixin):
         return order
 
     def test_state_accepted(self):
+        self.env = self.env(context=dict(self.env.context, foo=True))
         order = self._create_order()
         self.assertEqual(order.edi_state_id.code, order.EDI_STATE_ORDER_ACCEPTED)
         self.assertTrue(
