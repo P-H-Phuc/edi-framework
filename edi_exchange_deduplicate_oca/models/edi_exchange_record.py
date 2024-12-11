@@ -39,7 +39,7 @@ class EDIExchangeRecord(models.Model):
 
     def _edi_get_duplicates(self, count=None):
         self.ensure_one()
-        older_duplicates = self.search(
+        return (self.search_count if count else self.search)(
             [
                 ("id", "<", self.id),
                 ("res_id", "=", self.res_id),
@@ -48,6 +48,4 @@ class EDIExchangeRecord(models.Model):
                 ("edi_exchange_state", "in", ("new", "output_pending")),
                 ("block_obsolescence", "=", False),
             ],
-            count=count,
         )
-        return older_duplicates

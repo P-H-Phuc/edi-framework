@@ -9,7 +9,7 @@
                 <field name="deduplicate_on_send" />
                 <field
                     name="delete_obsolete_records"
-                    attrs="{'invisible': [('deduplicate_on_send', '=', False)]}"
+                    invisible="not deduplicate_on_send"
                 />
             </field>
         </field>
