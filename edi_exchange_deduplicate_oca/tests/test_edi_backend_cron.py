@@ -3,9 +3,9 @@
 
 from odoo.tools import mute_logger
 
-from odoo.addons.edi_oca.tests.test_edi_backend_cron import EDIBackendTestCronCase
+from odoo.addons.edi_core_oca.tests.test_edi_backend_cron import EDIBackendTestCronCase
 
-LOGGERS = ("odoo.addons.edi_oca.models.edi_backend", "odoo.addons.queue_job.delay")
+LOGGERS = ("odoo.addons.edi_core_oca.models.edi_backend", "odoo.addons.queue_job.delay")
 
 
 class EDIBackendTestCronDeduplicationCase(EDIBackendTestCronCase):

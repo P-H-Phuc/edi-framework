@@ -37,7 +37,7 @@ class EDIExchangeRecord(models.Model):
                     obsoleted_records.edi_exchange_state = "obsolete"
         return records
 
-    def _edi_get_duplicates(self, count=None):
+    def _edi_get_duplicates(self, count=False):
         self.ensure_one()
         return (self.search_count if count else self.search)(
             [
