@@ -9,7 +9,6 @@ _logger = logging.getLogger(__name__)
 
 
 class EDIBackend(models.Model):
-
     _inherit = "edi.backend"
 
     def _failed_output_check_send_msg(self):

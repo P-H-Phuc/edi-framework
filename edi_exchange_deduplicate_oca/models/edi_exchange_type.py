@@ -5,7 +5,6 @@ from odoo import fields, models
 
 
 class EDIExchangeType(models.Model):
-
     _inherit = "edi.exchange.type"
 
     deduplicate_on_send = fields.Boolean(

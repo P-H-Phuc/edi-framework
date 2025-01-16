@@ -5,7 +5,6 @@ from odoo import api, fields, models
 
 
 class EDIExchangeRecord(models.Model):
-
     _inherit = "edi.exchange.record"
 
     edi_exchange_state = fields.Selection(
