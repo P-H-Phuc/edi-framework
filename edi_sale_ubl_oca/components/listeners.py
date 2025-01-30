@@ -40,9 +40,11 @@ class EDISOEventListenerMixin(AbstractComponent):
             self._handle_order_state_no_state(order)
 
     def _skip_state_update(self, record, fields=None, operation=None):
-        if record.env.context.get(
-            "edi_sale_skip_state_update"
-        ) or not self._is_ubl_exchange(record):
+        if (
+            not record.origin_exchange_record_id
+            or record.env.context.get("edi_sale_skip_state_update")
+            or not self._is_ubl_exchange(record)
+        ):
             return True
         return False
 
