@@ -6,7 +6,6 @@ from odoo import _, api, exceptions, fields, models
 
 
 class EDIExchangeType(models.Model):
-
     _inherit = "edi.exchange.type"
 
     state_workflow_ids = fields.Many2many(
