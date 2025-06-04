@@ -7,16 +7,9 @@ from odoo.addons.edi_oca.tests.common import EDIBackendCommonComponentTestCase
 
 class TestEDIBackendOutputBase(EDIBackendCommonComponentTestCase):
     @classmethod
-    def _setup_records(cls):
+    def _setup_records(cls):  # pylint: disable=missing-return
         super()._setup_records()
         model = cls.env["edi.exchange.template.output"]
-        cls.type_out2 = cls._create_exchange_type(
-            name="Template output 2",
-            direction="output",
-            code="test_type_out2",
-            exchange_file_ext="xml",
-            exchange_filename_pattern="{record.ref}-{type.code}-{dt}",
-        )
         qweb_tmpl = cls.env["ir.ui.view"].create(
             {
                 "type": "qweb",
@@ -38,7 +31,6 @@ class TestEDIBackendOutputBase(EDIBackendCommonComponentTestCase):
                 "code": "edi.output.generate.demo_backend.test_type_out2",
                 "name": "Out 2",
                 "backend_type_id": cls.backend.backend_type_id.id,
-                "type_id": cls.type_out2.id,
                 "template_id": qweb_tmpl.id,
                 "output_type": "xml",
                 "code_snippet": """
@@ -47,6 +39,14 @@ baz = 2
 result = {"custom_bit": foo, "baz": baz}
                 """,
             }
+        )
+        cls.type_out2 = cls._create_exchange_type(
+            name="Template output 2",
+            direction="output",
+            code="test_type_out2",
+            exchange_file_ext="xml",
+            exchange_filename_pattern="{record.ref}-{type.code}-{dt}",
+            output_template_id=cls.tmpl_out2.id,
         )
         vals = {
             "model": cls.partner._name,
