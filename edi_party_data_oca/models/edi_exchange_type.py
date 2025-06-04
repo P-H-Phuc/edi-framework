@@ -6,7 +6,6 @@ from odoo import fields, models
 
 
 class EDIExchangeType(models.Model):
-
     _inherit = "edi.exchange.type"
 
     id_category_ids = fields.Many2many(

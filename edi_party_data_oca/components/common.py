@@ -35,8 +35,8 @@ class EDIExchangePartyDataMixin(AbstractComponent):
         return self._party_from_partner()
 
     def _party_from_partner(self, **kw):
-        # NB: for UBL this should probably replace `base.ubl._ubl_get_party_identification`
-        # which does nothing today.
+        # NB: for UBL this should probably replace
+        # `base.ubl._ubl_get_party_identification` which does nothing today.
         party = DotDict(
             name=self._get_name(),
             identifiers=self._get_identifiers(),
