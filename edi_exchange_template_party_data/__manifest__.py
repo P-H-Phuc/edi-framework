@@ -9,7 +9,7 @@
     "license": "AGPL-3",
     "author": "Camptocamp,Odoo Community Association (OCA)",
     "maintainers": ["simahawk"],
-    "website": "https://github.com/OCA/edi",
+    "website": "https://github.com/OCA/edi-framework",
     "depends": ["edi_exchange_template_oca", "edi_party_data_oca"],
     "auto_install": True,
 }
