@@ -6,7 +6,7 @@ import os
 
 import xmlunittest
 
-from odoo.addons.component.tests.common import SavepointComponentCase
+from odoo.addons.component.tests.common import TransactionComponentCase
 
 
 class XMLTestCaseMixin(xmlunittest.XmlTestMixin):
@@ -26,7 +26,7 @@ class XMLTestCaseMixin(xmlunittest.XmlTestMixin):
             return thefile.read()
 
 
-class XMLComponentTestCase(SavepointComponentCase, XMLTestCaseMixin):
+class XMLComponentTestCase(TransactionComponentCase, XMLTestCaseMixin):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
