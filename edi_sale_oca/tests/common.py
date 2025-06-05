@@ -5,7 +5,7 @@
 from odoo import fields
 
 
-class OrderMixin(object):
+class OrderMixin:
     @classmethod
     def _create_sale_order(cls, **kw):
         """Create a sale order

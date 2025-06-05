@@ -11,7 +11,7 @@
     "license": "AGPL-3",
     "author": "Camptocamp,Odoo Community Association (OCA)",
     "maintainers": ["simahawk"],
-    "website": "https://github.com/OCA/edi",
+    "website": "https://github.com/OCA/edi-framework",
     "depends": [
         "edi_oca",
         "edi_record_metadata_oca",

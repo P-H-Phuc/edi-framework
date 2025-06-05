@@ -2,7 +2,6 @@
 <!-- Copyright 2022 Camptocamp SA
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-
     <record
         model="ir.actions.act_window"
         id="act_open_edi_exchange_record_sale_order_view"

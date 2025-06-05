@@ -34,5 +34,4 @@ if record.state == 'done':
   record._edi_send_via_edi(conf.type_id)
         </field>
     </record>
-
 </odoo>
