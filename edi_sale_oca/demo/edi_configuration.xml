@@ -11,11 +11,10 @@
         <field name="trigger_id" ref="edi_conf_trigger_sale_order_state_change" />
         <field name="snippet_do">
 # STATES
-# ('draft', 'Quotation'),
-# ('sent', 'Quotation Sent'),
-# ('sale', 'Sales Order'),
-# ('done', 'Locked'),
-# ('cancel', 'Cancelled'),
+# ('draft', "Quotation"),
+# ('sent', "Quotation Sent"),
+# ('sale', "Sales Order"),
+# ('cancel', "Cancelled"),
 if record.state == 'sale':
   record._edi_send_via_edi(conf.type_id)
         </field>
@@ -30,7 +29,7 @@ if record.state == 'sale':
         <field name="model_id" ref="sale.model_sale_order" />
         <field name="trigger_id" ref="edi_conf_trigger_sale_order_state_change" />
         <field name="snippet_do">
-if record.state == 'done':
+if record.state in ('done', 'cancel'):
   record._edi_send_via_edi(conf.type_id)
         </field>
     </record>

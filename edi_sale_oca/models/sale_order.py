@@ -11,21 +11,6 @@ class SaleOrder(models.Model):
         "sale.order",
         "edi.exchange.consumer.mixin",
     ]
-    # Receiver may send or not the response on create
-    # then for each update IF required.
-    # https://docs.oasis-open.org/ubl/os-UBL-2.3/UBL-2.3.html#S-ORDERING-POST-AWARD
-    # https://docs.peppol.eu/poacc/upgrade-3/profiles/28-ordering
-    # /#_response_code_on_header_level
-
-    # TBD: implementing OrdResp for all modifications
-    # can be complex to manage (also for the 3rd party).
-    # Hence, we could block further modifications w/ sale exceptions
-    # and ask the sender to issue a new order request.
-    # This approach seems suitable only for orders that do not get processed immediately.
-
-    disable_edi_auto = fields.Boolean(
-        states={"draft": [("readonly", False)]},
-    )
 
     # edi_record_metadata api
     def _edi_get_metadata_to_store(self, orig_vals):
@@ -49,7 +34,7 @@ class SaleOrderLine(models.Model):
         "edi.id.mixin",
     ]
 
-    disable_edi_auto = fields.Boolean(related="order_id.disable_edi_auto")
+    edi_disable_auto = fields.Boolean(related="order_id.edi_disable_auto")
 
     # TODO: add test
     edi_exchange_ready = fields.Boolean(compute="_compute_edi_exchange_ready")

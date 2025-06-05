@@ -11,7 +11,7 @@
                 <page name="edi" string="EDI">
                     <group name="edi_main">
                         <field
-                            name="disable_edi_auto"
+                            name="edi_disable_auto"
                             string="Disable automated actions"
                         />
                         <field name="origin_exchange_record_id" />
@@ -24,7 +24,7 @@
                     type="object"
                     class="oe_stat_button"
                     icon="fa-retweet"
-                    attrs="{'invisible': [('exchange_record_count', '=', 0)]}"
+                    invisible="not exchange_record_count"
                     name="action_view_edi_records"
                 >
                     <div class="o_form_field o_stat_info">
@@ -36,16 +36,20 @@
                 </button>
             </xpath>
             <xpath
-                expr="//field[@name='order_line']/tree/field[@name='name']"
+                expr="//field[@name='order_line']/list/field[@name='name']"
                 position="before"
             >
                 <field name="edi_id" optional="hide" />
             </xpath>
             <xpath
-                expr="//field[@name='order_line']/form//field[@name='analytic_tag_ids']"
+                expr="//field[@name='order_line']/form//field[last()]"
                 position="after"
             >
-                <field name="edi_id" />
+                <group name="edi" invisible="not origin_exchange_record_id">
+                    <field name="edi_id" />
+                    <field name="origin_exchange_record_id" />
+                    <field name="origin_exchange_type_id" />
+                </group>
             </xpath>
         </field>
     </record>
@@ -67,10 +71,10 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_sales_order_filter" />
         <field name="arch" type="xml">
-            <field name="analytic_account_id" position="after">
+            <xpath expr="//field[last()]" position="after">
                 <field name="origin_exchange_record_id" />
                 <field name="origin_exchange_type_id" />
-            </field>
+            </xpath>
             <filter name="activities_upcoming_all" position="after">
                 <filter
                     string="Source: EDI"

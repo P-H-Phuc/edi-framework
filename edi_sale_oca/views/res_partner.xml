@@ -10,12 +10,12 @@
             <group name="edi_main" position="after">
                 <group name="sale" string="Sale">
                     <field name="edi_sale_conf_ids" colspan="6" nolabel="1">
-                        <tree>
+                        <list>
                             <field name="name" />
                             <field name="trigger_id" />
                             <field name="type_id" />
                             <field name="model_id" />
-                        </tree>
+                        </list>
                     </field>
                 </group>
             </group>

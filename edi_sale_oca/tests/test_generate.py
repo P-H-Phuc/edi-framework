@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 
-from odoo.addons.component.tests.common import SavepointComponentRegistryCase
+from odoo.addons.component.tests.common import TransactionComponentRegistryCase
 from odoo.addons.edi_oca.tests.common import EDIBackendTestMixin
 from odoo.addons.edi_oca.tests.fake_components import (
     FakeOutputGenerator,
@@ -21,10 +21,11 @@ class Sender(FakeOutputSender):
     _exchange_type = "demo_SaleOrder_out"
 
 
-class TestProcessComponent(SavepointComponentRegistryCase, EDIBackendTestMixin):
+class TestProcessComponent(TransactionComponentRegistryCase, EDIBackendTestMixin):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls._setup_registry(cls)
         cls._setup_env()
         cls.backend = cls._get_backend()
         cls.exc_type = cls.env.ref("edi_sale_oca.demo_edi_exc_type_order_out")
@@ -80,8 +81,8 @@ class TestProcessComponent(SavepointComponentRegistryCase, EDIBackendTestMixin):
         record = order.exchange_record_ids[0]
         self.assertEqual(record._get_file_content(), "ORDER CONFIRM")
         self.assertEqual(record.type_id, self.exc_type)
-        # When done, nothing changes
-        order.action_done()
+        # When locked, nothing changes
+        order.action_lock()
         self.assertEqual(len(order.exchange_record_ids), 1)
         record = order.exchange_record_ids[0]
         self.assertEqual(record.type_id, self.exc_type)
@@ -99,10 +100,9 @@ class TestProcessComponent(SavepointComponentRegistryCase, EDIBackendTestMixin):
         record = order.exchange_record_ids[0]
         self.assertEqual(record._get_file_content(), "ORDER CONFIRM")
         self.assertEqual(record.type_id, self.exc_type)
-        # When done, nothing changes
-        order.with_context(fake_output="ORDER DONE").action_done()
+        order.with_context(fake_output="ORDER CANCEL")._action_cancel()
         record1, record2 = order.exchange_record_ids
         self.assertEqual(record1.type_id, self.exc_type)
         self.assertEqual(record1._get_file_content(), "ORDER CONFIRM")
         self.assertEqual(record2.type_id, self.exc_type)
-        self.assertEqual(record2._get_file_content(), "ORDER DONE")
+        self.assertEqual(record2._get_file_content(), "ORDER CANCEL")
