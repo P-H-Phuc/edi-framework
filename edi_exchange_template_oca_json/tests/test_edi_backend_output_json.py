@@ -38,6 +38,7 @@ result = {
             }
         )
         cls.type_out_json.output_template_id = cls.tmpl_out_json
+        cls.tmpl_out_json.allowed_type_ids = cls.type_out_json
         vals = {
             "model": cls.partner._name,
             "res_id": cls.partner.id,
