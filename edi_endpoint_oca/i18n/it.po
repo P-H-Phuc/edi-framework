@@ -236,7 +236,6 @@ msgstr ""
 "Spento: record allineato con il registro, non c'è niente da fare."
 
 #. module: edi_endpoint_oca
-#: model:ir.model.fields,help:edi_endpoint_oca.field_edi_exchange_consumer_mixin__origin_edi_endpoint_id
 #: model:ir.model.fields,help:edi_endpoint_oca.field_edi_exchange_record__edi_endpoint_id
 msgid "Record generated via this endpoint"
 msgstr "Record generato attraverso questo endpoint"
@@ -286,8 +285,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"I seguenti backend hanno endpoints allegati. Devono essere prima archiviati:"
-"\n"
+"I seguenti backend hanno endpoints allegati. Devono essere prima "
+"archiviati:\n"
 "\n"
 "%s"
 
