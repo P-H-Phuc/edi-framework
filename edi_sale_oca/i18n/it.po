@@ -132,12 +132,6 @@ msgid "Internal or external identifier for records."
 msgstr "Identificatore interno o esterno per il record."
 
 #. module: edi_sale_oca
-#: model:ir.model.fields,help:edi_sale_oca.field_sale_order__origin_edi_endpoint_id
-#: model:ir.model.fields,help:edi_sale_oca.field_sale_order_line__origin_edi_endpoint_id
-msgid "Record generated via this endpoint"
-msgstr "Record generato attraverso questo endpoint"
-
-#. module: edi_sale_oca
 #: model:ir.actions.act_window,name:edi_sale_oca.act_open_edi_exchange_record_sale_order_view
 msgid "Sale Order Exchange Records"
 msgstr "Record scambio ordine di vendita"
@@ -188,3 +182,6 @@ msgstr "Origine: EDI"
 #: model:ir.model.fields,help:edi_sale_oca.field_sale_order_line__edi_disable_auto
 msgid "When marked, EDI automatic processing will be avoided"
 msgstr "Quando selezionata, l'elaborazione EDI automatica verrà evitata"
+
+#~ msgid "Record generated via this endpoint"
+#~ msgstr "Record generato attraverso questo endpoint"
