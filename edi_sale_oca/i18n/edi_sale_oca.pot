@@ -129,12 +129,6 @@ msgid "Internal or external identifier for records."
 msgstr ""
 
 #. module: edi_sale_oca
-#: model:ir.model.fields,help:edi_sale_oca.field_sale_order__origin_edi_endpoint_id
-#: model:ir.model.fields,help:edi_sale_oca.field_sale_order_line__origin_edi_endpoint_id
-msgid "Record generated via this endpoint"
-msgstr ""
-
-#. module: edi_sale_oca
 #: model:ir.actions.act_window,name:edi_sale_oca.act_open_edi_exchange_record_sale_order_view
 msgid "Sale Order Exchange Records"
 msgstr ""
