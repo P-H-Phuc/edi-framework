@@ -77,11 +77,6 @@ msgid "Exchange Record Count"
 msgstr "Conteggio record di scambio"
 
 #. module: edi_stock_oca
-#: model:ir.model.fields,help:edi_stock_oca.field_stock_picking__origin_edi_endpoint_id
-msgid "Record generated via this endpoint"
-msgstr "Record generato attraverso questo endpoint"
-
-#. module: edi_stock_oca
 #: model:ir.model,name:edi_stock_oca.model_stock_picking
 msgid "Transfer"
 msgstr "Trasferimento"
@@ -90,3 +85,6 @@ msgstr "Trasferimento"
 #: model:ir.model.fields,help:edi_stock_oca.field_stock_picking__edi_disable_auto
 msgid "When marked, EDI automatic processing will be avoided"
 msgstr "Quando selezionata, l'elaborazione EDI automatica verrà evitata"
+
+#~ msgid "Record generated via this endpoint"
+#~ msgstr "Record generato attraverso questo endpoint"
