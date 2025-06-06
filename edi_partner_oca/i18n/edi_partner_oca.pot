@@ -69,11 +69,6 @@ msgid "Exchange Record Count"
 msgstr ""
 
 #. module: edi_partner_oca
-#: model:ir.model.fields,help:edi_partner_oca.field_res_partner__origin_edi_endpoint_id
-msgid "Record generated via this endpoint"
-msgstr ""
-
-#. module: edi_partner_oca
 #: model:ir.model.fields,help:edi_partner_oca.field_res_partner__edi_disable_auto
 msgid "When marked, EDI automatic processing will be avoided"
 msgstr ""
