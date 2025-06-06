@@ -22,9 +22,9 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [edi_account_oca](edi_account_oca/) | 16.0.1.1.0 | <a href='https://github.com/etobella'><img src='https://github.com/etobella.png' width='32' height='32' style='border-radius:50%;' alt='etobella'/></a> | Define EDI Configuration for Account Moves
-[edi_backend_partner_oca](edi_backend_partner_oca/) | 16.0.1.0.0 | <a href='https://github.com/LoisRForgeFlow'><img src='https://github.com/LoisRForgeFlow.png' width='32' height='32' style='border-radius:50%;' alt='LoisRForgeFlow'/></a> | Add the a partner field to EDI backend
+[edi_backend_partner_oca](edi_backend_partner_oca/) | 16.0.1.0.1 | <a href='https://github.com/LoisRForgeFlow'><img src='https://github.com/LoisRForgeFlow.png' width='32' height='32' style='border-radius:50%;' alt='LoisRForgeFlow'/></a> | Add the a partner field to EDI backend
 [edi_edifact_oca](edi_edifact_oca/) | 16.0.1.0.0 | <a href='https://github.com/simahawk'><img src='https://github.com/simahawk.png' width='32' height='32' style='border-radius:50%;' alt='simahawk'/></a> | Define EDI backend type for EDIFACT.
-[edi_endpoint_oca](edi_endpoint_oca/) | 16.0.1.1.0 |  | Base module allowing configuration of custom endpoints for EDI framework.
+[edi_endpoint_oca](edi_endpoint_oca/) | 16.0.1.1.1 |  | Base module allowing configuration of custom endpoints for EDI framework.
 [edi_exchange_deduplicate_oca](edi_exchange_deduplicate_oca/) | 16.0.1.1.0 | <a href='https://github.com/simahawk'><img src='https://github.com/simahawk.png' width='32' height='32' style='border-radius:50%;' alt='simahawk'/></a> <a href='https://github.com/etobella'><img src='https://github.com/etobella.png' width='32' height='32' style='border-radius:50%;' alt='etobella'/></a> | Introduce a deduplication mechanism at the sending step
 [edi_exchange_template_oca](edi_exchange_template_oca/) | 16.0.1.1.1 | <a href='https://github.com/simahawk'><img src='https://github.com/simahawk.png' width='32' height='32' style='border-radius:50%;' alt='simahawk'/></a> | Allows definition of exchanges via templates.
 [edi_notification_oca](edi_notification_oca/) | 16.0.1.0.0 |  | Define notification activities on exchange records.
@@ -42,7 +42,7 @@ addon | version | maintainers | summary
 [edi_ubl_oca](edi_ubl_oca/) | 16.0.1.0.0 | <a href='https://github.com/simahawk'><img src='https://github.com/simahawk.png' width='32' height='32' style='border-radius:50%;' alt='simahawk'/></a> | Define EDI backend type for UBL.
 [edi_utm_oca](edi_utm_oca/) | 16.0.1.0.0 | <a href='https://github.com/simahawk'><img src='https://github.com/simahawk.png' width='32' height='32' style='border-radius:50%;' alt='simahawk'/></a> | Automatically assigns the EDI source to records created through the EDI mechanism.
 [edi_webservice_oca](edi_webservice_oca/) | 16.0.1.0.1 | <a href='https://github.com/etobella'><img src='https://github.com/etobella.png' width='32' height='32' style='border-radius:50%;' alt='etobella'/></a> <a href='https://github.com/simahawk'><img src='https://github.com/simahawk.png' width='32' height='32' style='border-radius:50%;' alt='simahawk'/></a> | Defines webservice integration from EDI Exchange records
-[edi_xml_oca](edi_xml_oca/) | 16.0.1.1.1 | <a href='https://github.com/simahawk'><img src='https://github.com/simahawk.png' width='32' height='32' style='border-radius:50%;' alt='simahawk'/></a> | Base module for EDI exchange using XML files.
+[edi_xml_oca](edi_xml_oca/) | 16.0.1.1.2 | <a href='https://github.com/simahawk'><img src='https://github.com/simahawk.png' width='32' height='32' style='border-radius:50%;' alt='simahawk'/></a> | Base module for EDI exchange using XML files.
 
 [//]: # (end addons)
 
