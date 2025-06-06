@@ -72,11 +72,9 @@ msgid "Exchange Record Count"
 msgstr "Conteggio record di scambio"
 
 #. module: edi_partner_oca
-#: model:ir.model.fields,help:edi_partner_oca.field_res_partner__origin_edi_endpoint_id
-msgid "Record generated via this endpoint"
-msgstr "Record generato attraverso questo endpoint"
-
-#. module: edi_partner_oca
 #: model:ir.model.fields,help:edi_partner_oca.field_res_partner__edi_disable_auto
 msgid "When marked, EDI automatic processing will be avoided"
 msgstr "Quando selezionata, l'elaborazione EDI automatica verrà evitata"
+
+#~ msgid "Record generated via this endpoint"
+#~ msgstr "Record generato attraverso questo endpoint"
