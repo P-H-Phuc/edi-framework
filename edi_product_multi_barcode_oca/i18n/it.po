@@ -67,11 +67,9 @@ msgid "Individual item in a product's barcode list"
 msgstr "Singolo oggetto nella lista codici a barre di un prodotto"
 
 #. module: edi_product_multi_barcode_oca
-#: model:ir.model.fields,help:edi_product_multi_barcode_oca.field_product_barcode__origin_edi_endpoint_id
-msgid "Record generated via this endpoint"
-msgstr "Record generato attraverso questo endpoint"
-
-#. module: edi_product_multi_barcode_oca
 #: model:ir.model.fields,help:edi_product_multi_barcode_oca.field_product_barcode__edi_disable_auto
 msgid "When marked, EDI automatic processing will be avoided"
 msgstr "Quando selezionata, l'elaborazione EDI automatica verrà evitata"
+
+#~ msgid "Record generated via this endpoint"
+#~ msgstr "Record generato attraverso questo endpoint"
