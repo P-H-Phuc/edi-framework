@@ -101,15 +101,11 @@ msgid "Product Variant"
 msgstr "Variante prodotto"
 
 #. module: edi_product_oca
-#: model:ir.model.fields,help:edi_product_oca.field_product_packaging__origin_edi_endpoint_id
-#: model:ir.model.fields,help:edi_product_oca.field_product_product__origin_edi_endpoint_id
-#: model:ir.model.fields,help:edi_product_oca.field_product_template__origin_edi_endpoint_id
-msgid "Record generated via this endpoint"
-msgstr "Record generato attraverso questo endpoint"
-
-#. module: edi_product_oca
 #: model:ir.model.fields,help:edi_product_oca.field_product_packaging__edi_disable_auto
 #: model:ir.model.fields,help:edi_product_oca.field_product_product__edi_disable_auto
 #: model:ir.model.fields,help:edi_product_oca.field_product_template__edi_disable_auto
 msgid "When marked, EDI automatic processing will be avoided"
 msgstr "Quando selezionata, l'elaborazione EDI automatica verrà evitata"
+
+#~ msgid "Record generated via this endpoint"
+#~ msgstr "Record generato attraverso questo endpoint"
