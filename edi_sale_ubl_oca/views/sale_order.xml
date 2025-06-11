@@ -5,17 +5,17 @@
     <record model="ir.ui.view" id="view_order_form_orig">
         <field name="name">sale.order.form (in edi_sale_UBL)</field>
         <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="inherit_id" ref="edi_sale_oca.view_order_form" />
         <field name="arch" type="xml">
             <xpath
-                expr="//field[@name='order_line']/tree/field[@name='name']"
-                position="before"
+                expr="//field[@name='order_line']/list/field[@name='edi_id']"
+                position="after"
             >
                 <field name="edi_state_id" optional="hide" readonly="1" />
             </xpath>
             <xpath
-                expr="//field[@name='order_line']/form//field[@name='analytic_tag_ids']"
-                position="after"
+                expr="//field[@name='order_line']/form//group[@name='edi']"
+                position="inside"
             >
                 <field name="edi_state_id" />
             </xpath>

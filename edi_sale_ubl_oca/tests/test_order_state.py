@@ -2,12 +2,13 @@
 # @author: Simone Orsi <simahawk@gmail.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo.tools import mute_logger
 
-from odoo.addons.component.tests.common import SavepointComponentCase
+from odoo.addons.component.tests.common import TransactionComponentCase
 from odoo.addons.edi_sale_oca.tests.common import OrderMixin
 
 
-class TestOrderState(SavepointComponentCase, OrderMixin):
+class TestOrderState(TransactionComponentCase, OrderMixin):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -43,6 +44,7 @@ class TestOrderState(SavepointComponentCase, OrderMixin):
             order.EDI_STATE_ORDER_LINE_ACCEPTED,
         )
 
+    @mute_logger("odoo.models.unlink")  # many stock.move delete
     def test_state_partially_accepted(self):
         order = self._create_order()
         orig_qties = {}
@@ -130,7 +132,7 @@ class TestOrderState(SavepointComponentCase, OrderMixin):
 
     def test_state_rejected(self):
         order = self._create_order()
-        order.action_cancel()
+        order._action_cancel()
         self.assertEqual(order.edi_state_id.code, order.EDI_STATE_ORDER_REJECTED)
 
     def test_state_accepted_add_line(self):

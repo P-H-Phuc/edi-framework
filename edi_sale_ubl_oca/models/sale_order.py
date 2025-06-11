@@ -94,7 +94,7 @@ class SaleOrderLine(models.Model):
 
     def _edi_determine_lines_state(self, orig_vals):
         # Make sure lines are up to date
-        self.flush()
+        self.flush_recordset()
         # Defaults
         for line in self:
             if not line.edi_exchange_ready:
