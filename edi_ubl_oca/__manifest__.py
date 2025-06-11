@@ -11,8 +11,7 @@
     "website": "https://github.com/OCA/edi-framework",
     "author": "Camptocamp,Odoo Community Association (OCA)",
     "maintainers": ["simahawk"],
-    "depends": ["edi_oca", "base_ubl"],
-    "auto_install": True,
+    "depends": ["edi_oca"],
     "data": [
         "data/edi_backend_type.xml",
     ],
