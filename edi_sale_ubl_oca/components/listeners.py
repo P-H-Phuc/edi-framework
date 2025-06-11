@@ -76,7 +76,7 @@ class EDISOEventListener(Component):
         if res:
             return res
         fields = fields or []
-        # EDI state will be recomputed only at state change on write or in any case at creation
+        # EDI state will be recomputed at state change or at create
         skip = operation == "write" and (
             "state" not in fields or fields == ["edi_state_id"]
         )

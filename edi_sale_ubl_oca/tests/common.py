@@ -34,7 +34,7 @@ def dev_write_example_file(filename, content, test_file=None):
 
 def read_test_file(filename):
     path = os.path.join(os.path.dirname(__file__), "examples", filename)
-    with open(path, "r") as thefile:
+    with open(path) as thefile:
         return thefile.read()
 
 
