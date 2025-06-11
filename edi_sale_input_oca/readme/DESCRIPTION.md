@@ -23,5 +23,3 @@ Note that env_ctx will propagate all keys to the whole env so you can
 use it for any kind of context related configuration. In the case of the
 sale order import wizard here we are just passing defaults as we could
 do in odoo standard.
-
-TODO: shall we add an exchange type example as demo?

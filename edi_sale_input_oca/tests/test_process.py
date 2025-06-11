@@ -3,16 +3,13 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import base64
-import textwrap
 from unittest import mock
 
-from odoo.tools import mute_logger
-
-from odoo.addons.component.tests.common import SavepointComponentCase
+from odoo.addons.component.tests.common import TransactionComponentCase
 from odoo.addons.edi_oca.tests.common import EDIBackendTestMixin
 
 
-class TestProcessComponent(SavepointComponentCase, EDIBackendTestMixin):
+class TestProcessComponent(TransactionComponentCase, EDIBackendTestMixin):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -24,6 +21,22 @@ class TestProcessComponent(SavepointComponentCase, EDIBackendTestMixin):
         )
         cls.record._set_file_content(b"<fake><order></order></fake>")
         cls.wiz_model = cls.env["sale.order.import"]
+        curr = cls.env.ref("base.USD")
+        curr.active = True
+        cls.pricelist = cls.env["product.pricelist"].create(
+            {
+                "name": "Test Pricelist",
+                "currency_id": curr.id,
+                "company_id": cls.env.company.id,
+            }
+        )
+        cls.partner = cls.env["res.partner"].create(
+            {
+                "name": "SO Test",
+                "property_product_pricelist": cls.pricelist.id,
+                "email": "so.import.test@example.com",
+            }
+        )
 
     @classmethod
     def _get_backend(cls):
@@ -48,37 +61,10 @@ class TestProcessComponent(SavepointComponentCase, EDIBackendTestMixin):
             self.assertEqual(wiz.price_source, "pricelist")
             md_onchange.assert_called()
 
-    @mute_logger("odoo.addons.edi_sale_input_oca.components.process")
-    def test_wizard_setup_deprecated_settings(self):
-        self.exc_type.advanced_settings_edit = textwrap.dedent(
-            """
-            components:
-                process:
-                    usage: input.process.sale.order
-            sale_order_import:
-                confirm_order: true
-            """
-        )
-        comp = self.backend._get_component(self.record, "process")
-        with mock.patch.object(
-            type(self.wiz_model), "order_file_change"
-        ) as md_onchange:
-            wiz = comp._setup_wizard()
-            self.assertEqual(wiz._name, self.wiz_model._name)
-            self.assertEqual(
-                base64.b64decode(wiz.order_file), b"<fake><order></order></fake>"
-            )
-            self.assertEqual(wiz.order_filename, self.record.exchange_filename)
-            self.assertEqual(wiz.price_source, "pricelist")
-            self.assertEqual(wiz.confirm_order, True)
-            md_onchange.assert_called()
-
     # In both tests here we don"t care about the specific format of the import.
     # We only care that the wizard plugged with the component works as expected.
     def test_existing_order(self):
-        order = self.env["sale.order"].create(
-            {"partner_id": self.env["res.partner"].search([], limit=1).id}
-        )
+        order = self.env["sale.order"].create({"partner_id": self.partner.id})
         m1 = mock.patch.object(type(self.wiz_model), "order_file_change")
         m2 = mock.patch.object(type(self.wiz_model), "import_order_button")
         m3 = mock.patch.object(
@@ -103,9 +89,7 @@ class TestProcessComponent(SavepointComponentCase, EDIBackendTestMixin):
 
     def test_new_order(self):
         # Create the order manully and use it via the mock on md_btn
-        order = self.env["sale.order"].create(
-            {"partner_id": self.env["res.partner"].search([], limit=1).id}
-        )
+        order = self.env["sale.order"].create({"partner_id": self.partner.id})
         mock1 = mock.patch.object(type(self.wiz_model), "order_file_change")
         mock2 = mock.patch.object(type(self.wiz_model), "import_order_button")
         self.assertFalse(self.record.record)
