@@ -6,9 +6,9 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="edi_sale_oca.view_order_form" />
         <field name="arch" type="xml">
-            <field name="origin_exchange_type_id" position="after">
+            <group name="edi_main" position="inside">
                 <field name="origin_edi_endpoint_id" />
-            </field>
+            </group>
         </field>
     </record>
 

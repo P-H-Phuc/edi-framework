@@ -6,7 +6,7 @@
     "summary": """
         Glue module between edi_sale_oca and edi_endpoint_oca.
     """,
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "development_status": "Alpha",
     "license": "AGPL-3",
     "author": "Camptocamp,Odoo Community Association (OCA)",
