@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-
     <record id="demo_edi_exc_type_order_in" model="edi.exchange.type">
         <field name="backend_type_id" ref="edi_sale_oca.demo_edi_backend_type_sale" />
         <field name="backend_id" ref="edi_sale_oca.demo_edi_backend" />
@@ -18,5 +17,4 @@ components:
             random_key: custom
         </field>
     </record>
-
 </odoo>
