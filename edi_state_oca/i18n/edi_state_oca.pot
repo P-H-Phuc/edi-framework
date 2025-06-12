@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -120,12 +120,6 @@ msgid "Is Default"
 msgstr ""
 
 #. module: edi_state_oca
-#: model:ir.model.fields,field_description:edi_state_oca.field_edi_state____last_update
-#: model:ir.model.fields,field_description:edi_state_oca.field_edi_state_workflow____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: edi_state_oca
 #: model:ir.model.fields,field_description:edi_state_oca.field_edi_state__write_uid
 #: model:ir.model.fields,field_description:edi_state_oca.field_edi_state_workflow__write_uid
 msgid "Last Updated by"
@@ -152,14 +146,12 @@ msgstr ""
 #. module: edi_state_oca
 #. odoo-python
 #: code:addons/edi_state_oca/models/edi_state.py:0
-#, python-format
 msgid "Only one state per workflow can be the default one."
 msgstr ""
 
 #. module: edi_state_oca
 #. odoo-python
 #: code:addons/edi_state_oca/models/edi_exchange_type.py:0
-#, python-format
 msgid "Only one workflow per model is allowed"
 msgstr ""
 
@@ -171,7 +163,6 @@ msgstr ""
 #. module: edi_state_oca
 #. odoo-python
 #: code:addons/edi_state_oca/models/edi_state_consumer_mixin.py:0
-#, python-format
 msgid "State %(name)s [%(code)s] not allowed"
 msgstr ""
 
