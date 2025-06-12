@@ -37,16 +37,16 @@ class TestEDIBackendOutputBase(EDIBackendCommonComponentTestCase):
                 "code": "edi.output.generate.demo_backend.test_type_out1",
                 "name": "Out 1",
                 "backend_type_id": cls.backend.backend_type_id.id,
-                "type_id": cls.type_out1.id,
                 "generator": "qweb",
                 "template_id": qweb_tmpl.id,
                 "output_type": "txt",
             }
         )
+        cls.type_out1.output_template_id = cls.tmpl_out1
+        cls.tmpl_out1.allowed_type_ids = cls.type_out1
         vals = {
             "model": cls.partner._name,
             "res_id": cls.partner.id,
-            "type_id": cls.type_out1.id,
         }
         cls.record1 = cls.backend.create_record("test_type_out1", vals)
 
@@ -78,7 +78,6 @@ class TestEDIBackendOutputBase(EDIBackendCommonComponentTestCase):
                 "code": "edi.output.generate.demo_backend.test_type_out2",
                 "name": "Out 2",
                 "backend_type_id": cls.backend.backend_type_id.id,
-                "type_id": cls.type_out2.id,
                 "generator": "qweb",
                 "template_id": qweb_tmpl.id,
                 "output_type": "xml",
@@ -89,6 +88,8 @@ result = {"custom_bit": foo, "baz": baz}
                 """,
             }
         )
+        cls.type_out2.output_template_id = cls.tmpl_out2
+        cls.tmpl_out2.allowed_type_ids = cls.type_out2
         vals = {
             "model": cls.partner._name,
             "res_id": cls.partner.id,
@@ -108,7 +109,6 @@ result = {"custom_bit": foo, "baz": baz}
                 "code": "edi.output.generate.demo_backend.test_type_out3",
                 "name": "Out 3",
                 "backend_type_id": cls.backend.backend_type_id.id,
-                "type_id": cls.type_out3.id,
                 "generator": "report",
                 "report_id": cls.report.id,
                 "output_type": "pdf",
@@ -117,6 +117,8 @@ result = {"res_ids": record.ids}
                         """,
             }
         )
+        cls.type_out3.output_template_id = cls.tmpl_out3
+        cls.tmpl_out3.allowed_type_ids = cls.type_out3
         company = cls.env.ref("base.main_company")
         vals = {
             "model": company._name,
@@ -139,7 +141,6 @@ result = {"res_ids": record.ids}
                 "name": "Out JSON",
                 "backend_type_id": cls.backend.backend_type_id.id,
                 "code": "test_type_out_json",
-                "type_id": cls.type_out_json.id,
                 "output_type": "json",
                 "code_snippet": """
 result = {

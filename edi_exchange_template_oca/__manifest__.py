@@ -5,7 +5,7 @@
 {
     "name": "EDI Exchange Template",
     "summary": """Allows definition of exchanges via templates.""",
-    "version": "18.0.1.1.0",
+    "version": "18.0.1.2.0",
     "development_status": "Beta",
     "license": "LGPL-3",
     "author": "ACSONE,Camptocamp,Odoo Community Association (OCA)",
@@ -15,5 +15,6 @@
     "data": [
         "security/ir_model_access.xml",
         "views/edi_exchange_template_output_views.xml",
+        "views/edi_exchange_type_views.xml",
     ],
 }

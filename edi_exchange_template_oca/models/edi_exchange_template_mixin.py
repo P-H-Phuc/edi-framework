@@ -1,4 +1,5 @@
 # Copyright 2020 ACSONE SA
+# Copyright 2025 Camptocamp SA
 # @author Simone Orsi <simahawk@gmail.com>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 import datetime
@@ -41,11 +42,13 @@ class EDIExchangeTemplateMixin(models.AbstractModel):
         ondelete="restrict",
         required=True,
     )
-    type_id = fields.Many2one(
-        string="EDI Exchange type",
+    allowed_type_ids = fields.Many2many(
         comodel_name="edi.exchange.type",
-        ondelete="cascade",
-        auto_join=True,
+        relation="edi_exchange_template_type_rel",
+        column1="template_id",
+        column2="type_id",
+        string="Allowed Exchange Types",
+        help="Types allowed to use this template.",
     )
     backend_id = fields.Many2one(
         comodel_name="edi.backend",
