@@ -33,7 +33,7 @@
         </nswrapper>
     </template>
 
-    <template id="qweb_tmpl_ubl_address" name="Render UBL party">
+    <template id="qweb_tmpl_ubl_address" name="Render UBL party address">
         <nswrapper
             xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
             xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"

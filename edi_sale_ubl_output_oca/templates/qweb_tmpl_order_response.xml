@@ -73,11 +73,11 @@
                 <t
                     t-if="uom"
                     t-set="total_qty"
-                    t-value="sum(delivery.move_line_ids.mapped('product_uom_qty'))"
+                    t-value="sum(delivery.move_line_ids.mapped('quantity'))"
                 />
                 <cbc:Quantity
                     t-if="uom"
-                    t-att-unitCode="uom.unece_code"
+                    t-att-unitCode="uom.unece_code if 'unece_code' in uom._fields else 'C62'"
                     t-esc="total_qty"
                 >1.0</cbc:Quantity>
                 <cbc:ActualDeliveryDate
@@ -129,7 +129,7 @@
                             t-esc="line.edi_state_id.code"
                         />
                         <cbc:Quantity
-                            t-att-unitCode="line.product_uom.unece_code"
+                            t-att-unitCode="line.product_uom.unece_code if 'unece_code' in line.product_uom._fields else 'C62'"
                             t-esc="line.product_uom_qty"
                         >1</cbc:Quantity>
                         <cbc:LineExtensionAmount
@@ -179,7 +179,11 @@
                             <cac:StandardItemIdentification>
                                 <cbc:ID t-esc="line.product_id.barcode" />
                             </cac:StandardItemIdentification>
-                            <t t-foreach="line.tax_id" t-as="tax">
+                            <t
+                                t-foreach="line.tax_id"
+                                t-as="tax"
+                                t-if="'unece_categ_code' in line.tax_id._fields"
+                            >
                                 <cac:ClassifiedTaxCategory
                                     t-if="tax.unece_categ_code and tax.unece_type_code"
                                 >

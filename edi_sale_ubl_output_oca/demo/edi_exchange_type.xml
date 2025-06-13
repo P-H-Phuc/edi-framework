@@ -4,6 +4,10 @@
     <record id="demo_edi_sale_ubl_output_so_out" model="edi.exchange.type">
         <field name="backend_type_id" ref="edi_ubl_oca.edi_backend_type_ubl" />
         <field name="backend_id" ref="edi_ubl_oca.edi_backend_ubl_demo" />
+        <field
+            name="output_template_id"
+            ref="demo_edi_exc_template_order_response_out"
+        />
         <field name="name">Demo UBL Sale Order Response</field>
         <field name="code">demo_edi_sale_ubl_output_so_out</field>
         <field name="direction">output</field>

@@ -62,7 +62,7 @@ class TestOrderInboundFull(EDIBackendCommonComponentTestCase, OrderInboundTestMi
         )
         self.exc_record_in._set_related_record(order)
         self.exc_record_in.edi_exchange_state = "input_processed"
-        order.invalidate_cache()
+        order.invalidate_recordset()
         return order
 
     # No need to test sending data
