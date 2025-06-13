@@ -1,6 +1,6 @@
 [project]
 name = "odoo-addons-oca-edi-framework"
-version = "18.0.20250612.3"
+version = "18.0.20250613.0"
 dependencies = [
     "odoo-addon-edi_account_oca==18.0.*",
     "odoo-addon-edi_endpoint_oca==18.0.*",
@@ -11,6 +11,7 @@ dependencies = [
     "odoo-addon-edi_state_oca==18.0.*",
     "odoo-addon-edi_ubl_oca==18.0.*",
     "odoo-addon-edi_webservice_oca==18.0.*",
+    "odoo-addon-edi_xml_oca==18.0.*",
 ]
 classifiers=[
     "Programming Language :: Python",
