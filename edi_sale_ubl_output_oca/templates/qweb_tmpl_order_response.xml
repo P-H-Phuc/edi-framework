@@ -7,7 +7,6 @@
         id="qwb_tmpl_ubl_order_response_out"
         name="Render UBL OrderResponse out - EXAMPLE"
     >
-
         <OrderResponse
             xmlns="urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2"
             xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
@@ -196,6 +195,5 @@
                 </cac:OrderLine>
             </t>
         </OrderResponse>
-
     </template>
 </odoo>

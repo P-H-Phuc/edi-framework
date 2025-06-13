@@ -16,7 +16,6 @@ from odoo.addons.edi_sale_ubl_oca.tests.common import (
 
 
 class TestOrderInboundFull(EDIBackendCommonComponentTestCase, OrderInboundTestMixin):
-
     _schema_path = "base_ubl:data/xsd-2.2/maindoc/UBL-OrderResponse-2.2.xsd"
 
     @classmethod

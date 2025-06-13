@@ -10,7 +10,6 @@ from odoo.addons.edi_xml_oca.tests.common import XMLComponentTestCase
 
 
 class TestOrderResponseOutbound(XMLComponentTestCase, OrderMixin):
-
     maxDiff = None
 
     _schema_path = "base_ubl:data/xsd-2.2/maindoc/UBL-OrderResponse-2.2.xsd"
