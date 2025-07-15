@@ -17,6 +17,8 @@
         "edi_exchange_template_oca",
         "edi_exchange_template_party_data",
         "edi_state_oca",
+        # This is for the UBL schema
+        "base_ubl",
         # This could be made optional
         # but the delivery part would need another source of data
         "sale_stock",
