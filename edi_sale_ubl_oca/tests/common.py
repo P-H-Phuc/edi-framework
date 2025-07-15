@@ -9,16 +9,6 @@ import random
 from odoo.addons.sale_order_import_ubl.tests.common import get_test_data
 
 
-def get_xml_handler(backend, schema_path, model=None):
-    model = model or backend._name
-    return backend._find_component(
-        model,
-        ["edi.xml"],
-        work_ctx={"schema_path": schema_path},
-        safe=False,
-    )
-
-
 def flatten(txt):
     return "".join([x.strip() for x in txt.splitlines()])
 
