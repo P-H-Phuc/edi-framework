@@ -6,8 +6,7 @@ from freezegun import freeze_time
 
 from odoo.addons.component.tests.common import TransactionComponentCase
 from odoo.addons.edi_sale_oca.tests.common import OrderMixin
-from odoo.addons.edi_sale_ubl_oca.tests.common import get_xml_handler
-from odoo.addons.edi_xml_oca.tests.common import XMLTestCaseMixin
+from odoo.addons.edi_xml_oca.tests.common import XMLTestCaseMixin, get_xml_handler
 
 
 class TestOrderResponseOutbound(TransactionComponentCase, XMLTestCaseMixin, OrderMixin):

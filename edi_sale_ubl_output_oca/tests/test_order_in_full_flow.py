@@ -7,15 +7,14 @@ from unittest import mock
 from odoo import fields
 
 from odoo.addons.edi_oca.tests.common import EDIBackendCommonComponentTestCase
-from odoo.addons.edi_sale_ubl_oca.tests.common import (
-    OrderInboundTestMixin,
+from odoo.addons.edi_xml_oca.tests.common import (
     get_xml_handler,
 )
 
 # TODO: split in different tests w/ SingleTransaction
 
 
-class TestOrderInboundFull(EDIBackendCommonComponentTestCase, OrderInboundTestMixin):
+class TestOrderInboundFull(EDIBackendCommonComponentTestCase):
     _schema_path = "base_ubl:data/xsd-2.2/maindoc/UBL-OrderResponse-2.2.xsd"
 
     @classmethod
@@ -38,7 +37,12 @@ class TestOrderInboundFull(EDIBackendCommonComponentTestCase, OrderInboundTestMi
                 "backend_id": cls.backend.id,
             }
         )
-        cls._setup_inbound_record(cls.backend, cls.exc_type_in)
+        # setup inbound record
+        cls.exc_type_in = cls.exc_type_in
+        cls.exc_type_in.backend_id = cls.backend
+        cls.exc_record_in = cls.backend.create_record(
+            cls.exc_type_in.code, {"edi_exchange_state": "input_received"}
+        )
 
     @classmethod
     def _get_backend(cls):
