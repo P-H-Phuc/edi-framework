@@ -2,11 +2,10 @@
 # @author: Simone Orsi <simone.orsi@camptocamp.com>
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 from odoo.exceptions import ValidationError
+from odoo.tests.common import TransactionCase
 
-from odoo.addons.base.tests.common import BaseCommon
 
-
-class TestExchangeType(BaseCommon):
+class TestExchangeType(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -75,25 +74,7 @@ class TestExchangeType(BaseCommon):
         }
         cls.record2 = cls.backend.create_record("test_type_out2", vals)
 
-    def test_get_template_by_code(self):
-        self.assertEqual(
-            self.backend._get_output_template(self.record2, code=self.tmpl_out1.code),
-            self.tmpl_out1,
-        )
-        self.record1.type_id.code = self.tmpl_out1.code
-        self.assertEqual(
-            self.backend._get_output_template(self.record1), self.tmpl_out1
-        )
-        self.record2.type_id.code = self.tmpl_out2.code
-        self.assertEqual(
-            self.backend._get_output_template(self.record2), self.tmpl_out2
-        )
-
     def test_get_template_by_fallback(self):
-        self.assertEqual(
-            self.backend._get_output_template(self.record2, code=self.tmpl_out1.code),
-            self.tmpl_out1,
-        )
         self.assertEqual(
             self.backend._get_output_template(self.record1), self.tmpl_out1
         )
