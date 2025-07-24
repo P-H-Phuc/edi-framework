@@ -26,9 +26,9 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="edi_sale_oca.view_order_form" />
         <field name="arch" type="xml">
-            <field name="origin_exchange_type_id" position="after">
-                <field name="edi_state_id" optional="hide" readonly="1" />
-            </field>
+            <group name="edi_main" position="inside">
+                <field name="edi_state_id" readonly="1" />
+            </group>
         </field>
     </record>
 </odoo>
