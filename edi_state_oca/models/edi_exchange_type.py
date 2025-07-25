@@ -26,5 +26,7 @@ class EDIExchangeType(models.Model):
 
     def get_state_for_model(self, model, code=None, default=False):
         assert code or default
-        wf = self.state_workflow_ids.filtered(lambda x: x.model_id.model == model)
+        wf = self.sudo().state_workflow_ids.filtered(
+            lambda x: x.model_id.model == model
+        )
         return wf.get_state(code) if code else wf.get_default_state()
