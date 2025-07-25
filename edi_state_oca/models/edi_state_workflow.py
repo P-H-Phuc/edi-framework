@@ -31,7 +31,7 @@ class EDIStateWorkflow(models.Model):
     )
 
     def is_valid_for_model(self, model_name):
-        return self.model_id.model == model_name
+        return self.sudo().model_id.model == model_name
 
     def get_default_state(self):
         return self.state_ids.filtered(lambda x: x.is_default)
