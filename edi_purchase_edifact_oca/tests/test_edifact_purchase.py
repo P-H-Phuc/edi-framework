@@ -19,12 +19,12 @@ class TestEdifactPurchaseOrder(TransactionComponentCase, EDIBackendTestMixin):
         self.company = self.env.ref("base.main_company")
         self.product_1 = self.env.ref("product.product_product_1")
         self.product_1.default_code = "FURN_66668"
-        self.product_1.type = "product"
+        self.product_1.type = "consu"
         self.product_2 = self.env.ref("product.product_product_4")
         self.product_2.default_code = "FURN_88558"
         self.product_3 = self.env.ref("product.product_product_5")
         self.product_3.default_code = "FURN_667777"
-        self.product_3.type = "product"
+        self.product_3.type = "consu"
         partner_id_number = self.env["res.partner.id_number"]
         self.partner_1 = self.env.ref("base.res_partner_1")
         self.partner_1.edifact_purchase_order_out = True
