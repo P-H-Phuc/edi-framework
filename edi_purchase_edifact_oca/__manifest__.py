@@ -15,6 +15,7 @@
         "stock",
         "purchase",
         "edi_storage_oca",
+        "edi_oca",
         "edi_purchase_oca",
         "partner_identification_gln",
         "base_business_document_import",

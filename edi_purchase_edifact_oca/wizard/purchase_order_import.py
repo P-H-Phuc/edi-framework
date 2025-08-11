@@ -337,7 +337,7 @@ class PurchaseOrderImport(models.TransientModel):
                 bdio._match_product(line["product"], "")
             except UserError as error:
                 if order and edifact_despatch_advice_ignore_lines_with_unknown_products:
-                    order.message_post(body=_(error.name))
+                    order.message_post(body=_(str(error)))
                     order_dict["unknown_products"].append(line)
                     continue
                 else:
@@ -421,9 +421,10 @@ class PurchaseOrderImport(models.TransientModel):
             for picking in order.picking_ids.filtered(
                 lambda p: p.state not in ["done", "cancel"]
             ):
-                for move in picking.move_lines:
-                    move.quantity_done = move.product_uom_qty
-                self._update_qty_done_package(picking.move_lines)
+                picking = self.env["stock.picking"].browse(picking.id)
+                for move in picking.move_line_ids:
+                    move.quantity = move.quantity_product_uom
+                self._update_qty_done_package(picking.move_line_ids)
 
     def _remove_order_line_from_compare_res(self, compare_res, parsed_order):
         chatter = parsed_order["chatter_msg"]
@@ -483,7 +484,7 @@ class PurchaseOrderImport(models.TransientModel):
             write_vals = {}
             if cdict.get("qty"):
                 write_vals.update(self._prepare_update_order_line_vals(cdict))
-                if oline.product_id.type == "product":
+                if oline.product_id.type == "consu":
                     delivery_qty = cdict["qty"][1]
                     if oline.product_qty != delivery_qty + oline.qty_received:
                         qty_diff_list.append(
@@ -541,12 +542,8 @@ class PurchaseOrderImport(models.TransientModel):
     def _update_qty_done_package(self, moves):
         if hasattr(moves, "qty_done_package"):
             for move in moves:
-                if (
-                    move.purchase_line_id
-                    and move.quantity_done > 0
-                    and move.package_qty
-                ):
-                    move.qty_done_package = move.quantity_done / move.package_qty
+                if move.purchase_line_id and move.quantity > 0 and move.package_qty:
+                    move.qty_done_package = move.quantity / move.package_qty
         return moves
 
     @api.model
@@ -559,7 +556,7 @@ class PurchaseOrderImport(models.TransientModel):
         if not moves:
             raise UserError(f"No valid moves to update for the line {order_line.name}")
         total_qty_update = (
-            new_qty - order_line.qty_received - sum(moves.mapped("quantity_done"))
+            new_qty - order_line.qty_received - sum(moves.mapped("quantity"))
         )
         if total_qty_update <= 0:
             order_line.order_id.message_post(
@@ -576,14 +573,14 @@ class PurchaseOrderImport(models.TransientModel):
                 if total_qty_update <= 0:
                     break
 
-                available_qty = move.product_uom_qty - move.quantity_done
+                available_qty = move.product_uom_qty - move.quantity
 
                 if available_qty > 0:
                     if total_qty_update >= available_qty:
-                        move.quantity_done = move.product_uom_qty
+                        move.quantity = move.product_uom_qty
                         total_qty_update -= available_qty
                     else:
-                        move.quantity_done += total_qty_update
+                        move.quantity += total_qty_update
                         total_qty_update = 0
 
                     if not picking_dict.get(move.picking_id, False):
@@ -597,7 +594,7 @@ class PurchaseOrderImport(models.TransientModel):
                 new_move = moves[-1].copy(
                     {
                         "product_uom_qty": total_qty_update,
-                        "quantity_done": total_qty_update,
+                        "quantity": total_qty_update,
                         "state": "draft",
                     }
                 )
