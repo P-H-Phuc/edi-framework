@@ -84,11 +84,11 @@ class PurchaseOrder(models.Model):
     def _edifact_purchase_get_supplier_code(self, product):
         # Make it hookable and use the product.supplierinfo if a code is set
         supplierinfo = product.seller_ids.filtered_domain(
-            [("name", "=", self.partner_id.id)]
+            [("partner_id", "=", self.partner_id.id)]
         )
         if not supplierinfo:
             supplierinfo = product.seller_ids.filtered_domain(
-                [("name", "=", self.partner_id.commercial_partner_id.id)]
+                [("partner_id", "=", self.partner_id.commercial_partner_id.id)]
             )
 
         return supplierinfo[:1].product_code or product.default_code
