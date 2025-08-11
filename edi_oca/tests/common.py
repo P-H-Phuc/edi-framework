@@ -13,6 +13,7 @@ from odoo.addons.component.tests.common import (
 )
 
 
+@tagged("-at_install", "post_install")
 class EDIBackendTestMixin:
     @classmethod
     def _setup_context(cls, **kw):
