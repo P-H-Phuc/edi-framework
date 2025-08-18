@@ -3,34 +3,33 @@
 
 import base64
 
-from odoo.addons.component.core import Component
+from odoo import models
 
 
-class EDIExchangeEDIFACTInput(Component):
-
+class EDIExchangeEDIFACTInput(models.Model):
     _name = "edi.input.process.edifact.input"
-    _inherit = "edi.component.input.mixin"
-    _usage = "input.process.edifact.input"
+    _inherit = ["edi.oca.handler.process"]
+    _description = "Input process despatch advice from EDIFact"
 
-    def process(self):
+    def process(self, exchange_record):
         """Process incoming EDIFACT record and confirm record."""
-        file_content = self.exchange_record._get_file_content()
+        file_content = exchange_record._get_file_content()
         wizard = self.env["purchase.order.import"].create(
             {
                 "import_type": "edifact",
                 "order_file": base64.b64encode(file_content.encode()),
-                "order_filename": self.exchange_record.exchange_filename,
+                "order_filename": exchange_record.exchange_filename,
             }
         )
-        file_name = self.exchange_record.exchange_filename
+        file_name = exchange_record.exchange_filename
         action = wizard.import_order_button()
         if action and action.get("res_model", False):
-            self.exchange_record.update(
+            exchange_record.update(
                 {
                     "model": action["res_model"],
                     "res_id": action["res_id"],
                 }
             )
-            self.exchange_record.exchange_filename = file_name
+            exchange_record.exchange_filename = file_name
 
-        return True
+        return self.env._("Process incoming EDIFACT completed!")

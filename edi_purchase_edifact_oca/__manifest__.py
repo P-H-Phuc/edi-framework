@@ -13,8 +13,10 @@
     "depends": [
         "base_edifact",
         "stock",
+        "edi_core_oca",
         "edi_storage_oca",
         "edi_purchase_oca",
+        "edi_exchange_template_oca",
         "partner_identification_gln",
         "base_business_document_import",
     ],

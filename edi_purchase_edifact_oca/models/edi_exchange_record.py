@@ -3,10 +3,10 @@
 
 from odoo import models
 
-from odoo.addons.edi_oca.models.edi_exchange_record import EDIExchangeRecord
+from odoo.addons.edi_core_oca.models.edi_exchange_record import EDIExchangeRecord
 
 
-class EDIExchangeRecord(models.Model):
+class EDIExchangeRecordEDIFact(models.Model):
     _inherit = "edi.exchange.record"
 
     _rollback_state_mapping = {

@@ -16,7 +16,6 @@ class PurchaseOrder(models.Model):
             ("d01b", "D.01B"),
         ],
         default="d96a",
-        string="Edifact Version",
     )
 
     def _replace_edifact_delimiters(self, data):
@@ -34,7 +33,7 @@ class PurchaseOrder(models.Model):
                     if not element.replace(".", "", 1).isdigit()
                     else element
                 )
-            elif isinstance(element, (list, tuple)):
+            elif isinstance(element, list | tuple):
                 result = map(process_element, element)
                 return type(element)(result)
             else:
@@ -85,11 +84,11 @@ class PurchaseOrder(models.Model):
     def _edifact_purchase_get_supplier_code(self, product):
         # Make it hookable and use the product.supplierinfo if a code is set
         supplierinfo = product.seller_ids.filtered_domain(
-            [("name", "=", self.partner_id.id)]
+            [("partner_id", "=", self.partner_id.id)]
         )
         if not supplierinfo:
             supplierinfo = product.seller_ids.filtered_domain(
-                [("name", "=", self.partner_id.commercial_partner_id.id)]
+                [("partner_id", "=", self.partner_id.commercial_partner_id.id)]
             )
 
         return supplierinfo[:1].product_code or product.default_code

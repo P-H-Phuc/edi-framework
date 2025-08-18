@@ -15,7 +15,7 @@
                     <field
                         name="order_file"
                         filename="order_filename"
-                        attrs="{'readonly': [('import_type', '=', False)]}"
+                        readonly="not import_type"
                     />
                     <field name="order_filename" invisible="1" />
                 </group>

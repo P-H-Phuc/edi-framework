@@ -7,9 +7,11 @@ import mimetypes
 from base64 import b64decode, b64encode
 from collections import defaultdict
 
-from odoo import _, api, fields, models
+from markupsafe import Markup
+
+from odoo import api, fields, models
 from odoo.exceptions import UserError
-from odoo.tools import config, float_is_zero
+from odoo.tools import config, float_is_zero, html_escape
 
 logger = logging.getLogger(__name__)
 
@@ -48,23 +50,26 @@ class PurchaseOrderImport(models.TransientModel):
         supported_types = self._get_supported_types()
         # Check if the selected import type is supported
         if self.import_type not in supported_types:
-            raise UserError(_("Please select a valid import type before importing!"))
+            raise UserError(
+                self.env._("Please select a valid import type before importing!")
+            )
 
         # Check if the detected MIME type is supported for the selected import type
         if mimetype not in supported_types[self.import_type]:
             raise UserError(
-                _(
-                    "This file '%(filename)s' is not recognized as a %(type)s file. "
+                self.env._(
+                    "This file '%(filename)s' is not recognized as "
+                    "a %(import_type)s file. "
                     "Please check the file and its extension.",
                     filename=filename,
-                    type=self.import_type.upper(),
+                    import_type=self.import_type.upper(),
                 )
             )
-        if hasattr(self, "parse_%s_order" % self.import_type):
-            return getattr(self, "parse_%s_order" % self.import_type)(filecontent)
+        if hasattr(self, f"parse_{self.import_type}_order"):
+            return getattr(self, f"parse_{self.import_type}_order")(filecontent)
         else:
             raise UserError(
-                _(
+                self.env._(
                     "This Import Type is not supported. Did you install "
                     "the module to support this type?"
                 )
@@ -73,7 +78,7 @@ class PurchaseOrderImport(models.TransientModel):
     @api.model
     def parse_order(self, order_file, order_filename):
         parsed_order = self._parse_file(order_filename, order_file)
-        logger.debug("Result of order parsing: %s", parsed_order)
+        logger.debug(f"Result of order parsing: {parsed_order}")
         defaults = (
             ("attachments", {}),
             ("chatter_msg", []),
@@ -98,7 +103,7 @@ class PurchaseOrderImport(models.TransientModel):
         parsed_order = self.parse_order(order_file_decoded, self.order_filename)
 
         if not parsed_order.get("lines"):
-            raise UserError(_("This order doesn't have any line !"))
+            raise UserError(self.env._("This order doesn't have any line !"))
         order = parsed_order.get("order", False)
         if order and not order.picking_ids.filtered(
             lambda picking: picking.state not in ("done", "cancel")
@@ -121,8 +126,9 @@ class PurchaseOrderImport(models.TransientModel):
         supported = ["ORDERS", "DESADV"]
         if msg_type not in supported:
             raise UserError(
-                _("{msg_type} document is not a Purchase Order document").format(
-                    msg_type=msg_type
+                self.env._(
+                    "%(msg_type)s document is not a Purchase Order document",
+                    msg_type=msg_type,
                 )
             )
 
@@ -156,8 +162,9 @@ class PurchaseOrderImport(models.TransientModel):
             order_dict["order"] = existing_quotations[0]
         else:
             raise UserError(
-                _("Purchase Order Id {id} is not found").format(
-                    id=order_dict["order_ref"]
+                self.env._(
+                    "Purchase Order Id %(order_ref)s is not found",
+                    order_ref=order_dict["order_ref"],
                 )
             )
 
@@ -308,7 +315,6 @@ class PurchaseOrderImport(models.TransientModel):
                 imd_list.append(i)
 
         for linseg in interchange.get_segments("LIN"):
-
             piaseg = pia_list.pop(0) if pia_list else None
             qtyseg = qty_list.pop(0) if qty_list else None
             priseg = pri_list.pop(0) if pri_list else None
@@ -336,9 +342,9 @@ class PurchaseOrderImport(models.TransientModel):
             except UserError as error:
                 if (
                     order
-                    and partner.edifact_despatch_advice_ignore_lines_with_unknown_products
+                    and partner.edifact_despatch_advice_ignore_lines_with_unknown_products  # noqa: E501
                 ):
-                    order.message_post(body=_(error.name))
+                    order.message_post(body=self.env._(str(error)))
                     order_dict["unknown_products"].append(line)
                     continue
                 else:
@@ -408,43 +414,55 @@ class PurchaseOrderImport(models.TransientModel):
             line_vals["date_planned"] = parsed_order["delivery_detail"]["date_planned"]
             new_line = polo.create(line_vals)
             to_create_label.append(
-                "%s %s x %s"
-                % (
-                    new_line.product_uom_qty,
-                    new_line.product_uom.name,
-                    new_line.name,
-                )
+                f"{new_line.product_uom_qty} {new_line.product_uom.name} "
+                f"x {new_line.name}"
             )
         chatter.append(
-            _("%(orders)s new order line(s) created: %(label)s").format(
-                orders=len(compare_res["to_add"]), label=", ".join(to_create_label)
+            self.env._(
+                "%(nbr_ol)s new order line(s) created: %(to_create_label)s",
+                nbr_ol=len(compare_res["to_add"]),
+                to_create_label=", ".join(to_create_label),
             )
         )
-        # Update quantity_done with product_uom_qty with PO created based on
+        # Update quantity with product_uom_qty with PO created based on
         # information from Despatch Advice
         if order.state not in ["purchase", "done", "cancel"]:
             order.with_context(skip_send_edifact=True).button_confirm()
             for picking in order.picking_ids.filtered(
                 lambda p: p.state not in ["done", "cancel"]
             ):
-                for move in picking.move_lines:
-                    move.quantity_done = move.product_uom_qty
-                self._update_qty_done_package(picking.move_lines)
+                for move in picking.move_line_ids:
+                    move.quantity = move.quantity_product_uom
+                self._update_qty_done_package(picking.move_line_ids)
 
     def _remove_order_line_from_compare_res(self, compare_res, parsed_order):
         chatter = parsed_order["chatter_msg"]
         to_remove_label = [
-            "%s %s x %s"
-            % (line.product_uom_qty, line.product_uom.name, line.product_id.name)
+            f"{line.product_uom_qty} {line.product_uom.name} "
+            f"x {line.product_id.name}"
             for line in compare_res["to_remove"]
         ]
         chatter.append(
-            _("{orders} order line(s) deleted: {label}").format(
-                orders=len(compare_res["to_remove"]),
-                label=", ".join(to_remove_label),
+            self.env._(
+                "%(nbr_ol)s order line(s) deleted: %(to_remove_label)s",
+                nbr_ol=len(compare_res["to_remove"]),
+                to_remove_label=", ".join(to_remove_label),
             )
         )
         compare_res["to_remove"].unlink()
+
+    def _merge_import_lines(self, import_lines):
+        """Merge lines with the same product."""
+
+        merged_lines = {}
+        for line in import_lines:
+            product_key = tuple(sorted(line["product"].items()))
+            if product_key not in merged_lines:
+                merged_lines[product_key] = line.copy()
+                merged_lines[product_key]["qty"] = line["qty"]
+            else:
+                merged_lines[product_key]["qty"] += line["qty"]
+        return list(merged_lines.values())
 
     @api.model
     def update_order_lines(self, parsed_order, order):
@@ -452,7 +470,7 @@ class PurchaseOrderImport(models.TransientModel):
         qty_diff_list = parsed_order["qty_diff"] = []
         dpo = self.env["decimal.precision"]
         bdio = self.env["business.document.import"]
-        qty_prec = dpo.precision_get("Product UoS")
+        qty_prec = dpo.precision_get("Product Unit of Measure")
         existing_lines = []
         for oline in order.order_line:
             # compute price unit without tax
@@ -471,86 +489,94 @@ class PurchaseOrderImport(models.TransientModel):
                     "price_unit": price_unit,
                 }
             )
+        import_lines = self._merge_import_lines(parsed_order["lines"])
         compare_res = bdio.compare_lines(
             existing_lines,
-            parsed_order["lines"],
+            import_lines,
             chatter,
             qty_precision=qty_prec,
             seller=False,
         )
 
+        # Display errors during the comparison between
+        # the Despatch Advice file and the order data.
+        if chatter:
+            order.message_post(body=Markup("<br/><br/>".join(chatter)))
+
         # NOW, we start to write/delete/create the order lines
         number_line_updated = 0
         picking_dict = {}
-        for oline, cdict in compare_res["to_update"].items():
-            write_vals = {}
-            if cdict.get("qty"):
-                write_vals.update(self._prepare_update_order_line_vals(cdict))
-                if oline.product_id.type == "product":
-                    delivery_qty = cdict["qty"][1]
-                    if oline.product_qty != delivery_qty + oline.qty_received:
-                        qty_diff_list.append(
-                            {
-                                "message": "Mismatch between ordered quantity"
-                                " ({}) and quantity being delivered ({})".format(
-                                    oline.product_qty, delivery_qty
-                                ),
-                                "Order Line Info": {
-                                    "id": oline.id,
-                                    "product_id": oline.product_id.id,
-                                    "barcode": oline.product_id.barcode,
-                                    "default_code": oline.product_id.default_code,
-                                    "description": oline.name,
-                                    "product_qty": oline.product_qty,
-                                    "qty_recieved": oline.qty_received,
-                                    "incoming_qty": delivery_qty,
-                                },
-                            }
+        # An error may occur during the comparison between
+        # the imported data and the original data.
+        # In that case, compare_res will be set to False.
+        if compare_res:
+            for oline, cdict in compare_res["to_update"].items():
+                write_vals = {}
+                if cdict.get("qty"):
+                    write_vals.update(self._prepare_update_order_line_vals(cdict))
+                    if oline.product_id.type == "consu":
+                        delivery_qty = cdict["qty"][1]
+                        if oline.product_qty != delivery_qty + oline.qty_received:
+                            qty_diff_list.append(
+                                {
+                                    "message": "Mismatch between ordered quantity"
+                                    f" ({oline.product_qty}) and "
+                                    f"quantity being delivered ({delivery_qty})",
+                                    "Order Line Info": {
+                                        "id": oline.id,
+                                        "product_id": oline.product_id.id,
+                                        "barcode": oline.product_id.barcode,
+                                        "default_code": oline.product_id.default_code,
+                                        "description": oline.name,
+                                        "product_qty": oline.product_qty,
+                                        "qty_recieved": oline.qty_received,
+                                        "incoming_qty": delivery_qty,
+                                    },
+                                }
+                            )
+                        updated_picking_dict = self._update_stock_moves(
+                            oline, delivery_qty, picking_dict
                         )
-                    updated_picking_dict = self._update_stock_moves(
-                        oline, delivery_qty, picking_dict
-                    )
-                    if updated_picking_dict:
-                        picking_dict = updated_picking_dict
-                        number_line_updated += 1
+                        if updated_picking_dict:
+                            picking_dict = updated_picking_dict
+                            number_line_updated += 1
 
-            if write_vals:
-                oline.write(write_vals)
-        for picking, move_ids in picking_dict.items():
-            message = (
-                "Record has been updated automatically via the import Despatch Advice."
-                f" Done quantities were updated on {len(move_ids)} lines out of "
-                f"the {len(picking.move_line_ids)} Reception lines."
-            )
-            picking.message_post(body=_(message))
-
-        if compare_res["to_remove"] and order.state not in ["purchase", "done"]:
-            self._remove_order_line_from_compare_res(compare_res, parsed_order)
-
-        if compare_res["to_add"]:
-            if order.state in ["purchase", "done"]:
-                sub_order = order.copy(default={"order_line": [(5, 0, 0)]})
-                order.message_post(
-                    body=_(
-                        "Received some unexpected products. "
-                        "Created a new Purchase Order for it in "
-                        "<a href=# data-oe-model=purchase.order data-oe-id=%d>%s</a>."
-                    )
-                    % (sub_order.id, sub_order.name)
+                if write_vals:
+                    oline.write(write_vals)
+            for picking, move_ids in picking_dict.items():
+                message = (
+                    "Record has been updated automatically via the import Despatch Advice."  # noqa: E501
+                    f" Done quantities were updated on {len(move_ids)} lines out of "
+                    f"the {len(picking.move_line_ids)} Reception lines."
                 )
-                order = sub_order
-            self._add_order_line_from_compare_res(order, compare_res, parsed_order)
+                picking.message_post(body=self.env._(message))
+
+            if compare_res["to_remove"] and order.state not in ["purchase", "done"]:
+                self._remove_order_line_from_compare_res(compare_res, parsed_order)
+
+            if compare_res["to_add"]:
+                if order.state in ["purchase", "done"]:
+                    sub_order = order.copy(default={"order_line": [(5, 0, 0)]})
+                    order.message_post(
+                        body=Markup(
+                            self.env._(
+                                "Received some unexpected products. "
+                                "Created a new Purchase Order for it in "
+                                "<a href=# data-oe-model=purchase.order data-oe-id=%(so_id)s>%(so_name)s</a>.",  # noqa: E501
+                                so_id=sub_order.id,
+                                so_name=sub_order.name,
+                            )
+                        )
+                    )
+                    order = sub_order
+                self._add_order_line_from_compare_res(order, compare_res, parsed_order)
         return number_line_updated
 
     def _update_qty_done_package(self, moves):
         if hasattr(moves, "qty_done_package"):
             for move in moves:
-                if (
-                    move.purchase_line_id
-                    and move.quantity_done > 0
-                    and move.package_qty
-                ):
-                    move.qty_done_package = move.quantity_done / move.package_qty
+                if move.purchase_line_id and move.quantity > 0 and move.package_qty:
+                    move.qty_done_package = move.quantity / move.package_qty
         return moves
 
     @api.model
@@ -561,32 +587,41 @@ class PurchaseOrderImport(models.TransientModel):
             lambda move: move.state not in ("done", "cancel", "draft")
         )
         if not moves:
-            raise UserError(f"No valid moves to update for the line {order_line.name}")
+            raise UserError(
+                self.env._(
+                    "No valid moves to update for the line %(order_name)s.",
+                    order_name=order_line.name,
+                )
+            )
         total_qty_update = (
-            new_qty - order_line.qty_received - sum(moves.mapped("quantity_done"))
+            new_qty - order_line.qty_received - sum(moves.mapped("quantity"))
         )
         if total_qty_update <= 0:
             order_line.order_id.message_post(
-                body=_(
-                    "The quantity delivered for product "
-                    "<a href=# data-oe-model=product.product data-oe-id=%d>%s</a> "
-                    "is less than or equal to the quantity received."
+                body=Markup(
+                    self.env._(
+                        "The quantity delivered for product "
+                        "<a href=# data-oe-model=product.product "
+                        "data-oe-id=%(ol_product_id)s>"
+                        "%(ol_product_name)s</a> "
+                        "is less than or equal to the quantity received.",
+                        ol_product_id=order_line.product_id.id,
+                        ol_product_name=order_line.product_id.name,
+                    )
                 )
-                % (order_line.product_id.id, order_line.product_id.name)
             )
         if total_qty_update > 0:
             for move in moves:
                 if total_qty_update <= 0:
                     break
-
-                available_qty = move.product_uom_qty - move.quantity_done
+                available_qty = move.product_uom_qty - move.quantity
 
                 if available_qty > 0:
                     if total_qty_update >= available_qty:
-                        move.quantity_done = move.product_uom_qty
+                        move.quantity = move.product_uom_qty
                         total_qty_update -= available_qty
                     else:
-                        move.quantity_done += total_qty_update
+                        move.quantity += total_qty_update
                         total_qty_update = 0
 
                     if not picking_dict.get(move.picking_id, False):
@@ -600,7 +635,7 @@ class PurchaseOrderImport(models.TransientModel):
                 new_move = moves[-1].copy(
                     {
                         "product_uom_qty": total_qty_update,
-                        "quantity_done": total_qty_update,
+                        "quantity": total_qty_update,
                         "state": "draft",
                     }
                 )
@@ -630,10 +665,9 @@ class PurchaseOrderImport(models.TransientModel):
         )
         if currency != order.currency_id:
             raise UserError(
-                _(
-                    "The currency of the imported order {old} is different from "
-                    "the currency of the existing order {new}"
-                ).format(
+                self.env._(
+                    "The currency of the imported order %(old)s is different from "
+                    "the currency of the existing order %(new)s",
                     old=currency.name,
                     new=order.currency_id.name,
                 )
@@ -641,6 +675,12 @@ class PurchaseOrderImport(models.TransientModel):
         vals = self._prepare_update_order_vals(parsed_order)
         if vals:
             order.write(vals)
+        for move in order.order_line.mapped("move_ids"):
+            if (
+                move.state not in ("done", "cancel", "draft")
+                and move.product_uom_qty == move.quantity
+            ):
+                move.quantity = 0
         number_line_updated = self.update_order_lines(parsed_order, order)
         bdio.post_create_or_update(parsed_order, order)
         logger.info(
@@ -662,30 +702,36 @@ class PurchaseOrderImport(models.TransientModel):
             }
         )
         message = self._create_expected_reception_message(action)
-        order.message_post(body=_(message))
+        order.message_post(body=self.env._(message))
 
         return action
 
     def _create_expected_reception_message(self, action):
-        message = """
-            \nThis order has been updated automatically via the import of file {}
-            \nDone quantities were updated on {} lines out of the {} Reception lines
-        """.format(
-            self.order_filename,
+        message = (
+            "<p>This order has been updated automatically via the import of file "
+            "<strong>{}</strong><br/>"
+            "Done quantities were updated on {} lines out of the {} Reception lines</p>"
+        ).format(
+            html_escape(self.order_filename),
             action.get("number_line_updated", 0),
             action.get("reception_lines", 0),
         )
 
         unknown_products = action.get("unknown_products", False)
         if unknown_products:
-            message += "\nUnknow Product: \n"
-            message += "  * " + "\n  * ".join(
-                json.dumps(rec, indent=4) for rec in unknown_products
+            message += "<p><strong>Unknown Product:</strong><br/>"
+            message += "<br/>".join(
+                f"&nbsp;&nbsp;* {html_escape(json.dumps(rec, ensure_ascii=False))}"
+                for rec in unknown_products
             )
+            message += "</p>"
+
         qty_diff = action.get("qty_diff", False)
         if qty_diff:
-            message += "\nDifference of Qty: \n"
-            message += "  * " + "\n  * ".join(
-                json.dumps(rec, indent=4) for rec in qty_diff
+            message += "<p><strong>Difference of Qty:</strong><br/>"
+            message += "<br/>".join(
+                f"&nbsp;&nbsp;* {html_escape(json.dumps(rec, ensure_ascii=False))}"
+                for rec in qty_diff
             )
-        return message
+            message += "</p>"
+        return Markup(message)
