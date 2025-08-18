@@ -1,1 +1,0 @@
-* Thien (Vo Hong) <thienvh@trobz.com>
