@@ -4,8 +4,8 @@
 
 
 from odoo.addons.component.tests.common import TransactionComponentRegistryCase
-from odoo.addons.edi_oca.tests.common import EDIBackendTestMixin
-from odoo.addons.edi_oca.tests.fake_components import (
+from odoo.addons.edi_component_oca.tests.common import EDIBackendTestMixin
+from odoo.addons.edi_component_oca.tests.fake_components import (
     FakeOutputGenerator,
     FakeOutputSender,
 )
@@ -34,7 +34,7 @@ class TestProcessComponent(TransactionComponentRegistryCase, EDIBackendTestMixin
         )
         cls.edi_conf_done = cls.env.ref("edi_sale_oca.demo_edi_configuration_done")
         cls.partner = cls.env.ref("base.res_partner_2").copy({"name": "John Doe"})
-        cls._load_module_components(cls, "edi_oca")
+        cls._load_module_components(cls, "edi_core_oca")
         cls._load_module_components(cls, "edi_sale_oca")
         cls._build_components(
             cls,

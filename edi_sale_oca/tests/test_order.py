@@ -4,7 +4,7 @@
 
 from odoo.tests.common import TransactionCase
 
-from odoo.addons.edi_oca.tests.common import EDIBackendTestMixin
+from odoo.addons.edi_core_oca.tests.common import EDIBackendTestMixin
 
 from .common import OrderMixin
 
