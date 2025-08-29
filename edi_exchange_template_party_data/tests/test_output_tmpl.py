@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 
-from odoo.addons.edi_oca.tests.common import EDIBackendCommonComponentTestCase
+from odoo.addons.edi_component_oca.tests.common import EDIBackendCommonComponentTestCase
 
 
 class TestEDIBackendOutputBase(EDIBackendCommonComponentTestCase):
