@@ -13,6 +13,7 @@
     "maintainers": ["simahawk"],
     "website": "https://github.com/OCA/edi-framework",
     "depends": [
+        "edi_component_oca",
         "edi_sale_oca",
         "edi_record_metadata_oca",
         "sale_order_import",

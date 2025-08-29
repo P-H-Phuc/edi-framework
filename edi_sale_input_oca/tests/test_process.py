@@ -6,7 +6,7 @@ import base64
 from unittest import mock
 
 from odoo.addons.component.tests.common import TransactionComponentCase
-from odoo.addons.edi_oca.tests.common import EDIBackendTestMixin
+from odoo.addons.edi_core_oca.tests.common import EDIBackendTestMixin
 
 
 class TestProcessComponent(TransactionComponentCase, EDIBackendTestMixin):
