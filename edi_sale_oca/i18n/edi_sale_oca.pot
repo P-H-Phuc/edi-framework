@@ -115,6 +115,12 @@ msgid "Exchange Record Count"
 msgstr ""
 
 #. module: edi_sale_oca
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order__exchange_related_record_ids
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_line__exchange_related_record_ids
+msgid "Exchange Related Record"
+msgstr ""
+
+#. module: edi_sale_oca
 #: model:ir.ui.menu,name:edi_sale_oca.menu_sale_edi_records
 msgid "Exchanges"
 msgstr ""
