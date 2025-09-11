@@ -27,8 +27,8 @@ msgid "Contact"
 msgstr "Contatto"
 
 #. module: edi_sale_oca
-#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order__disable_edi_auto
-#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_line__disable_edi_auto
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order__edi_disable_auto
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_line__edi_disable_auto
 msgid "Disable auto"
 msgstr "Disabilita automatico"
 
@@ -36,13 +36,6 @@ msgstr "Disabilita automatico"
 #: model_terms:ir.ui.view,arch_db:edi_sale_oca.view_order_form
 msgid "Disable automated actions"
 msgstr "Disabilita azioni automatiche"
-
-#. module: edi_sale_oca
-#: model:ir.model.fields,field_description:edi_sale_oca.field_res_partner__display_name
-#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order__display_name
-#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_line__display_name
-msgid "Display Name"
-msgstr "Nome visualizzato"
 
 #. module: edi_sale_oca
 #: model:ir.ui.menu,name:edi_sale_oca.menu_sale_edi_root
@@ -125,28 +118,20 @@ msgid "Exchange Record Count"
 msgstr "Conteggio record di scambio"
 
 #. module: edi_sale_oca
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order__exchange_related_record_ids
+#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_line__exchange_related_record_ids
+msgid "Exchange Related Record"
+msgstr ""
+
+#. module: edi_sale_oca
 #: model:ir.ui.menu,name:edi_sale_oca.menu_sale_edi_records
 msgid "Exchanges"
 msgstr "Scambi"
 
 #. module: edi_sale_oca
-#: model:ir.model.fields,field_description:edi_sale_oca.field_res_partner__id
-#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order__id
-#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_line__id
-msgid "ID"
-msgstr "ID"
-
-#. module: edi_sale_oca
 #: model:ir.model.fields,help:edi_sale_oca.field_sale_order_line__edi_id
 msgid "Internal or external identifier for records."
 msgstr "Identificatore interno o esterno per i record."
-
-#. module: edi_sale_oca
-#: model:ir.model.fields,field_description:edi_sale_oca.field_res_partner____last_update
-#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order____last_update
-#: model:ir.model.fields,field_description:edi_sale_oca.field_sale_order_line____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
 
 #. module: edi_sale_oca
 #: model:ir.model.fields,help:edi_sale_oca.field_sale_order__origin_edi_endpoint_id
@@ -180,7 +165,16 @@ msgid "Source: EDI"
 msgstr "Origine: EDI"
 
 #. module: edi_sale_oca
-#: model:ir.model.fields,help:edi_sale_oca.field_sale_order__disable_edi_auto
-#: model:ir.model.fields,help:edi_sale_oca.field_sale_order_line__disable_edi_auto
+#: model:ir.model.fields,help:edi_sale_oca.field_sale_order__edi_disable_auto
+#: model:ir.model.fields,help:edi_sale_oca.field_sale_order_line__edi_disable_auto
 msgid "When marked, EDI automatic processing will be avoided"
 msgstr "Quando selezionata, l'elaborazione EDI automatica verrà evitata"
+
+#~ msgid "Display Name"
+#~ msgstr "Nome visualizzato"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"
