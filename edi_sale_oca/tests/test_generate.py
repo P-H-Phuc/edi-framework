@@ -29,6 +29,11 @@ class TestProcessComponent(TransactionComponentRegistryCase, EDIBackendTestMixin
         cls._setup_env()
         cls.backend = cls._get_backend()
         cls.exc_type = cls.env.ref("edi_sale_oca.demo_edi_exc_type_order_out")
+        model = cls.env.ref("edi_component_oca.model_edi_oca_component_handler")
+        cls.exc_type.generate_model_id = model
+        cls.exc_type.send_model_id = model
+        cls.exc_type.process_model_id = model
+        cls.exc_type.receive_model_id = model
         cls.edi_conf_confirmed = cls.env.ref(
             "edi_sale_oca.demo_edi_configuration_confirmed"
         )
