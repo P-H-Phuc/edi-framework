@@ -14,6 +14,10 @@
         <field name="exchange_filename_pattern">{record_name}-{type.code}-{dt}</field>
         <field name="exchange_file_ext">xml</field>
         <field
+            name="generate_model_id"
+            ref="edi_exchange_template_oca.model_edi_oca_template_handler"
+        />
+        <field
             name="state_workflow_ids"
             eval="[(6, 0, [
               ref('edi_sale_ubl_oca.edi_sale_order_state_workflow'),
