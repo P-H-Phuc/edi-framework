@@ -19,8 +19,8 @@ msgstr ""
 #. module: edi_state_oca
 #: model:ir.model.fields,help:edi_state_oca.field_edi_exchange_type__state_workflow_ids
 msgid ""
-"Allowed workflows that can be used by this type of exchanges. You can select"
-" only 1 workflow per model."
+"Allowed workflows that can be used by this type of exchanges. You can select "
+"only 1 workflow per model."
 msgstr ""
 "Flussi di lavoro consentiti che possono essere utilizzati da questo tipo di "
 "scambi. Si può selezionare solo un flusso di lavoro per modello."
@@ -125,12 +125,6 @@ msgid "Is Default"
 msgstr "È predefinito"
 
 #. module: edi_state_oca
-#: model:ir.model.fields,field_description:edi_state_oca.field_edi_state____last_update
-#: model:ir.model.fields,field_description:edi_state_oca.field_edi_state_workflow____last_update
-msgid "Last Modified on"
-msgstr "Ultima modifica il"
-
-#. module: edi_state_oca
 #: model:ir.model.fields,field_description:edi_state_oca.field_edi_state__write_uid
 #: model:ir.model.fields,field_description:edi_state_oca.field_edi_state_workflow__write_uid
 msgid "Last Updated by"
@@ -157,14 +151,12 @@ msgstr "Nome"
 #. module: edi_state_oca
 #. odoo-python
 #: code:addons/edi_state_oca/models/edi_state.py:0
-#, python-format
 msgid "Only one state per workflow can be the default one."
 msgstr "Solo uno stato per flusso di lavoro può essere il predefinito."
 
 #. module: edi_state_oca
 #. odoo-python
 #: code:addons/edi_state_oca/models/edi_exchange_type.py:0
-#, python-format
 msgid "Only one workflow per model is allowed"
 msgstr "È consentito solo un modello per flusso di lavoro"
 
@@ -176,12 +168,12 @@ msgstr "Fornire stati EDI specifici per i record relativi."
 #. module: edi_state_oca
 #. odoo-python
 #: code:addons/edi_state_oca/models/edi_state_consumer_mixin.py:0
-#, python-format
 msgid "State %(name)s [%(code)s] not allowed"
 msgstr "Lo stato %(name)s %(code)s non è consentito"
 
 #. module: edi_state_oca
 #: model:ir.ui.menu,name:edi_state_oca.menu_edi_state_root
+#: model_terms:ir.ui.view,arch_db:edi_state_oca.edi_exchange_type_view_form
 #: model_terms:ir.ui.view,arch_db:edi_state_oca.edi_state_workflow_view_form
 msgid "States"
 msgstr "Stati"
@@ -192,3 +184,6 @@ msgstr "Stati"
 #: model_terms:ir.ui.view,arch_db:edi_state_oca.edi_state_view_search
 msgid "Workflow"
 msgstr "Flusso di lavoro"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Ultima modifica il"
