@@ -12,6 +12,9 @@ class SaleOrder(models.Model):
         "edi.exchange.consumer.mixin",
     ]
 
+    def _edi_config_field_relation(self):
+        return self.partner_id.edi_sale_conf_ids
+
     # edi_record_metadata api
     def _edi_get_metadata_to_store(self, orig_vals):
         data = super()._edi_get_metadata_to_store(orig_vals)

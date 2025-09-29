@@ -7,6 +7,10 @@
         <field name="code">demo_edi_sale_input_so_in</field>
         <field name="direction">input</field>
         <field name="exchange_file_ext">xml</field>
+        <field
+            name="process_model_id"
+            ref="edi_component_oca.model_edi_oca_component_handler"
+        />
         <field name="advanced_settings_edit">
 components:
     process:

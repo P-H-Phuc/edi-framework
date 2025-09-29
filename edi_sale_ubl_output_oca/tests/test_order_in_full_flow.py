@@ -6,7 +6,7 @@ from unittest import mock
 
 from odoo import fields
 
-from odoo.addons.edi_oca.tests.common import EDIBackendCommonComponentTestCase
+from odoo.addons.edi_component_oca.tests.common import EDIBackendCommonComponentTestCase
 from odoo.addons.edi_xml_oca.tests.common import (
     get_xml_handler,
 )
@@ -70,7 +70,7 @@ class TestOrderInboundFull(EDIBackendCommonComponentTestCase):
         return order
 
     # No need to test sending data
-    @mock.patch("odoo.addons.edi_oca.models.edi_backend.EDIBackend._exchange_send")
+    @mock.patch("odoo.addons.edi_core_oca.models.edi_backend.EDIBackend._exchange_send")
     def test_new_order(self, mock_send):
         order = self._create_order()
         self.assertEqual(len(order.exchange_record_ids), 1)

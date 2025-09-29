@@ -9,14 +9,17 @@ class TestExchangeType(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.backend_type = cls.env.ref("edi_oca.demo_edi_backend_type")
-        cls.backend = cls.env.ref("edi_oca.demo_edi_backend")
+        cls.backend_type = cls.env.ref("edi_core_oca.demo_edi_backend_type")
+        cls.backend = cls.env.ref("edi_core_oca.demo_edi_backend")
         cls.type_out1 = cls.env["edi.exchange.type"].create(
             {
                 "name": "Type output 1",
                 "direction": "output",
                 "code": "test_type_out1",
                 "exchange_file_ext": "txt",
+                "generate_model_id": cls.env.ref(
+                    "edi_exchange_template_oca.model_edi_oca_template_handler"
+                ).id,
                 "backend_type_id": cls.backend_type.id,
             }
         )
@@ -26,6 +29,9 @@ class TestExchangeType(TransactionCase):
                 "direction": "output",
                 "code": "test_type_out2",
                 "exchange_file_ext": "txt",
+                "generate_model_id": cls.env.ref(
+                    "edi_exchange_template_oca.model_edi_oca_template_handler"
+                ).id,
                 "backend_type_id": cls.backend_type.id,
             }
         )
@@ -54,7 +60,7 @@ class TestExchangeType(TransactionCase):
             {
                 "code": "tmpl_test_type_out2",
                 "name": "Out 2",
-                "backend_type_id": cls.env.ref("edi_oca.demo_edi_backend_type").id,
+                "backend_type_id": cls.env.ref("edi_core_oca.demo_edi_backend_type").id,
                 "template_id": qweb_tmpl.id,
                 "output_type": "txt",
             }

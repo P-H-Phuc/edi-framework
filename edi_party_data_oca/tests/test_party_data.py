@@ -2,7 +2,7 @@
 # @author: Simone Orsi <simahawk@gmail.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.addons.edi_oca.tests.common import EDIBackendCommonComponentTestCase
+from odoo.addons.edi_component_oca.tests.common import EDIBackendCommonComponentTestCase
 
 from ..utils import get_party_data_component
 
@@ -11,7 +11,7 @@ class PartyDataTestCase(EDIBackendCommonComponentTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.backend = cls.env.ref("edi_oca.demo_edi_backend")
+        cls.backend = cls.env.ref("edi_core_oca.demo_edi_backend")
         cls.cat_model = cls.env["res.partner.id_category"]
         cls.all_cat = cls.cat_model.browse()
         for i in range(1, 4):
