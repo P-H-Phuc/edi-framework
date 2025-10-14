@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 {
     "name": "EDI Exchange Template - Party data",
-    "summary": """Glue module betweeb edi_exchange_template and edi_party_data""",
+    "summary": """Glue module between edi_exchange_template and edi_party_data""",
     "version": "18.0.1.0.1",
     "development_status": "Alpha",
     "license": "AGPL-3",
