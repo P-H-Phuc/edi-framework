@@ -160,22 +160,6 @@ msgid "<span class=\"pe-4\"><i class=\"fa fa-retweet\"/> EDI actions</span>"
 msgstr "<span class=\"pe-4\"><i class=\"fa fa-retweet\"/> Azioni EDI</span>"
 
 #. module: edi_core_oca
-#: model_terms:ir.ui.view,arch_db:edi_core_oca.edi_exchange_record_view_form
-msgid ""
-"<span class=\"text-warning\" invisible=\"related_record_exists\">\n"
-"                                The related record is not available "
-"anymore.\n"
-"                                Consider deleting this record too or fixing "
-"its relation.\n"
-"                            </span>"
-msgstr ""
-"<span class=\"text-warning\" invisible=\"related_record_exists\">\n"
-"                                Il record relativo non è più disponibile.\n"
-"                                Considerare l'eliminazione anche di questo "
-"record o correggere la sua relazione.\n"
-"                            </span>"
-
-#. module: edi_core_oca
 #: model_terms:ir.ui.view,arch_db:edi_core_oca.message_edi_exchange_link
 msgid "<strong>EDI exchange:</strong>"
 msgstr "<strong>Scambio EDI:</strong>"
@@ -1666,6 +1650,14 @@ msgstr ""
 "fallimento."
 
 #. module: edi_core_oca
+#: model_terms:ir.ui.view,arch_db:edi_core_oca.edi_exchange_record_view_form
+msgid ""
+"The related record is not available anymore.\n"
+"                                    Consider deleting this record too or "
+"fixing its relation."
+msgstr ""
+
+#. module: edi_core_oca
 #: model:ir.model.fields,field_description:edi_core_oca.field_edi_configuration__trigger_id
 msgid "Trigger"
 msgstr "Attivazione"
@@ -1743,6 +1735,21 @@ msgstr ""
 #: model:ir.model.fields.selection,name:edi_core_oca.selection__edi_exchange_record__edi_exchange_state__output_error_on_send
 msgid "error on send"
 msgstr "errore nell'invio"
+
+#~ msgid ""
+#~ "<span class=\"text-warning\" invisible=\"related_record_exists\">\n"
+#~ "                                The related record is not available "
+#~ "anymore.\n"
+#~ "                                Consider deleting this record too or "
+#~ "fixing its relation.\n"
+#~ "                            </span>"
+#~ msgstr ""
+#~ "<span class=\"text-warning\" invisible=\"related_record_exists\">\n"
+#~ "                                Il record relativo non è più "
+#~ "disponibile.\n"
+#~ "                                Considerare l'eliminazione anche di "
+#~ "questo record o correggere la sua relazione.\n"
+#~ "                            </span>"
 
 #~ msgid "Job Channel"
 #~ msgstr "Canale lavoro"
