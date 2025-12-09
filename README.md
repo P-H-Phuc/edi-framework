@@ -40,7 +40,7 @@ addon | version | maintainers | summary
 [edi_sale_ubl_output_oca](edi_sale_ubl_output_oca/) | 18.0.1.0.1 |  | Configuration and special behaviors for EDI on sales.
 [edi_state_oca](edi_state_oca/) | 18.0.1.0.2 | <a href='https://github.com/simahawk'><img src='https://github.com/simahawk.png' width='32' height='32' style='border-radius:50%;' alt='simahawk'/></a> | Allow to assign specific EDI states to related records.
 [edi_stock_oca](edi_stock_oca/) | 18.0.1.0.1 |  | Define EDI Configuration for Stock
-[edi_storage_oca](edi_storage_oca/) | 18.0.1.0.1 |  | Base module to allow exchanging files via storage backend (eg: SFTP).
+[edi_storage_oca](edi_storage_oca/) | 18.0.1.0.2 |  | Base module to allow exchanging files via storage backend (eg: SFTP).
 [edi_storage_queue_oca](edi_storage_queue_oca/) | 18.0.1.0.0 |  | Integrates EDI Storage with Queue
 [edi_ubl_oca](edi_ubl_oca/) | 18.0.1.0.1 | <a href='https://github.com/simahawk'><img src='https://github.com/simahawk.png' width='32' height='32' style='border-radius:50%;' alt='simahawk'/></a> | Define EDI backend type for UBL.
 [edi_webservice_oca](edi_webservice_oca/) | 18.0.1.0.2 | <a href='https://github.com/etobella'><img src='https://github.com/etobella.png' width='32' height='32' style='border-radius:50%;' alt='etobella'/></a> <a href='https://github.com/simahawk'><img src='https://github.com/simahawk.png' width='32' height='32' style='border-radius:50%;' alt='simahawk'/></a> | Defines webservice integration from EDI Exchange records
