@@ -31,7 +31,7 @@ class EdiPriceMapping(models.Model):
     price_config_id = fields.Many2one(comodel_name="edi.config.system")
     mapping_field_id = fields.Many2one(
         comodel_name="ir.model.fields",
-        domain="[('model', '=', 'supplier.price.list')]",
+        domain=[("model", "=", "product.supplierinfo")],
         string="Prices mapping field",
     )
     name = fields.Char(string="Zone description")

@@ -11,7 +11,7 @@ import zipfile
 
 from dateutil import parser
 
-from odoo import _, api, fields, models, tools
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -29,17 +29,21 @@ class EdiConfigSystem(models.Model):
     _name = "edi.config.system"
     _description = "EDI Config System"
 
+    def _default_po_text_file_pattern(self):
+        date, hour = self.get_datenow_format_for_file()
+        return f"LD{date}H{hour}.C99"
+
     name = fields.Char(required=True)
     supplier_id = fields.Many2one(
         comodel_name="res.partner",
         string="EDI supplier",
-        domain=[("supplier", "=", True), ("is_edi", "=", True)],
+        domain=[("supplier_rank", ">", 0), ("is_edi", "=", True)],
         required=True,
     )
     parent_supplier_id = fields.Many2one(
         comodel_name="res.partner",
         string="EDI Parent supplier",
-        domain=[("supplier", "=", True), ("is_edi", "=", True)],
+        domain=[("supplier_rank", ">", 0), ("is_edi", "=", True)],
     )
     ftp_host = fields.Char(
         string="FTP Server Host", default="xxx.xxx.xxx.xxx", required=True
@@ -56,8 +60,7 @@ class EdiConfigSystem(models.Model):
     po_text_file_pattern = fields.Char(
         string="Purchase order File pattern",
         required=True,
-        default="'LD%sH%s.C99' % \
-        self.env['edi.config.system'].get_datenow_format_for_file()",
+        default=_default_po_text_file_pattern,
     )
     do_text_file_pattern = fields.Char(string="Delivery order File pattern")
     pricing_text_file_pattern = fields.Char(string="Pricing File pattern")
@@ -78,14 +81,13 @@ class EdiConfigSystem(models.Model):
     days = fields.Integer(string="Frequency check (days)")
     header_code = fields.Char()
     lines_code = fields.Char()
-    fnmatch_filter = fields.Char(string="Fnmatch Filter", default="CH*")
+    fnmatch_filter = fields.Char(default="CH*")
 
     @api.constrains("ftp_port")
     def _check_ftp_port(self):
         if not self.ftp_port.isdigit():
-            raise ValidationError(_("FTP port must be numeric!"))
+            raise ValidationError(self.env._("FTP port must be numeric!")) from None
 
-    @api.multi
     def test_button(self):
         for rec in self:
             ftp_ret = self.ftp_connection_open(rec)
@@ -95,11 +97,11 @@ class EdiConfigSystem(models.Model):
     def ftp_connection_open(self, edi_system):
         """Return a new FTP connection with found parameters."""
         _logger.info(
-            "Trying to connect to ftp://%s@%s:%s"
-            % (edi_system.ftp_login, edi_system.ftp_host, edi_system.ftp_port)
+            "Trying to connect to "
+            f"ftp://{edi_system.ftp_login}@{edi_system.ftp_host}:{edi_system.ftp_port}"
         )
         try:
-            ftp = FTP()
+            ftp = FTP(timeout=30)
             ftp.connect(edi_system.ftp_host, int(edi_system.ftp_port))
             if edi_system.ftp_login:
                 ftp.login(edi_system.ftp_login, edi_system.ftp_password)
@@ -108,8 +110,8 @@ class EdiConfigSystem(models.Model):
             return ftp
         except Exception as e:
             raise ValidationError(
-                _("Error when opening FTP connection:\n %s") % tools.ustr(e)
-            )
+                self.env._("Error when opening FTP connection:\n %s", str(e))
+            ) from None
 
     @api.model
     def ftp_connection_close(self, ftp):
@@ -117,8 +119,8 @@ class EdiConfigSystem(models.Model):
             ftp.quit()
         except Exception as e:
             raise ValidationError(
-                _("Error when closing FTP connection:\n %s") % tools.ustr(e)
-            )
+                self.env._("Error when closing FTP connection:\n %s", str(e))
+            ) from None
 
     @api.model
     def ftp_connection_push_order_file(
@@ -150,8 +152,8 @@ class EdiConfigSystem(models.Model):
                 os.remove(local_path)
         except Exception as e:
             raise ValidationError(
-                _("Error when pushing order file:\n %s") % tools.ustr(e)
-            )
+                self.env._("Error when pushing order file:\n %s", str(e))
+            ) from None
 
     @api.model
     def ftp_connection_pull_prices(
@@ -192,8 +194,8 @@ class EdiConfigSystem(models.Model):
             return [], ""
         except Exception as e:
             raise ValidationError(
-                _("Error when pulling prices update file:\n %s") % tools.ustr(e)
-            )
+                self.env._("Error when pulling prices update file:\n %s", str(e))
+            ) from None
 
     @api.model
     def ftp_connection_pull_ble(
@@ -234,8 +236,8 @@ class EdiConfigSystem(models.Model):
             return [], ""
         except Exception as e:
             raise ValidationError(
-                _("Error when pulling BLE update file:\n %s") % tools.ustr(e)
-            )
+                self.env._("Error when pulling BLE update file:\n %s", str(e))
+            ) from None
 
     @api.model
     def get_datenow_format_for_file(self):

@@ -3,12 +3,12 @@
     <record id="view_purchase_edi_log_tree" model="ir.ui.view">
         <field name="model">purchase.edi.log</field>
         <field name="arch" type="xml">
-            <tree decoration-muted="sent == True">
+            <list decoration-muted="sent == True">
                 <field name="log_date" />
                 <field name="sent" />
                 <field name="name" />
                 <field name="edi_system_id" />
-            </tree>
+            </list>
         </field>
     </record>
 

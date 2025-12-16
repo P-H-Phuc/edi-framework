@@ -13,7 +13,7 @@ class PurchaseEdiLog(models.Model):
     _description = "Purchase EDI Log"
 
     log_date = fields.Datetime(required=True)
-    user_id = fields.Many2one(comodel_name="res.users", string="User")
+    user_id = fields.Many2one(comodel_name="res.users")
     name = fields.Char(string="Interface", required=True)
     edi_system_id = fields.Many2one(
         comodel_name="edi.config.system", string="EDI System", required=True
@@ -30,7 +30,7 @@ class PurchaseEdiLog(models.Model):
         return self.create(
             {
                 "user_id": self.env.user.id,
-                "log_date": fields.datetime.now(),
+                "log_date": fields.Datetime.now(),
                 "name": supplier_interface,
                 "edi_system_id": edi_system,
                 "sent": True,
