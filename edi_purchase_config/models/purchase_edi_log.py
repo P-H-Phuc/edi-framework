@@ -3,12 +3,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 
-from odoo import models, api, fields
+from odoo import api, fields, models
 
 
 class PurchaseEdiLog(models.Model):
     _name = "purchase.edi.log"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _order = "log_date desc, id desc"
     _description = "Purchase EDI Log"
 
@@ -27,10 +27,12 @@ class PurchaseEdiLog(models.Model):
 
     @api.model
     def create_log_history(self, supplier_interface, edi_system):
-        return self.create({
-            "user_id": self.env.user.id,
-            "log_date": fields.datetime.now(),
-            "name": supplier_interface,
-            "edi_system_id": edi_system,
-            "sent": True,
-        })
+        return self.create(
+            {
+                "user_id": self.env.user.id,
+                "log_date": fields.datetime.now(),
+                "name": supplier_interface,
+                "edi_system_id": edi_system,
+                "sent": True,
+            }
+        )

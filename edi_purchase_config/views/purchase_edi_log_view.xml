@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-
     <record id="view_purchase_edi_log_tree" model="ir.ui.view">
         <field name="model">purchase.edi.log</field>
         <field name="arch" type="xml">
             <tree decoration-muted="sent == True">
-                <field name="log_date"/>
-                <field name="sent"/>
-                <field name="name"/>
-                <field name="edi_system_id"/>
+                <field name="log_date" />
+                <field name="sent" />
+                <field name="name" />
+                <field name="edi_system_id" />
             </tree>
         </field>
     </record>
@@ -21,17 +19,16 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="log_date"/>
-                            <field name="sent"/>
+                            <field name="log_date" />
+                            <field name="sent" />
                         </group>
                         <group>
-                            <field name="name"/>
-                            <field name="edi_system_id"/>
+                            <field name="name" />
+                            <field name="edi_system_id" />
                         </group>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
-
 </odoo>

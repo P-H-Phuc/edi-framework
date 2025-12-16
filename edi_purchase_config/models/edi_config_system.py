@@ -2,15 +2,16 @@
 # @author: Druidoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
-import time
+import datetime
 import fnmatch
-import zipfile
 import logging
 import os
-from dateutil import parser
-import datetime
+import time
+import zipfile
 
-from odoo import models, api, fields, tools, _
+from dateutil import parser
+
+from odoo import _, api, fields, models, tools
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -43,9 +44,7 @@ class EdiConfigSystem(models.Model):
     ftp_host = fields.Char(
         string="FTP Server Host", default="xxx.xxx.xxx.xxx", required=True
     )
-    ftp_port = fields.Char(
-        string="FTP Server Port", default="21", required=True
-    )
+    ftp_port = fields.Char(string="FTP Server Port", default="21", required=True)
     ftp_login = fields.Char(string="FTP Login", required=True)
     ftp_password = fields.Char(string="FTP Password", required=True)
     csv_relative_in_path = fields.Char(
@@ -55,9 +54,10 @@ class EdiConfigSystem(models.Model):
         string="Relative path for OUT interfaces", default="/", required=True
     )
     po_text_file_pattern = fields.Char(
-        string="Purchase order File pattern", required=True,
+        string="Purchase order File pattern",
+        required=True,
         default="'LD%sH%s.C99' % \
-        self.env['edi.config.system'].get_datenow_format_for_file()"
+        self.env['edi.config.system'].get_datenow_format_for_file()",
     )
     do_text_file_pattern = fields.Char(string="Delivery order File pattern")
     pricing_text_file_pattern = fields.Char(string="Pricing File pattern")
@@ -155,7 +155,7 @@ class EdiConfigSystem(models.Model):
 
     @api.model
     def ftp_connection_pull_prices(
-        self, ftp, distant_folder_path, local_folder_path, fnmatch_filter='CH*'
+        self, ftp, distant_folder_path, local_folder_path, fnmatch_filter="CH*"
     ):
         try:
             today = datetime.date.today()
@@ -163,41 +163,36 @@ class EdiConfigSystem(models.Model):
             names = ftp.nlst()
             for name in names:
                 if fnmatch.fnmatch(name, fnmatch_filter):
-                    timestamp = ftp.voidcmd(
-                        "MDTM " + distant_folder_path + "/" + name
-                    )[4:].strip()
+                    timestamp = ftp.voidcmd("MDTM " + distant_folder_path + "/" + name)[
+                        4:
+                    ].strip()
                     file_date = parser.parse(timestamp)
                     diff = today - file_date.date()
                     days_gap = diff.days
                     if days_gap < 7:
-                        with open(
-                            os.path.join(local_folder_path, name), "wb"
-                        ) as f:
-                            ftp.retrbinary("RETR {}".format(name), f.write)
-                        zf = zipfile.ZipFile(
-                            os.path.join(local_folder_path, name)
-                        )
+                        with open(os.path.join(local_folder_path, name), "wb") as f:
+                            ftp.retrbinary(f"RETR {name}", f.write)
+                        zf = zipfile.ZipFile(os.path.join(local_folder_path, name))
                         zf.extractall(local_folder_path)
                         zf.close()
                         name_without_zip = name[:-4]
                         file_name = os.path.join(local_folder_path, name_without_zip)
-                        datas = open(file_name, 'rb')
+                        datas = open(file_name, "rb")
                         res = []
                         for line in datas:
-                            line2 = line.decode('ISO-8859-1').strip()
+                            line2 = line.decode("ISO-8859-1").strip()
                             if line2:
                                 res.append(line2)
                         return res, name
-                        #file = open(
+                        # file = open(
                         #    os.path.join(local_folder_path, name_without_zip),
                         #    "r",
-                        #)
-                        #return file.readlines(), name
-            return [], ''
+                        # )
+                        # return file.readlines(), name
+            return [], ""
         except Exception as e:
             raise ValidationError(
-                _("Error when pulling prices update file:\n %s")
-                % tools.ustr(e)
+                _("Error when pulling prices update file:\n %s") % tools.ustr(e)
             )
 
     @api.model
@@ -210,37 +205,33 @@ class EdiConfigSystem(models.Model):
             names = ftp.nlst()
             for name in names:
                 if fnmatch.fnmatch(name, "BLE*"):
-                    timestamp = ftp.voidcmd(
-                        "MDTM " + distant_folder_path + "/" + name
-                    )[4:].strip()
+                    timestamp = ftp.voidcmd("MDTM " + distant_folder_path + "/" + name)[
+                        4:
+                    ].strip()
                     file_date = parser.parse(timestamp)
                     diff = today - file_date.date()
                     days_gap = diff.days
                     if days_gap < edi_system.days:
-                        with open(
-                            os.path.join(local_folder_path, name), "wb"
-                        ) as f:
-                            ftp.retrbinary("RETR {}".format(name), f.write)
-                        zf = zipfile.ZipFile(
-                            os.path.join(local_folder_path, name)
-                        )
+                        with open(os.path.join(local_folder_path, name), "wb") as f:
+                            ftp.retrbinary(f"RETR {name}", f.write)
+                        zf = zipfile.ZipFile(os.path.join(local_folder_path, name))
                         zf.extractall(local_folder_path)
                         zf.close()
                         name_without_zip = name[:-4]
                         file_name = os.path.join(local_folder_path, name_without_zip)
-                        datas = open(file_name, 'rb')
+                        datas = open(file_name, "rb")
                         res = []
                         for line in datas:
-                            line2 = line.decode('ISO-8859-1').strip()
+                            line2 = line.decode("ISO-8859-1").strip()
                             if line2:
                                 res.append(line2)
                         return res, name
-                        #file = open(
+                        # file = open(
                         #    os.path.join(local_folder_path, name_without_zip),
                         #    "r",
-                        #)
-                        #return file.readlines(), name
-            return [], ''
+                        # )
+                        # return file.readlines(), name
+            return [], ""
         except Exception as e:
             raise ValidationError(
                 _("Error when pulling BLE update file:\n %s") % tools.ustr(e)
@@ -282,27 +273,23 @@ class EdiConfigSystem(models.Model):
     @api.model
     def insert_separator(self, string, index, separator):
         """
-            This method is to insert a separator inside string on a certain
-            position
+        This method is to insert a separator inside string on a certain
+        position
         """
         return string[:index] + separator + string[index:]
 
     @api.model
-    def _fix_lenght(
-        self, value, lenght, mode="float", replace="", position="before"
-    ):
+    def _fix_lenght(self, value, lenght, mode="float", replace="", position="before"):
         """
-            Mode = string/integer
-            replace ==> ' ' or '0'
-            position ==> before / after
+        Mode = string/integer
+        replace ==> ' ' or '0'
+        position ==> before / after
         """
         value = str(value)
         if mode == "float":
             value = value.split(".")[0]
         if position == "before":
-            value = (
-                "".join([replace for i in range(lenght - len(value))]) + value
-            )
+            value = "".join([replace for i in range(lenght - len(value))]) + value
         else:
             value += "".join([replace for i in range(lenght - len(value))])
         return value[0:lenght]
