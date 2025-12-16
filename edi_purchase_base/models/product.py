@@ -5,7 +5,7 @@
 import datetime
 import logging
 
-from odoo import _, api, models, tools
+from odoo import api, models
 from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
@@ -14,13 +14,12 @@ _logger = logging.getLogger(__name__)
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    @api.multi
     def _get_supplier_code_or_ean(self, seller_id):
         """ """
         self.ensure_one()
         code, origin_code = "", ""
         seller_line = self.seller_ids.filtered(
-            lambda l: l.name == seller_id and l.product_code
+            lambda seller: seller.partner_id == seller_id and seller.product_code
         )
         if seller_line and seller_line[0].product_code:
             code = seller_line[0].product_code
@@ -29,7 +28,9 @@ class ProductProduct(models.Model):
             code = self.barcode
             origin_code = "barcode"
         if not code:
-            raise ValidationError(_("No code for this product %s!") % self.name)
+            raise ValidationError(
+                self.env._("No code for this product %s!", self.name)
+            ) from None
         return code, origin_code
 
     @api.model
@@ -39,8 +40,8 @@ class ProductProduct(models.Model):
             ftp.delete("/".join([path_to_file, name]))
         except Exception as e:
             raise ValidationError(
-                _("Error when removing file from ftp server : %s") % tools.ustr(e)
-            )
+                self.env._("Error when removing file from ftp server : %s", str(e))
+            ) from None
 
     @api.model
     def read_prices_file(self, lines, edi_system):
@@ -57,9 +58,9 @@ class ProductProduct(models.Model):
         product_supp_info = self.env["product.supplierinfo"]
         if not lines:
             raise ValidationError(
-                _(
-                    "Please configure fields mapping for prices interface on your \
-                EDI system!"
+                self.env._(
+                    "Please configure fields mapping for prices interface on your"
+                    " EDI system!"
                 )
             )
         _logger.info(
@@ -127,7 +128,9 @@ class ProductProduct(models.Model):
         edi_systems = ecs_obj.search([("supplier_id", "in", partner_ids.ids)])
         if not edi_systems:
             raise ValidationError(
-                _("No Configuration found for EDI suppliers on the whole system!")
+                self.env._(
+                    "No Configuration found for EDI suppliers on the whole system!"
+                )
             )
         # Prices interface is only for parent suppliers, any segmentation is \
         # not considered by the EDI system FTP
@@ -154,7 +157,7 @@ class ProductProduct(models.Model):
                 self.remove_file(ftp, file_name, edi_system)
             # Log
             self.env["purchase.edi.log"].create_log_history(
-                _("Prices interface"), edi_system.id
+                self.env._("Prices interface"), edi_system.id
             )
             # Close FTP
             ecs_obj.ftp_connection_close(ftp)
@@ -174,7 +177,7 @@ class ProductSupplierinfo(models.Model):
         edi_system = ecs_obj.search([("supplier_id", "=", partner_id.id)], limit=1)
         if not edi_system:
             raise ValidationError(
-                _("No Config FTP for this supplier %s!") % partner_id.name
+                self.env._("No Config FTP for this supplier %s!") % partner_id.name
             )
         if edi_system.parent_supplier_id:
             return edi_system.parent_supplier_id
@@ -196,7 +199,7 @@ class ProductSupplierinfo(models.Model):
             supplier_code = vals.get("product_code", False)
             if not supplier_code:
                 raise ValidationError(
-                    _("Please give a supplier code to create the product!")
+                    self.env._("Please give a supplier code to create the product!")
                 )
             price = self.env["supplier.price.list"].search(
                 [
@@ -210,7 +213,8 @@ class ProductSupplierinfo(models.Model):
                 price.sudo().write({"price_updated": True})
         return vals
 
-    @api.model
-    def create(self, vals):
-        vals = self.update_purchase_price(vals)
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals = self.update_purchase_price(vals)
+        return super().create(vals_list)

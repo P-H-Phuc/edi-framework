@@ -1,12 +1,7 @@
 # Copyright (C) 2016-Today: Druidoo (<http://www.druidoo.net/>)
 # @author: Druidoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
-
-import logging
-
 from odoo import api, fields, models
-
-_logger = logging.getLogger(__name__)
 
 
 class PickingEdi(models.Model):
@@ -41,7 +36,6 @@ class PickingUpdate(models.Model):
     def get_needaction_count(self):
         return len(self.search([("done", "=", False)]))
 
-    @api.multi
     def button_update_picking_order(self):
         self.ensure_one()
         updated_quantities = []
@@ -58,5 +52,6 @@ class PickingUpdate(models.Model):
                 )
             ]
         self.done = True
-        self.name.write({"pack_operation_product_ids": updated_quantities})
+        # FIXME: pack_operation_product_ids field is deprecated
+        # self.name.write({"pack_operation_product_ids": updated_quantities})
         return True

@@ -4,11 +4,11 @@
         <field name="name">picking.update.tree</field>
         <field name="model">picking.update</field>
         <field name="arch" type="xml">
-            <tree decoration-muted="done == True">
+            <list decoration-muted="done == True">
                 <field name="create_date" />
                 <field name="name" />
                 <field name="done" />
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -23,7 +23,7 @@
                         type="object"
                         class="oe_highlight"
                         string="Update picking"
-                        attrs="{'invisible': [('done', '=', True)]}"
+                        invisible="done"
                     />
                 </header>
                 <sheet>
@@ -36,11 +36,11 @@
                         string="Quantities to update (Contains only product updated from EDI )"
                     >
                         <field name="values_proposed_ids" nolabel="1">
-                            <tree>
+                            <list>
                                 <field name="product_id" />
                                 <field name="ordered_quantity" />
                                 <field name="product_qty" />
-                            </tree>
+                            </list>
                         </field>
                     </group>
                 </sheet>

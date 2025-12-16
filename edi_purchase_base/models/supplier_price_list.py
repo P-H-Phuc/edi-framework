@@ -4,9 +4,7 @@
 
 import logging
 
-from odoo import _, api, fields, models, tools
-
-import odoo.addons.decimal_precision as dp
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -19,7 +17,7 @@ class SupplierPriceList(models.Model):
     supplier_id = fields.Many2one(
         comodel_name="res.partner",
         string="EDI Supplier",
-        domain="[('is_edi', '=', True), ('supplier', '=', True)]",
+        domain=[("is_edi", "=", True), ("supplier_rank", ">", 0)],
         readonly=True,
         required=True,
     )
@@ -29,7 +27,7 @@ class SupplierPriceList(models.Model):
     product_name = fields.Char(readonly=True, required=True)
     supplier_code = fields.Char(readonly=True, required=True)
     price = fields.Float(
-        digits=dp.get_precision("Product Price"),
+        digits="Product Price",
         readonly=True,
         required=True,
         help="The price HT to purchase a product",
@@ -38,7 +36,6 @@ class SupplierPriceList(models.Model):
     barcode = fields.Char(string="Ean")
     price_updated = fields.Boolean()
 
-    @api.multi
     def button_create_product(self):
         self.ensure_one()
         # create new product
@@ -47,7 +44,7 @@ class SupplierPriceList(models.Model):
                 "name": self.product_name,
                 "sale_ok": True,
                 "purchase_ok": True,
-                "type": "product",
+                "type": "consu",
                 "default_code": self.supplier_code,
                 "barcode": self.barcode,
             }
@@ -57,7 +54,7 @@ class SupplierPriceList(models.Model):
         # create product supplier info
         self.env["product.supplierinfo"].create(
             {
-                "name": self.supplier_id.id,
+                "partner_id": self.supplier_id.id,
                 "price": self.price,
                 "product_code": self.supplier_code,
                 "product_tmpl_id": product_tmpl_id.id,
@@ -77,8 +74,7 @@ class SupplierPriceList(models.Model):
         supplier_price_list_ids.sudo().write({"product_tmpl_id": product_tmpl_id.id})
         # create action to open newly created product form view
         action = {
-            "name": _("Product Form"),
-            "view_mode": "form",
+            "name": self.env._("Product Form"),
             "res_model": "product.template",
             "type": "ir.actions.act_window",
             "target": "current",
@@ -102,7 +98,7 @@ class SupplierPriceList(models.Model):
         else:
             self.env["product.supplierinfo"].create(
                 {
-                    "name": splist.supplier_id.id,
+                    "partner_id": splist.supplier_id.id,
                     "price": price,
                     "product_code": splist.supplier_code,
                     "product_tmpl_id": product.id,
@@ -120,12 +116,12 @@ class SupplierPriceList(models.Model):
         recs = self.search(args)
         products = recs.mapped("product_tmpl_id")
         for product in products:
-            splists = recs.filtered(lambda r: r.product_tmpl_id == product)
+            splists = recs.filtered(lambda r, product: r.product_tmpl_id == product)
             try:
                 self.update_product_price_list(product, splists)
             except Exception as e:
                 _logger.error(
                     "Could not update price list for the product %s: %s",
                     product,
-                    tools.ustr(e),
+                    str(e),
                 )

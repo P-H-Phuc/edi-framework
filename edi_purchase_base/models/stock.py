@@ -4,8 +4,9 @@
 
 import logging
 
-from odoo import _, api, models, tools
+from odoo import api, models
 from odoo.exceptions import ValidationError
+from odoo.tools.sql import SQL
 
 _logger = logging.getLogger(__name__)
 
@@ -20,8 +21,8 @@ class StockPicking(models.Model):
             ftp.delete("/".join([path_to_file, name]))
         except Exception as e:
             raise ValidationError(
-                _("Error when removing file from ftp server : %s") % tools.ustr(e)
-            )
+                self.env._("Error when removing file from ftp server : %s", str(e))
+            ) from None
 
     @api.model
     def read_stock_picking_file(self, lines, edi_system):
@@ -38,9 +39,9 @@ class StockPicking(models.Model):
         picking_updated = self.env["picking.update"]
         if not lines:
             raise ValidationError(
-                _(
-                    "Please configure fields mapping for BLE interface on your \
-                EDI system!"
+                self.env._(
+                    "Please configure fields mapping for BLE interface on your"
+                    " EDI system!"
                 )
             )
         _logger.info(">>>>>>>>>>>>>>>>>> Reading BLE file >>>>>>>>>>>>>>>>>>>>>")
@@ -85,10 +86,13 @@ class StockPicking(models.Model):
                     if supplier_ids:
                         cr = self.env.cr
                         cr.execute(
-                            "select * from purchase_order where "
-                            "cast (date_planned as date) = %s and partner_id \
-                            in %s limit 1",
-                            (delivery_date, tuple(supplier_ids.ids)),
+                            SQL(
+                                "select * from purchase_order where "
+                                "cast (date_planned as date) = %s and partner_id "
+                                "in %s limit 1",
+                                delivery_date,
+                                tuple(supplier_ids.ids),
+                            )
                         )
                         res_po = cr.fetchone()
                         res_id = res_po and res_po[0] or False
@@ -113,9 +117,12 @@ class StockPicking(models.Model):
                 )
                 cr = self.env.cr
                 cr.execute(
-                    "select * from stock_move_line where picking_id=%s \
-                    and product_id=%s limit 1",
-                    (picking_order.id, ordered_product_id.id),
+                    SQL(
+                        "select * from stock_move_line where picking_id=%s "
+                        "and product_id=%s limit 1",
+                        picking_order.id,
+                        ordered_product_id.id,
+                    )
                 )
                 res_stock = cr.fetchone()
                 res_id = res_stock and res_stock[0] or False
@@ -139,8 +146,8 @@ class StockPicking(models.Model):
                 {"name": picking_order.id, "values_proposed_ids": values_list}
             )
             _logger.info(
-                ">>>>>>>>>>>>>>>> Creating delivery order update propositions \
-                >>>>>>>>>>>>>>>>>>>"
+                ">>>>>>>>>>>>>>>> Creating delivery order update propositions "
+                ">>>>>>>>>>>>>>>>>>>"
             )
             picking_updated.create(proposition_vals)
             return True
@@ -157,7 +164,9 @@ class StockPicking(models.Model):
         edi_systems = ecs_obj.search([("supplier_id", "in", partner_ids.ids)])
         if not edi_systems:
             raise ValidationError(
-                _("No Configuration found for EDI suppliers on the whole system!")
+                self.env._(
+                    "No Configuration found for EDI suppliers on the whole system!"
+                )
             )
         # Prices interface is only for parent suppliers, any segmentation is \
         # not considered by the EDI system FTP
@@ -184,7 +193,7 @@ class StockPicking(models.Model):
                 self.remove_file(ftp, file_name, edi_system)
             # Log
             self.env["purchase.edi.log"].create_log_history(
-                _("BLE interface"), edi_system.id
+                self.env._("BLE interface"), edi_system.id
             )
             # Close FTP
             ecs_obj.ftp_connection_close(ftp)
