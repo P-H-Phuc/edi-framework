@@ -2,7 +2,7 @@
 # @author: Druidoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
-from odoo import models, api, fields, _, tools
+from odoo import _, api, fields, models, tools
 from odoo.exceptions import ValidationError
 from odoo.tools.safe_eval import safe_eval
 
@@ -60,17 +60,15 @@ class PurchaseOrder(models.Model):
     @api.multi
     def _get_data_from_mapping_config(self, order_lines, edi):
         """
-            Data From mapping
+        Data From mapping
         """
         self.ensure_one()
         data = """"""
         try:
             for line in edi.mapping_ids:
-                data += safe_eval(line.value, {
-                    'self': self,
-                    'order_lines': order_lines,
-                    'edi': edi
-                    })
+                data += safe_eval(
+                    line.value, {"self": self, "order_lines": order_lines, "edi": edi}
+                )
         except Exception as e:
             raise ValidationError(
                 _("Error in python code mapping values:\n %s") % tools.ustr(e)
@@ -80,7 +78,7 @@ class PurchaseOrder(models.Model):
     @api.multi
     def _prepare_data_lines(self, lines, edi):
         """
-            Data lines to send
+        Data lines to send
         """
         self.ensure_one()
         data = """%sA%sB%s%s%s""" % (
@@ -95,7 +93,7 @@ class PurchaseOrder(models.Model):
     @api.multi
     def _process_send_ftp(self):
         """
-            Process Send FTP
+        Process Send FTP
         """
         self.ensure_one()
         ecs_obj = self.env["edi.config.system"]
@@ -103,9 +101,7 @@ class PurchaseOrder(models.Model):
         # Consolidated lines
         lines = self._consolidate_products()
         # Check EDI System config
-        edi_system = ecs_obj.search(
-            [("supplier_id", "=", self.partner_id.id)], limit=1
-        )
+        edi_system = ecs_obj.search([("supplier_id", "=", self.partner_id.id)], limit=1)
         if not edi_system:
             raise ValidationError(
                 _("No Config FTP for this supplier %s!") % self.partner_id.name
@@ -113,7 +109,7 @@ class PurchaseOrder(models.Model):
         # Prepare data file
         data_lines = self._prepare_data_lines(lines, edi_system)
         # Params
-        pattern = safe_eval(edi_system.po_text_file_pattern, {'self': self})
+        pattern = safe_eval(edi_system.po_text_file_pattern, {"self": self})
         distant_folder_path = edi_system.csv_relative_in_path
         local_folder_path = config_obj.sudo().get_param("edi.local_folder_path")
         # Open FTP
@@ -140,7 +136,7 @@ class PurchaseOrder(models.Model):
         """
         Override: Send FTP.
         """
-        res = super(PurchaseOrder, self).button_confirm()
+        res = super().button_confirm()
         for order in self.filtered(lambda l: l.partner_id.is_edi):
             order._process_send_ftp()
         return res

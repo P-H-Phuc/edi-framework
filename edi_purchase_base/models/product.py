@@ -3,9 +3,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
 import datetime
-from odoo import models, api, tools, _
-from odoo.exceptions import ValidationError
 import logging
+
+from odoo import _, api, models, tools
+from odoo.exceptions import ValidationError
+
 _logger = logging.getLogger(__name__)
 
 
@@ -14,8 +16,7 @@ class ProductProduct(models.Model):
 
     @api.multi
     def _get_supplier_code_or_ean(self, seller_id):
-        """
-        """
+        """ """
         self.ensure_one()
         code, origin_code = "", ""
         seller_line = self.seller_ids.filtered(
@@ -28,9 +29,7 @@ class ProductProduct(models.Model):
             code = self.barcode
             origin_code = "barcode"
         if not code:
-            raise ValidationError(
-                _("No code for this product %s!") % self.name
-            )
+            raise ValidationError(_("No code for this product %s!") % self.name)
         return code, origin_code
 
     @api.model
@@ -40,8 +39,7 @@ class ProductProduct(models.Model):
             ftp.delete("/".join([path_to_file, name]))
         except Exception as e:
             raise ValidationError(
-                _("Error when removing file from ftp server : %s")
-                % tools.ustr(e)
+                _("Error when removing file from ftp server : %s") % tools.ustr(e)
             )
 
     @api.model
@@ -58,10 +56,12 @@ class ProductProduct(models.Model):
         price_list_obj = self.env["supplier.price.list"]
         product_supp_info = self.env["product.supplierinfo"]
         if not lines:
-            raise ValidationError(_(
-                "Please configure fields mapping for prices interface on your \
+            raise ValidationError(
+                _(
+                    "Please configure fields mapping for prices interface on your \
                 EDI system!"
-            ))
+                )
+            )
         _logger.info(
             ">>>>>>>>>>>>>>>> Reading supplier prices file >>>>>>>>>>>>>>>>>>>"
         )
@@ -105,13 +105,11 @@ class ProductProduct(models.Model):
                 # numeric test
                 elif mapping.is_numeric:
                     decimal_precision = mapping.decimal_precision
-                    price = edi_config.insert_separator(
-                        data, -decimal_precision, "."
-                    )
+                    price = edi_config.insert_separator(data, -decimal_precision, ".")
                     value.append(price)
                 elif mapping.mapping_field_id.name == "product_name":
                     value.append(data)
-            prices_dict = {k: v for k, v in zip(key, value)}
+            prices_dict = {k: v for k, v in zip(key, value, strict=False)}
             prices.append(prices_dict)
         _logger.info(
             ">>>>>>>>>>>>>>> Creating supplier prices >>>>>>>>>>>>>>>>>>>>>>>>"
@@ -128,9 +126,9 @@ class ProductProduct(models.Model):
         # Check EDI System config
         edi_systems = ecs_obj.search([("supplier_id", "in", partner_ids.ids)])
         if not edi_systems:
-            raise ValidationError(_(
-                "No Configuration found for EDI suppliers on the whole system!"
-            ))
+            raise ValidationError(
+                _("No Configuration found for EDI suppliers on the whole system!")
+            )
         # Prices interface is only for parent suppliers, any segmentation is \
         # not considered by the EDI system FTP
         # operations.
@@ -147,8 +145,7 @@ class ProductProduct(models.Model):
             ftp = ecs_obj.ftp_connection_open(edi_system)
             # Pull
             line_prices, file_name = ecs_obj.ftp_connection_pull_prices(
-                ftp, distant_folder_path, local_folder_path,
-                edi_system.fnmatch_filter
+                ftp, distant_folder_path, local_folder_path, edi_system.fnmatch_filter
             )
             if not line_prices:
                 continue
@@ -174,9 +171,7 @@ class ProductSupplierinfo(models.Model):
         :return: EDI supplier used in FTP prices operations
         """
         ecs_obj = self.env["edi.config.system"]
-        edi_system = ecs_obj.search(
-            [("supplier_id", "=", partner_id.id)], limit=1
-        )
+        edi_system = ecs_obj.search([("supplier_id", "=", partner_id.id)], limit=1)
         if not edi_system:
             raise ValidationError(
                 _("No Config FTP for this supplier %s!") % partner_id.name
@@ -189,10 +184,10 @@ class ProductSupplierinfo(models.Model):
     @api.model
     def update_purchase_price(self, vals):
         """
-            Looks for most recent price on purchase table of prices, only for
-            EDI suppliers
-            :param vals:
-            :return: updated values with product price
+        Looks for most recent price on purchase table of prices, only for
+        EDI suppliers
+        :param vals:
+        :return: updated values with product price
         """
         supplier_id = vals.get("name", False)
         supplier = self.env["res.partner"].browse(supplier_id)
@@ -203,10 +198,13 @@ class ProductSupplierinfo(models.Model):
                 raise ValidationError(
                     _("Please give a supplier code to create the product!")
                 )
-            price = self.env["supplier.price.list"].search([
-                ("supplier_id", "=", edi_supplier.id),
-                ("supplier_code", "=", supplier_code),
-            ], order="apply_date DESC")
+            price = self.env["supplier.price.list"].search(
+                [
+                    ("supplier_id", "=", edi_supplier.id),
+                    ("supplier_code", "=", supplier_code),
+                ],
+                order="apply_date DESC",
+            )
             if price:
                 vals.update({"base_price": price[0].price})
                 price.sudo().write({"price_updated": True})
@@ -215,4 +213,4 @@ class ProductSupplierinfo(models.Model):
     @api.model
     def create(self, vals):
         vals = self.update_purchase_price(vals)
-        return super(ProductSupplierinfo, self).create(vals)
+        return super().create(vals)

@@ -2,10 +2,10 @@
 # @author: Druidoo
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html
 
-from odoo import models, api, tools, _
-from odoo.exceptions import ValidationError
-
 import logging
+
+from odoo import _, api, models, tools
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -20,8 +20,7 @@ class StockPicking(models.Model):
             ftp.delete("/".join([path_to_file, name]))
         except Exception as e:
             raise ValidationError(
-                _("Error when removing file from ftp server : %s")
-                % tools.ustr(e)
+                _("Error when removing file from ftp server : %s") % tools.ustr(e)
             )
 
     @api.model
@@ -38,13 +37,13 @@ class StockPicking(models.Model):
         product_supp_info = self.env["product.supplierinfo"]
         picking_updated = self.env["picking.update"]
         if not lines:
-            raise ValidationError(_(
-                "Please configure fields mapping for BLE interface on your \
+            raise ValidationError(
+                _(
+                    "Please configure fields mapping for BLE interface on your \
                 EDI system!"
-            ))
-        _logger.info(
-            ">>>>>>>>>>>>>>>>>> Reading BLE file >>>>>>>>>>>>>>>>>>>>>"
-        )
+                )
+            )
+        _logger.info(">>>>>>>>>>>>>>>>>> Reading BLE file >>>>>>>>>>>>>>>>>>>>>")
         delivery_date = ""
         delivery_sign = ""
         picking_order = self.env["stock.picking"]
@@ -120,9 +119,7 @@ class StockPicking(models.Model):
                 )
                 res_stock = cr.fetchone()
                 res_id = res_stock and res_stock[0] or False
-                ordered_operation = self.env["stock.move.line"].browse(
-                    res_id
-                )
+                ordered_operation = self.env["stock.move.line"].browse(res_id)
                 ordered_quantity = ordered_operation.product_qty_package
                 # Construct one2many values
                 if ordered_quantity != float(product_qty_pack):
@@ -159,9 +156,9 @@ class StockPicking(models.Model):
         # Check EDI System config
         edi_systems = ecs_obj.search([("supplier_id", "in", partner_ids.ids)])
         if not edi_systems:
-            raise ValidationError(_(
-                "No Configuration found for EDI suppliers on the whole system!"
-            ))
+            raise ValidationError(
+                _("No Configuration found for EDI suppliers on the whole system!")
+            )
         # Prices interface is only for parent suppliers, any segmentation is \
         # not considered by the EDI system FTP
         # operations.
