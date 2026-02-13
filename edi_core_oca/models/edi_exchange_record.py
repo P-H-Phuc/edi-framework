@@ -113,6 +113,7 @@ class EDIExchangeRecord(models.Model):
     parent_id = fields.Many2one(
         comodel_name="edi.exchange.record",
         help="Original exchange which originated this record",
+        index=True,
     )
     related_exchange_ids = fields.One2many(
         string="Related exchanges",
