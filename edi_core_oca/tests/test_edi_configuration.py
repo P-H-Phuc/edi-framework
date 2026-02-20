@@ -24,6 +24,45 @@ class TestEDIConfigurations(EDIBackendCommonTestCase):
 
     def setUp(self):
         super().setUp()
+        self.loader = FakeModelLoader(self.env, self.__module__)
+        self.loader.backup_registry()
+        from .fake_models import EdiExchangeConsumerTest, EdiTestExecution
+
+        self.loader.update_registry((EdiExchangeConsumerTest, EdiTestExecution))
+        self.ExecutionAbstractModel = self.env["edi.framework.test.execution"]
+        self.model = self.env["ir.model"].search(
+            [("model", "=", "edi.framework.test.execution")]
+        )
+        self.exchange_type_out.generate_model_id = self.model
+        self.exchange_type_out.send_model_id = self.model
+        self.exchange_type_out.exchange_filename_pattern = "{record.id}"
+        self.edi_configuration = self.env["edi.configuration"]
+        self.create_trigger = self.env.ref(
+            "edi_core_oca.edi_conf_trigger_record_create"
+        )
+        self.write_trigger = self.env.ref("edi_core_oca.edi_conf_trigger_record_write")
+        self.create_config = self.edi_configuration.create(
+            {
+                "name": "Create Config",
+                "active": True,
+                "backend_id": self.backend.id,
+                "type_id": self.exchange_type_out.id,
+                "trigger_id": self.create_trigger.id,
+                "model_id": self.env["ir.model"]._get_id("edi.exchange.consumer.test"),
+                "snippet_do": "record._edi_send_via_edi(conf.type_id)",
+            }
+        )
+        self.write_config = self.edi_configuration.create(
+            {
+                "name": "Write Config 1",
+                "active": True,
+                "backend_id": self.backend.id,
+                "type_id": self.exchange_type_out.id,
+                "trigger_id": self.write_trigger.id,
+                "model_id": self.env["ir.model"]._get_id("edi.exchange.consumer.test"),
+                "snippet_do": "record._edi_send_via_edi(conf.type_id)",
+            }
+        )
         self.ExecutionAbstractModel.reset_faked("generate")
         self.ExecutionAbstractModel.reset_faked("send")
         self.ExecutionAbstractModel.reset_faked("check")
@@ -37,52 +76,9 @@ class TestEDIConfigurations(EDIBackendCommonTestCase):
             }
         )
 
-    @classmethod
-    def _setup_records(cls):  # pylint:disable=missing-return
-        super()._setup_records()
-        # Load fake models ->/
-        cls.loader = FakeModelLoader(cls.env, cls.__module__)
-        cls.loader.backup_registry()
-        from .fake_models import EdiExchangeConsumerTest, EdiTestExecution
-
-        cls.loader.update_registry((EdiExchangeConsumerTest, EdiTestExecution))
-        cls.ExecutionAbstractModel = cls.env["edi.framework.test.execution"]
-        cls.model = cls.env["ir.model"].search(
-            [("model", "=", "edi.framework.test.execution")]
-        )
-        cls.exchange_type_out.generate_model_id = cls.model
-        cls.exchange_type_out.send_model_id = cls.model
-        cls.exchange_type_out.exchange_filename_pattern = "{record.id}"
-        cls.edi_configuration = cls.env["edi.configuration"]
-        cls.create_trigger = cls.env.ref("edi_core_oca.edi_conf_trigger_record_create")
-        cls.write_trigger = cls.env.ref("edi_core_oca.edi_conf_trigger_record_write")
-        cls.create_config = cls.edi_configuration.create(
-            {
-                "name": "Create Config",
-                "active": True,
-                "backend_id": cls.backend.id,
-                "type_id": cls.exchange_type_out.id,
-                "trigger_id": cls.create_trigger.id,
-                "model_id": cls.env["ir.model"]._get_id("edi.exchange.consumer.test"),
-                "snippet_do": "record._edi_send_via_edi(conf.type_id)",
-            }
-        )
-        cls.write_config = cls.edi_configuration.create(
-            {
-                "name": "Write Config 1",
-                "active": True,
-                "backend_id": cls.backend.id,
-                "type_id": cls.exchange_type_out.id,
-                "trigger_id": cls.write_trigger.id,
-                "model_id": cls.env["ir.model"]._get_id("edi.exchange.consumer.test"),
-                "snippet_do": "record._edi_send_via_edi(conf.type_id)",
-            }
-        )
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.loader.restore_registry()
-        super().tearDownClass()
+    def tearDown(self):
+        self.loader.restore_registry()
+        super().tearDown()
 
     def test_edi_send_via_edi_config(self):
         # Check configuration on create

@@ -9,39 +9,29 @@ from .common import EDIBackendCommonTestCase
 
 
 class EDIBackendTestOutputCase(EDIBackendCommonTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        vals = {
-            "model": cls.partner._name,
-            "res_id": cls.partner.id,
-        }
-        cls.record = cls.backend.create_record("test_csv_output", vals)
-
-    @classmethod
-    def _setup_records(cls):  # pylint:disable=missing-return
-        super()._setup_records()
-        # Load fake models ->/
-        cls.loader = FakeModelLoader(cls.env, cls.__module__)
-        cls.loader.backup_registry()
-        from .fake_models import EdiTestExecution
-
-        cls.loader.update_registry((EdiTestExecution,))
-        cls.ExecutionAbstractModel = cls.env["edi.framework.test.execution"]
-        cls.model = cls.env["ir.model"].search(
-            [("model", "=", "edi.framework.test.execution")]
-        )
-        cls.exchange_type_out.generate_model_id = cls.model
-        cls.exchange_type_out.send_model_id = cls.model
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.loader.restore_registry()
-        super().tearDownClass()
-
     def setUp(self):
         super().setUp()
+        self.loader = FakeModelLoader(self.env, self.__module__)
+        self.loader.backup_registry()
+        from .fake_models import EdiTestExecution
+
+        self.loader.update_registry((EdiTestExecution,))
+        self.ExecutionAbstractModel = self.env["edi.framework.test.execution"]
+        self.model = self.env["ir.model"].search(
+            [("model", "=", "edi.framework.test.execution")]
+        )
+        self.exchange_type_out.generate_model_id = self.model
+        self.exchange_type_out.send_model_id = self.model
+        vals = {
+            "model": self.partner._name,
+            "res_id": self.partner.id,
+        }
+        self.record = self.backend.create_record("test_csv_output", vals)
         self.ExecutionAbstractModel.reset_faked("generate")
+
+    def tearDown(self):
+        self.loader.restore_registry()
+        super().tearDown()
 
     def test_encoding_default(self):
         """

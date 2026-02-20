@@ -19,36 +19,28 @@ from .common import EDIBackendCommonTestCase
 # If you still want to run `edi` tests w/ pytest when this happens, set this env var.
 @skipIf(os.getenv("SKIP_EDI_CONSUMER_CASE"), "Consumer test case disabled.")
 class TestConsumerMixinCase(EDIBackendCommonTestCase):
-    @classmethod
-    def _setup_env(cls):
-        super()._setup_env()
-        # Load fake models ->/
-        cls.loader = FakeModelLoader(cls.env, cls.__module__)
-        cls.loader.backup_registry()
+    def setUp(self):
+        super().setUp()
+        self.loader = FakeModelLoader(self.env, self.__module__)
+        self.loader.backup_registry()
         from .fake_models import EdiExchangeConsumerTest
 
-        cls.loader.update_registry((EdiExchangeConsumerTest,))
-        return super()._setup_env()
-
-    # pylint: disable=W8110
-    @classmethod
-    def _setup_records(cls):
-        super()._setup_records()
-        cls.consumer_record = cls.env["edi.exchange.consumer.test"].create(
+        self.loader.update_registry((EdiExchangeConsumerTest,))
+        self.consumer_record = self.env["edi.exchange.consumer.test"].create(
             {"name": "Test Consumer"}
         )
-        cls.exchange_type_out.exchange_filename_pattern = "{record.id}"
+        self.exchange_type_out.exchange_filename_pattern = "{record.id}"
 
         rule_vals = {
             "name": "Test",
-            "model_id": cls.env["ir.model"]._get_id(cls.consumer_record._name),
+            "model_id": self.env["ir.model"]._get_id(self.consumer_record._name),
             "kind": "custom",
             "enable_domain": "[]",
             "enable_snippet": """
 result = not record._has_exchange_record(exchange_type)
 """,
         }
-        cls.exchange_type_new = cls._create_exchange_type(
+        self.exchange_type_new = self._create_exchange_type(
             name="Test CSV output",
             code="test_csv_new_output",
             direction="output",
@@ -59,20 +51,19 @@ result = not record._has_exchange_record(exchange_type)
         )
         rule_vals = {
             "name": "Test",
-            "model_id": cls.env["ir.model"]._get_id(cls.consumer_record._name),
+            "model_id": self.env["ir.model"]._get_id(self.consumer_record._name),
             "kind": "custom",
             "enable_domain": "[]",
             "enable_snippet": """
 result = not record._has_exchange_record(exchange_type, exchange_type.backend_id)
 """,
         }
-        cls.exchange_type_out.write({"rule_ids": [(0, 0, rule_vals)]})
-        cls.backend_02 = cls.backend.copy()
+        self.exchange_type_out.write({"rule_ids": [(0, 0, rule_vals)]})
+        self.backend_02 = self.backend.copy()
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.loader.restore_registry()
-        super().tearDownClass()
+    def tearDown(self):
+        self.loader.restore_registry()
+        super().tearDown()
 
     def test_mixin(self):
         self.assertEqual(self.consumer_record.exchange_record_count, 0)

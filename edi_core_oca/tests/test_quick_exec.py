@@ -25,37 +25,31 @@ class EDIQuickExecTestCase(EDIBackendCommonTestCase):
         cls.partner2 = cls.env.ref("base.res_partner_10")
         cls.partner3 = cls.env.ref("base.res_partner_12")
 
-    @classmethod
-    def _setup_records(cls):  # pylint:disable=missing-return
-        super()._setup_records()
-        # Load fake models ->/
-        cls.loader = FakeModelLoader(cls.env, cls.__module__)
-        cls.loader.backup_registry()
-        from .fake_models import EdiTestExecution
-
-        cls.loader.update_registry((EdiTestExecution,))
-        cls.ExecutionAbstractModel = cls.env["edi.framework.test.execution"]
-        cls.model = cls.env["ir.model"].search(
-            [("model", "=", "edi.framework.test.execution")]
-        )
-        cls.exchange_type_out.generate_model_id = cls.model
-        cls.exchange_type_out.send_model_id = cls.model
-        cls.exchange_type_out.output_validate_model_id = cls.model
-        cls.exchange_type_in.generate_model_id = cls.model
-        cls.exchange_type_in.process_model_id = cls.model
-        cls.exchange_type_in.input_validate_model_id = cls.model
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.loader.restore_registry()
-        super().tearDownClass()
-
     def setUp(self):
         super().setUp()
+        self.loader = FakeModelLoader(self.env, self.__module__)
+        self.loader.backup_registry()
+        from .fake_models import EdiTestExecution
+
+        self.loader.update_registry((EdiTestExecution,))
+        self.ExecutionAbstractModel = self.env["edi.framework.test.execution"]
+        self.model = self.env["ir.model"].search(
+            [("model", "=", "edi.framework.test.execution")]
+        )
+        self.exchange_type_out.generate_model_id = self.model
+        self.exchange_type_out.send_model_id = self.model
+        self.exchange_type_out.output_validate_model_id = self.model
+        self.exchange_type_in.generate_model_id = self.model
+        self.exchange_type_in.process_model_id = self.model
+        self.exchange_type_in.input_validate_model_id = self.model
         self.ExecutionAbstractModel.reset_faked("generate")
         self.ExecutionAbstractModel.reset_faked("send")
         self.ExecutionAbstractModel.reset_faked("check")
         self.ExecutionAbstractModel.reset_faked("process")
+
+    def tearDown(self):
+        self.loader.restore_registry()
+        super().tearDown()
 
     @mute_logger(*LOGGERS)
     def test_quick_exec_on_create_no_call(self):
