@@ -10,63 +10,59 @@ from odoo.addons.edi_core_oca.tests.common import EDIBackendCommonTestCase
 
 
 class TestEDIState(EDIBackendCommonTestCase):
-    @classmethod
-    def _setup_records(cls):
-        res = super()._setup_records()
-        # Load fake models ->/
-        cls.loader = FakeModelLoader(cls.env, cls.__module__)
-        cls.loader.backup_registry()
+    def setUp(self):
+        super().setUp()
+        self.loader = FakeModelLoader(self.env, self.__module__)
+        self.loader.backup_registry()
         from .fake_models import EDIStateConsumerFake
 
-        cls.loader.update_registry((EDIStateConsumerFake,))
-        cls.consumer_model = cls.env[EDIStateConsumerFake._name]
-        cls.consumer_record = cls.consumer_model.create(
+        self.loader.update_registry((EDIStateConsumerFake,))
+        self.consumer_model = self.env[EDIStateConsumerFake._name]
+        self.consumer_record = self.consumer_model.create(
             {
                 "name": "State Test Consumer",
             }
         )
         # Suitable workflow
-        cls.wf1_ok = cls.env["edi.state.workflow"].create(
+        self.wf1_ok = self.env["edi.state.workflow"].create(
             {
                 "name": "WF1",
-                "backend_type_id": cls.backend.backend_type_id.id,
-                "model_id": cls.env["ir.model"]._get(cls.consumer_record._name).id,
+                "backend_type_id": self.backend.backend_type_id.id,
+                "model_id": self.env["ir.model"]._get(self.consumer_record._name).id,
             }
         )
         for i in range(1, 4):
-            cls.env["edi.state"].create(
-                {"name": f"OK {i}", "code": f"OK_{i}", "workflow_id": cls.wf1_ok.id}
+            self.env["edi.state"].create(
+                {"name": f"OK {i}", "code": f"OK_{i}", "workflow_id": self.wf1_ok.id}
             )
         # Non suitable workflow
-        cls.wf2_ko = cls.env["edi.state.workflow"].create(
+        self.wf2_ko = self.env["edi.state.workflow"].create(
             {
                 "name": "WF2",
-                "backend_type_id": cls.backend.backend_type_id.id,
-                "model_id": cls.env["ir.model"]._get("res.partner").id,
+                "backend_type_id": self.backend.backend_type_id.id,
+                "model_id": self.env["ir.model"]._get("res.partner").id,
             }
         )
         for i in range(1, 4):
-            cls.env["edi.state"].create(
-                {"name": f"KO {i}", "code": f"KO_{i}", "workflow_id": cls.wf2_ko.id}
+            self.env["edi.state"].create(
+                {"name": f"KO {i}", "code": f"KO_{i}", "workflow_id": self.wf2_ko.id}
             )
-        cls.exc_type = cls._create_exchange_type(
+        self.exc_type = self._create_exchange_type(
             name="State test",
             code="state_test",
             direction="output",
-            state_workflow_ids=[(6, 0, cls.wf1_ok.ids)],
+            state_workflow_ids=[(6, 0, self.wf1_ok.ids)],
         )
         vals = {
-            "model": cls.consumer_record._name,
-            "res_id": cls.consumer_record.id,
+            "model": self.consumer_record._name,
+            "res_id": self.consumer_record.id,
         }
-        record = cls.backend.create_record("state_test", vals)
-        cls.consumer_record._edi_set_origin(record)
-        return res
+        record = self.backend.create_record("state_test", vals)
+        self.consumer_record._edi_set_origin(record)
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.loader.restore_registry()
-        super().tearDownClass()
+    def tearDown(self):
+        self.loader.restore_registry()
+        super().tearDown()
 
     def test_is_state_valid(self):
         self.assertTrue(self.wf1_ok.is_valid_for_model(self.consumer_model._name))

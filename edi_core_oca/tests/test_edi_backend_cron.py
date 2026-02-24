@@ -16,49 +16,39 @@ LOGGERS = (
 
 
 class EDIBackendTestCronCase(EDIBackendCommonTestCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.partner2 = cls.env.ref("base.res_partner_10")
-        cls.partner3 = cls.env.ref("base.res_partner_12")
-        cls.record1 = cls.backend.create_record(
-            "test_csv_output", {"model": cls.partner._name, "res_id": cls.partner.id}
-        )
-        cls.record2 = cls.backend.create_record(
-            "test_csv_output", {"model": cls.partner._name, "res_id": cls.partner2.id}
-        )
-        cls.record3 = cls.backend.create_record(
-            "test_csv_output", {"model": cls.partner._name, "res_id": cls.partner3.id}
-        )
-        cls.records = cls.record1 + cls.record1 + cls.record3
-
-    @classmethod
-    def _setup_records(cls):  # pylint:disable=missing-return
-        super()._setup_records()
-        # Load fake models ->/
-        cls.loader = FakeModelLoader(cls.env, cls.__module__)
-        cls.loader.backup_registry()
-        from .fake_models import EdiTestExecution
-
-        cls.loader.update_registry((EdiTestExecution,))
-        cls.ExecutionAbstractModel = cls.env["edi.framework.test.execution"]
-        cls.model = cls.env["ir.model"].search(
-            [("model", "=", "edi.framework.test.execution")]
-        )
-        cls.exchange_type_out.generate_model_id = cls.model
-        cls.exchange_type_out.send_model_id = cls.model
-        cls.exchange_type_out.output_validate_model_id = cls.model
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.loader.restore_registry()
-        super().tearDownClass()
-
     def setUp(self):
         super().setUp()
+        self.loader = FakeModelLoader(self.env, self.__module__)
+        self.loader.backup_registry()
+        from .fake_models import EdiTestExecution
+
+        self.loader.update_registry((EdiTestExecution,))
+        self.ExecutionAbstractModel = self.env["edi.framework.test.execution"]
+        self.model = self.env["ir.model"].search(
+            [("model", "=", "edi.framework.test.execution")]
+        )
+        self.exchange_type_out.generate_model_id = self.model
+        self.exchange_type_out.send_model_id = self.model
+        self.exchange_type_out.output_validate_model_id = self.model
+        self.partner2 = self.env.ref("base.res_partner_10")
+        self.partner3 = self.env.ref("base.res_partner_12")
+        self.record1 = self.backend.create_record(
+            "test_csv_output", {"model": self.partner._name, "res_id": self.partner.id}
+        )
+        self.record2 = self.backend.create_record(
+            "test_csv_output", {"model": self.partner._name, "res_id": self.partner2.id}
+        )
+        self.record3 = self.backend.create_record(
+            "test_csv_output", {"model": self.partner._name, "res_id": self.partner3.id}
+        )
+        self.records = self.record1 + self.record1 + self.record3
         self.ExecutionAbstractModel.reset_faked("generate")
         self.ExecutionAbstractModel.reset_faked("send")
         self.ExecutionAbstractModel.reset_faked("check")
+
+    def tearDown(self):
+        self.loader.restore_registry()
+        super().tearDown()
 
     @mute_logger(*LOGGERS)
     def test_exchange_generate_new_no_auto(self):

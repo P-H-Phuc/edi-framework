@@ -11,25 +11,22 @@ from .common import EDIBackendCommonTestCase
 
 
 class EDIBackendTestCaseBase(EDIBackendCommonTestCase):
-    @classmethod
-    def _setup_records(cls):  # pylint:disable=missing-return
-        super()._setup_records()
-        # Load fake models ->/
-        cls.loader = FakeModelLoader(cls.env, cls.__module__)
-        cls.loader.backup_registry()
+    def setUp(self):
+        super().setUp()
+        self.loader = FakeModelLoader(self.env, self.__module__)
+        self.loader.backup_registry()
         from .fake_models import EdiTestExecution
 
-        cls.loader.update_registry((EdiTestExecution,))
-        cls.ExecutionAbstractModel = cls.env["edi.framework.test.execution"]
-        cls.model = cls.env["ir.model"]._get("edi.framework.test.execution")
-        cls.exchange_type_in.receive_model_id = cls.model
-        cls.exchange_type_in.process_model_id = cls.model
-        cls.exchange_type_in.input_validate_model_id = cls.model
+        self.loader.update_registry((EdiTestExecution,))
+        self.ExecutionAbstractModel = self.env["edi.framework.test.execution"]
+        self.model = self.env["ir.model"]._get("edi.framework.test.execution")
+        self.exchange_type_in.receive_model_id = self.model
+        self.exchange_type_in.process_model_id = self.model
+        self.exchange_type_in.input_validate_model_id = self.model
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.loader.restore_registry()
-        super().tearDownClass()
+    def tearDown(self):
+        self.loader.restore_registry()
+        super().tearDown()
 
     @freeze_time("2020-10-21 10:00:00")
     def test_create_record(self):

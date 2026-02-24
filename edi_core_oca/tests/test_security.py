@@ -11,65 +11,57 @@ from .common import EDIBackendCommonTestCase
 
 
 class TestEDIExchangeRecordSecurity(EDIBackendCommonTestCase):
-    @classmethod
-    def _setup_env(cls):
-        # Load fake models ->/
-        cls.loader = FakeModelLoader(cls.env, cls.__module__)
-        cls.loader.backup_registry()
+    def setUp(self):
+        super().setUp()
+        self.loader = FakeModelLoader(self.env, self.__module__)
+        self.loader.backup_registry()
         from .fake_models import EdiExchangeConsumerTest
 
-        cls.loader.update_registry((EdiExchangeConsumerTest,))
-        return super()._setup_env()
-
-    # pylint: disable=W8110
-    @classmethod
-    def _setup_records(cls):
-        super()._setup_records()
-        cls.group = cls.env["res.groups"].create({"name": "Demo Group"})
-        cls.ir_access = cls.env["ir.model.access"].create(
+        self.loader.update_registry((EdiExchangeConsumerTest,))
+        self.group = self.env["res.groups"].create({"name": "Demo Group"})
+        self.ir_access = self.env["ir.model.access"].create(
             {
                 "name": "model access",
-                "model_id": cls.env.ref(
+                "model_id": self.env.ref(
                     "edi_core_oca.model_edi_exchange_consumer_test"
                 ).id,
-                "group_id": cls.group.id,
+                "group_id": self.group.id,
                 "perm_read": True,
                 "perm_write": True,
                 "perm_create": True,
                 "perm_unlink": True,
             }
         )
-        cls.rule = cls.env["ir.rule"].create(
+        self.rule = self.env["ir.rule"].create(
             {
                 "name": "Exchange Record rule demo",
-                "model_id": cls.env.ref(
+                "model_id": self.env.ref(
                     "edi_core_oca.model_edi_exchange_consumer_test"
                 ).id,
                 "domain_force": "[('name', '=', 'test')]",
-                "groups": [(4, cls.group.id)],
+                "groups": [(4, self.group.id)],
             }
         )
-        cls.user = (
-            cls.env["res.users"]
+        self.user = (
+            self.env["res.users"]
             .with_context(no_reset_password=True, mail_notrack=True)
             .create(
                 {
                     "name": "Poor Partner (not integrating one)",
                     "email": "poor.partner@ododo.com",
                     "login": "poorpartner",
-                    "groups_id": [(6, 0, [cls.env.ref("base_edi.group_edi_user").id])],
+                    "groups_id": [(6, 0, [self.env.ref("base_edi.group_edi_user").id])],
                 }
             )
         )
-        cls.consumer_record = cls.env["edi.exchange.consumer.test"].create(
+        self.consumer_record = self.env["edi.exchange.consumer.test"].create(
             {"name": "test"}
         )
-        cls.exchange_type_out.exchange_filename_pattern = "{record.id}"
+        self.exchange_type_out.exchange_filename_pattern = "{record.id}"
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.loader.restore_registry()
-        super().tearDownClass()
+    def tearDown(self):
+        self.loader.restore_registry()
+        super().tearDown()
 
     def create_record(self, user=False):
         vals = {
