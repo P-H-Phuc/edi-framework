@@ -6,11 +6,11 @@
         <field name="inherit_id" ref="product.product_packaging_form_view" />
         <field name="arch" type="xml">
             <group name="qty" position="after">
-                    <group name="edi" string="EDI">
-                        <group name="edi_main">
-                            <field name="edi_disable_auto" />
-                        </group>
+                <group name="edi" string="EDI">
+                    <group name="edi_main">
+                        <field name="edi_disable_auto" />
                     </group>
+                </group>
             </group>
             <xpath expr="//label[@for='name']" position="before">
                 <div name="button_box" class="oe_button_box">
@@ -29,6 +29,6 @@
                     </button>
                 </div>
             </xpath>
-       </field>
-   </record>
+        </field>
+    </record>
 </odoo>
