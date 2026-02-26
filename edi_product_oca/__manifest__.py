@@ -4,14 +4,15 @@
 {
     "name": "EDI Product",
     "summary": """
-       EDI framework configuration and base logic for products and products packaging""",
-    "version": "16.0.1.1.1",
+       EDI framework configuration and base logic
+       for products and products packaging""",
+    "version": "18.0.1.0.0",
     "license": "AGPL-3",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/edi-framework",
     "depends": [
         "product",
-        "edi_oca",
+        "edi_endpoint_oca",
     ],
     "data": [
         "views/product_views.xml",
