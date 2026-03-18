@@ -6,6 +6,5 @@ from odoo import models
 
 
 class EDIExchangeRecord(models.Model):
-
     _name = "edi.exchange.record"
     _inherit = ["edi.exchange.record", "mail.activity.mixin"]
