@@ -11,22 +11,22 @@
                 <page
                     name="notification_config"
                     string="Notification"
-                    attrs="{'invisible': [('notify_on_process_error', 'in', (False, None))]}"
+                    invisible="not notify_on_process_error"
                 >
                     <group name="notification_config">
                         <field
                             name="notify_on_process_error_activity_type_id"
-                            attrs="{'invisible': [('notify_on_process_error', 'in', (False, None))]}"
+                            invisible="not notify_on_process_error"
                         />
                         <field
                             name="notify_on_process_error_groups_ids"
                             widget="many2many_tags"
-                            attrs="{'invisible': [('notify_on_process_error', 'in', (False, None))]}"
+                            invisible="not notify_on_process_error"
                         />
                         <field
                             name="notify_on_process_error_users_ids"
                             widget="many2many_tags"
-                            attrs="{'invisible': [('notify_on_process_error', 'in', (False, None))]}"
+                            invisible="not notify_on_process_error"
                         />
                     </group>
                 </page>

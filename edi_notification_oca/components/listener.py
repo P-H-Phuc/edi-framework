@@ -1,8 +1,6 @@
 # Copyright 2024 Camptocamp SA
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-from odoo import _
-
 from odoo.addons.component.core import Component
 
 
@@ -28,7 +26,7 @@ class EdiNotificationListener(Component):
         for user in users:
             record.activity_schedule(
                 activity_type_id=activity_type.id,
-                summary=_(
+                summary=self.env._(
                     "EDI: Process error on record '%(identifier)s'.",
                     identifier=record.identifier,
                 ),

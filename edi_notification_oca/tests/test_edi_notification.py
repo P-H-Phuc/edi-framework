@@ -27,23 +27,24 @@ class TestEDINotification(EDIBackendCommonComponentRegistryTestCase):
         }
         cls.record = cls.backend.create_record("test_csv_input", vals)
         cls.group_portal = cls.env.ref("base.group_portal")
-        cls.user_a = cls._create_user(cls, "A")
-        cls.user_b = cls._create_user(cls, "B")
-        cls.user_c = cls._create_user(cls, "C")
+        cls.user_a = cls._create_user("A")
+        cls.user_b = cls._create_user("B")
+        cls.user_c = cls._create_user("C")
 
     def setUp(self):
         super().setUp()
         FakeInputProcess.reset_faked()
 
-    def _create_user(self, letter):
+    @classmethod
+    def _create_user(cls, letter: str):
         return (
-            self.env["res.users"]
+            cls.env["res.users"]
             .with_context(no_reset_password=True)
             .create(
                 {
-                    "name": "User %s" % letter,
-                    "login": "user_%s" % letter,
-                    "groups_id": [(6, 0, [self.group_portal.id])],
+                    "name": f"User {letter}",
+                    "login": f"user_{letter}",
+                    "groups_id": [(6, 0, [cls.group_portal.id])],
                 }
             )
         )

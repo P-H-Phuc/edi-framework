@@ -1,7 +1,6 @@
 # Copyright 2024 Camptocamp SA
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
-
 from odoo import api, fields, models
 
 
@@ -23,8 +22,9 @@ class EDIExchangeType(models.Model):
         comodel_name="res.users",
         string="Notify Users On Process Error",
         inverse="_inverse_notify_on_process_error_groups_users",
-        help="Select users to send notifications to. If 'Notification Groups' "
-        "have been selected, notifications will also be sent to users selected in here.",
+        help="Select users to send notifications to."
+        " If 'Notification Groups' have been selected, notifications will also be sent"
+        " to users selected in here.",
     )
     notify_on_process_error_activity_type_id = fields.Many2one(
         "mail.activity.type",
