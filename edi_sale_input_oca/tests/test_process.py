@@ -130,7 +130,7 @@ class TestProcessComponent(TransactionComponentCase, EDIBackendTestMixin):
                 order=dict(origin_exchange_record_id=self.record.id)
             ),
         ).create_order(parsed_order, "pricelist")
-        metadata = self.record.get_metadata()
+        metadata = self.record.edi_get_metadata()
         # Lines are mapped via `edi_id` (coming from `order_line_ref` by default)
         line_metadata = metadata["orig_values"]["lines"]["1111"]
         for k in (
