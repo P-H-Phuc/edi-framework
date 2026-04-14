@@ -18,46 +18,6 @@ msgstr ""
 
 #. module: edi_sale_ubl_output_oca
 #: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
-msgid "1.0"
-msgstr "1.0"
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
-msgid "12:30:00"
-msgstr "12:30:00"
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
-msgid "2.2"
-msgstr "2.2"
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
-msgid "2010-01-21"
-msgstr "2010-01-21"
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
-msgid "2010-02-10"
-msgstr "2010-02-10"
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
-msgid "2010-02-25"
-msgstr "2010-02-25"
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qweb_tmpl_ubl_party
-msgid "7300070011115"
-msgstr "7300070011115"
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qweb_tmpl_ubl_party
-msgid "7302347231111"
-msgstr "7302347231111"
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
 msgid "EUR"
 msgstr "EUR"
 
@@ -85,3 +45,27 @@ msgstr "urn:www.cenbii.eu:profile:BIIXYZ:ver1.0"
 #: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
 msgid "urn:www.cenbii.eu:transaction:biicoretrdmXYZ:ver1.0"
 msgstr "urn:www.cenbii.eu:transaction:biicoretrdmXYZ:ver1.0"
+
+#~ msgid "1.0"
+#~ msgstr "1.0"
+
+#~ msgid "12:30:00"
+#~ msgstr "12:30:00"
+
+#~ msgid "2.2"
+#~ msgstr "2.2"
+
+#~ msgid "2010-01-21"
+#~ msgstr "2010-01-21"
+
+#~ msgid "2010-02-10"
+#~ msgstr "2010-02-10"
+
+#~ msgid "2010-02-25"
+#~ msgstr "2010-02-25"
+
+#~ msgid "7300070011115"
+#~ msgstr "7300070011115"
+
+#~ msgid "7302347231111"
+#~ msgstr "7302347231111"
