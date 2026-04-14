@@ -15,46 +15,6 @@ msgstr ""
 
 #. module: edi_sale_ubl_output_oca
 #: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
-msgid "1.0"
-msgstr ""
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
-msgid "12:30:00"
-msgstr ""
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
-msgid "2.2"
-msgstr ""
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
-msgid "2010-01-21"
-msgstr ""
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
-msgid "2010-02-10"
-msgstr ""
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
-msgid "2010-02-25"
-msgstr ""
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qweb_tmpl_ubl_party
-msgid "7300070011115"
-msgstr ""
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qweb_tmpl_ubl_party
-msgid "7302347231111"
-msgstr ""
-
-#. module: edi_sale_ubl_output_oca
-#: model_terms:ir.ui.view,arch_db:edi_sale_ubl_output_oca.qwb_tmpl_ubl_order_response_out
 msgid "EUR"
 msgstr ""
 
