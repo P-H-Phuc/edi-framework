@@ -6,7 +6,7 @@
         model="ir.actions.act_window"
         id="act_open_edi_exchange_record_purchase_order_view"
     >
-        <field name="name">Purchase Order Exchange Record</field>
+        <field name="name">Purchase Order Exchange Records</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">edi.exchange.record</field>
         <field name="view_mode">list,form</field>
@@ -15,13 +15,13 @@
     </record>
     <menuitem
         id="menu_purchase_edi_root"
-        name="Exchange records"
+        name="EDI"
         parent="purchase.menu_purchase_root"
-        sequence="20"
+        sequence="99"
     />
     <menuitem
         id="menu_purchase_edi_exchange_record"
-        name="Purchase Orders"
+        name="Exchanges"
         action="act_open_edi_exchange_record_purchase_order_view"
         parent="menu_purchase_edi_root"
         sequence="20"
