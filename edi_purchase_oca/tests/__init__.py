@@ -1,1 +1,1 @@
-from . import test_edi_conf
+from . import test_generate

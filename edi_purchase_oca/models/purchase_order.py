@@ -10,3 +10,6 @@ class PurchaseOrder(models.Model):
         "purchase.order",
         "edi.exchange.consumer.mixin",
     ]
+
+    def _edi_config_field_relation(self):
+        return self.partner_id.edi_purchase_conf_ids
