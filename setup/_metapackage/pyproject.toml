@@ -1,6 +1,6 @@
 [project]
 name = "odoo-addons-oca-edi-framework"
-version = "18.0.20251201.0"
+version = "18.0.20260506.0"
 dependencies = [
     "odoo-addon-edi_account_core_oca==18.0.*",
     "odoo-addon-edi_account_oca==18.0.*",
@@ -9,6 +9,7 @@ dependencies = [
     "odoo-addon-edi_endpoint_oca==18.0.*",
     "odoo-addon-edi_exchange_template_oca==18.0.*",
     "odoo-addon-edi_exchange_template_party_data==18.0.*",
+    "odoo-addon-edi_notification_oca==18.0.*",
     "odoo-addon-edi_oca==18.0.*",
     "odoo-addon-edi_party_data_oca==18.0.*",
     "odoo-addon-edi_queue_oca==18.0.*",
