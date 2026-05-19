@@ -10,7 +10,7 @@ class EdiExchangeRecord(models.Model):
 
     def _trigger_edi_event(self, name, suffix=None, target=None, **kw):
         """Trigger a component event linked to this backend and edi exchange."""
-        name = self._trigger_edi_event_make_name(name, suffix=suffix)
+        event_name = self._trigger_edi_event_make_name(name, suffix=suffix)
         target = target or self
-        target._event(name).notify(self, **kw)
+        target._event(event_name).notify(self, **kw)
         return super()._trigger_edi_event(name, suffix=suffix, target=target, **kw)
