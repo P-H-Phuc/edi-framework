@@ -69,9 +69,9 @@ class OrderMixin:
         return model.create(po_vals)
 
     @classmethod
-    def _setup_order(cls):
+    def _setup_order_records(cls):
         cls.vendor = cls.env["res.partner"].create(
-            {"name": "Azure Interior", "country_id": cls.env.company.country_id.id}
+            {"name": "ACME inc", "country_id": cls.env.company.country_id.id}
         )
         cls.product = cls.env["product.product"].create(
             {
@@ -80,12 +80,3 @@ class OrderMixin:
                 "purchase_ok": True,
             }
         )
-        return {
-            "order_line": [
-                {
-                    "product_id": cls.product.id,
-                    "product_qty": 10,
-                    "price_unit": 100.0,
-                }
-            ],
-        }

@@ -16,7 +16,16 @@ class TestOrder(TransactionCase, PurchaseEDIBackendTestMixin, OrderMixin):
         cls.exc_record_in = cls.backend.create_record(
             cls.exchange_type_in.code, {"edi_exchange_state": "input_received"}
         )
-        order_vals = cls._setup_order()
+        cls._setup_order_records()
+        order_vals = {
+            "order_line": [
+                {
+                    "product_id": cls.product.id,
+                    "product_qty": 10,
+                    "price_unit": 100.0,
+                }
+            ],
+        }
         cls.order = cls._create_purchase_order(
             origin_exchange_record_id=cls.exc_record_in.id,
             **order_vals,

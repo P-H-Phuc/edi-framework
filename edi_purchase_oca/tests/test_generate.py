@@ -63,7 +63,7 @@ class TestGenerateViaConf(TransactionCase, PurchaseEDIBackendTestMixin, OrderMix
                 "snippet_do": cls._snippet_tpl.format(state="cancel"),
             }
         )
-        cls._setup_order()
+        cls._setup_order_records()
 
     def test_new_order_no_conf_no_output(self):
         # No conf linked to the vendor -> no snippet executed.
