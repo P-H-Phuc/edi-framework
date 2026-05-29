@@ -155,6 +155,11 @@ msgstr ""
 "personalizzato con sviluppo personalizzato\n"
 
 #. module: edi_core_oca
+#: model:ir.model.fields,field_description:edi_core_oca.field_edi_exchange_type__exchange_record_count
+msgid "# Exchange Records"
+msgstr ""
+
+#. module: edi_core_oca
 #: model_terms:ir.ui.view,arch_db:edi_core_oca.edi_exchange_consumer_mixin_buttons
 msgid "<span class=\"pe-4\"><i class=\"fa fa-retweet\"/> EDI actions</span>"
 msgstr "<span class=\"pe-4\"><i class=\"fa fa-retweet\"/> Azioni EDI</span>"
@@ -846,6 +851,7 @@ msgstr "Sequenza nome file scambio"
 #. module: edi_core_oca
 #: model:ir.model.fields,field_description:edi_core_oca.field_edi_exchange_consumer_mixin__exchange_record_ids
 #: model:ir.model.fields,field_description:edi_core_oca.field_edi_exchange_related_record__exchange_record_id
+#: model:ir.model.fields,field_description:edi_core_oca.field_edi_exchange_type__exchange_record_ids
 msgid "Exchange Record"
 msgstr "Record di scambio"
 
@@ -990,6 +996,7 @@ msgstr "Scambiato oggi"
 #: model:ir.actions.act_window,name:edi_core_oca.act_open_edi_exchange_record_view
 #: model:ir.ui.menu,name:edi_core_oca.menu_edi_exchange_record_root
 #: model_terms:ir.ui.view,arch_db:edi_core_oca.edi_backend_view_form
+#: model_terms:ir.ui.view,arch_db:edi_core_oca.edi_exchange_type_view_form
 msgid "Exchanges"
 msgstr "Scambi"
 
