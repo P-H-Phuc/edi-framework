@@ -1,0 +1,501 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* edi_purchase_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-16 08:24+0000\n"
+"PO-Revision-Date: 2025-12-16 08:24+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__apply_date
+msgid "Apply Date"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/stock.py:0
+msgid "BLE interface"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/purchase.py:0
+msgid "Check price for lines with product %s!"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/purchase.py:0
+msgid "Check taxes for lines with product %s!"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model_terms:ir.ui.view,arch_db:edi_purchase_base.view_product_price_history_form
+msgid "Create product"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__create_uid
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__create_uid
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__create_date
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__create_date
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,help:edi_purchase_base.field_purchase_order__date_planned
+msgid ""
+"Delivery date promised by vendor. This date is used to determine expected "
+"arrival of products."
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.actions.act_window,name:edi_purchase_base.picking_update_edi_action
+#: model:ir.ui.menu,name:edi_purchase_base.picking_edi_update_menu
+msgid "Delivery order update"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__display_name
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__display_name
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__done
+msgid "Done"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__product_qty
+msgid "EDI Quantity"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__supplier_id
+msgid "EDI Supplier"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__barcode
+msgid "Ean"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/purchase.py:0
+msgid ""
+"Error in python code mapping values:\n"
+" %s"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/product.py:0
+#: code:addons/edi_purchase_base/models/stock.py:0
+msgid "Error when removing file from ftp server : %s"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,help:edi_purchase_base.field_picking_update__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__id
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__id
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__id
+msgid "ID"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,help:edi_purchase_base.field_picking_update__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,help:edi_purchase_base.field_picking_update__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,help:edi_purchase_base.field_picking_update__message_has_error
+#: model:ir.model.fields,help:edi_purchase_base.field_picking_update__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__import_date
+msgid "Import Date"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__write_uid
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__write_uid
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__write_date
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__write_date
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__line_to_update_id
+msgid "Line To Update"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/product.py:0
+#: code:addons/edi_purchase_base/models/purchase.py:0
+msgid "No Config FTP for this supplier %s!"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/product.py:0
+#: code:addons/edi_purchase_base/models/stock.py:0
+msgid "No Configuration found for EDI suppliers on the whole system!"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/product.py:0
+msgid "No code for this product %s!"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/purchase.py:0
+msgid "No lines in this order %s!"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,help:edi_purchase_base.field_picking_update__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,help:edi_purchase_base.field_picking_update__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__name
+msgid "Order picking"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__ordered_quantity
+msgid "Ordered Quantity"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/purchase.py:0
+msgid "Orders interface"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model,name:edi_purchase_base.model_picking_edi
+msgid "Picking EDI"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model,name:edi_purchase_base.model_picking_update
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__picking_update_id
+msgid "Picking Update"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/stock.py:0
+msgid "Please configure fields mapping for BLE interface on your EDI system!"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/product.py:0
+msgid ""
+"Please configure fields mapping for prices interface on your EDI system!"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/product.py:0
+msgid "Please give a supplier code to create the product!"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__price
+msgid "Price"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.actions.act_window,name:edi_purchase_base.action_supplier_price_list
+#: model:ir.ui.menu,name:edi_purchase_base.menu_action_supplier_price_list
+#: model_terms:ir.ui.view,arch_db:edi_purchase_base.view_product_price_history_search
+msgid "Price History"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__price_updated
+msgid "Price Updated"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model_terms:ir.ui.view,arch_db:edi_purchase_base.view_template_history_form
+msgid "Price history"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/product.py:0
+msgid "Prices interface"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__product_id
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__product_tmpl_id
+msgid "Product"
+msgstr ""
+
+#. module: edi_purchase_base
+#. odoo-python
+#: code:addons/edi_purchase_base/models/supplier_price_list.py:0
+msgid "Product Form"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__product_name
+msgid "Product Name"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.actions.act_window,name:edi_purchase_base.view_product_price_history_action
+msgid "Product Price History"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model,name:edi_purchase_base.model_product_product
+msgid "Product Variant"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_edi__package_qty
+msgid "Product package"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model,name:edi_purchase_base.model_purchase_order
+msgid "Purchase Order"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__values_proposed_ids
+msgid "Quantities to update"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model_terms:ir.ui.view,arch_db:edi_purchase_base.picking_update_todo_list_view_form
+msgid "Quantities to update (Contains only product updated from EDI )"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_purchase_order__date_planned
+msgid "Scheduled Date"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,help:edi_purchase_base.field_picking_update__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_supplier_price_list__supplier_code
+msgid "Supplier Code"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model,name:edi_purchase_base.model_supplier_price_list
+msgid "Supplier Price List"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model,name:edi_purchase_base.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,help:edi_purchase_base.field_supplier_price_list__price
+msgid "The price HT to purchase a product"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model,name:edi_purchase_base.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,help:edi_purchase_base.field_picking_update__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.actions.server,name:edi_purchase_base.ir_cron_update_product_price_ir_actions_server
+msgid "Update Product Price List"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model_terms:ir.ui.view,arch_db:edi_purchase_base.picking_update_todo_list_view_form
+msgid "Update picking"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.actions.server,name:edi_purchase_base.ir_cron_update_purchase_prices_ir_actions_server
+msgid "Update purchase prices"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.actions.server,name:edi_purchase_base.ir_cron_update_stock_picking_ir_actions_server
+msgid "Update stock picking quantities"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,field_description:edi_purchase_base.field_picking_update__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: edi_purchase_base
+#: model:ir.model.fields,help:edi_purchase_base.field_picking_update__website_message_ids
+msgid "Website communication history"
+msgstr ""
