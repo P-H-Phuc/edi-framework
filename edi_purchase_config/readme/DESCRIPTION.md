@@ -1,0 +1,1 @@
+This module allows to configure EDI Purchase related settings such as FTP connection parameters for pushing purchase orders and pulling price updates.
