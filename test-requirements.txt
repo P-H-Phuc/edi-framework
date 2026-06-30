@@ -1,2 +1,3 @@
 odoo-test-helper
 xmlunittest
+odoo-addon-edi_purchase_oca @ git+https://github.com/OCA/edi-framework.git@refs/pull/180/head#subdirectory=edi_purchase_oca
