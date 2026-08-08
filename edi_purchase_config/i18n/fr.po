@@ -1,0 +1,642 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* edi_purchase_config
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-16 04:17+0000\n"
+"PO-Revision-Date: 2025-12-16 04:17+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__message_needaction
+msgid "Action Needed"
+msgstr "Action requise"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__activity_ids
+msgid "Activities"
+msgstr "Activités"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Décoration d’exception d’activité"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__activity_state
+msgid "Activity State"
+msgstr "État de l’activité"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icône du type d’activité"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__message_attachment_count
+msgid "Attachment Count"
+msgstr "Nombre de pièces jointes"
+
+#. module: edi_purchase_config
+#: model_terms:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
+msgid "BLE update interface"
+msgstr "Interface mise à jour BLE"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__ble_config_id
+msgid "Ble Config"
+msgstr "Configuration BLE"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__ble_mapping_ids
+msgid "Ble Mapping"
+msgstr "Mapping BLE"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines__config_id
+msgid "Config"
+msgstr "Configuration"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__constant_file_end
+msgid "Constant File End"
+msgstr "Fin du fichier constant"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__constant_file_start
+msgid "Constant File Start"
+msgstr "Début du fichier constant"
+
+#. module: edi_purchase_config
+#: model_terms:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
+msgid "Constants"
+msgstr "Constantes"
+
+#. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_res_partner
+msgid "Contact"
+msgstr "Contact"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__create_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__create_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines__create_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__create_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__create_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__create_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines__create_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__create_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__customer_code
+msgid "Customer Code"
+msgstr "Code client"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__decimal_precision
+msgid "Decimal Precision"
+msgstr "Précision décimale"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__delivery_sign
+msgid "Delivery Sign"
+msgstr "Signature de livraison"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__do_text_file_pattern
+msgid "Delivery order File pattern"
+msgstr "Motif du fichier BLE"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__display_name
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__display_name
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines__display_name
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__display_name
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_edi_ble_mapping
+msgid "EDI BLE Mapping"
+msgstr ""
+
+#. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_edi_config_system
+msgid "EDI Config System"
+msgstr ""
+
+#. module: edi_purchase_config
+#: model:ir.actions.act_window,name:edi_purchase_config.action_edi_config_system
+#: model:ir.ui.menu,name:edi_purchase_config.menu_edi_config_system
+msgid "EDI Config Systems"
+msgstr "Systèmes EDI"
+
+#. module: edi_purchase_config
+#: model:res.groups,name:edi_purchase_config.group_manager
+msgid "EDI Manager"
+msgstr "Manager EDI"
+
+#. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_edi_mapping_lines
+msgid "EDI Mapping Lines"
+msgstr ""
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__parent_supplier_id
+msgid "EDI Parent supplier"
+msgstr "Fournisseur EDI parent"
+
+#. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_edi_price_mapping
+msgid "EDI Price Mapping"
+msgstr ""
+
+#. module: edi_purchase_config
+#: model:ir.ui.menu,name:edi_purchase_config.menu_edi_config_root
+msgid "EDI Purchase"
+msgstr "Achats par EDI"
+
+#. module: edi_purchase_config
+#: model_terms:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
+msgid "EDI Supplier"
+msgstr "Fournisseur EDI"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__edi_system_id
+msgid "EDI System"
+msgstr "Système EDI"
+
+#. module: edi_purchase_config
+#: model:res.groups,name:edi_purchase_config.group_user
+msgid "EDI User"
+msgstr "Utilisateur EDI"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__supplier_id
+msgid "EDI supplier"
+msgstr "Fournisseur EDI"
+
+#. module: edi_purchase_config
+#: model:ir.module.category,name:edi_purchase_config.category_supplier_edi
+msgid "Electronic data interchange"
+msgstr "Echanges de données (EDI)"
+
+#. module: edi_purchase_config
+#. odoo-python
+#: code:addons/edi_purchase_config/models/edi_config_system.py:0
+msgid ""
+"Error when closing FTP connection:\n"
+" %s"
+msgstr ""
+"Erreur à la fermeture de la connexion FTP :\n"
+" %s"
+
+#. module: edi_purchase_config
+#. odoo-python
+#: code:addons/edi_purchase_config/models/edi_config_system.py:0
+msgid ""
+"Error when opening FTP connection:\n"
+" %s"
+msgstr ""
+"Erreur à l'ouverture de la connexion FTP :\n"
+" %s"
+
+#. module: edi_purchase_config
+#. odoo-python
+#: code:addons/edi_purchase_config/models/edi_config_system.py:0
+msgid ""
+"Error when pulling BLE update file:\n"
+" %s"
+msgstr ""
+"Erreur à l'import des fichiers BLE:\n"
+" %s"
+
+#. module: edi_purchase_config
+#. odoo-python
+#: code:addons/edi_purchase_config/models/edi_config_system.py:0
+msgid ""
+"Error when pulling prices update file:\n"
+" %s"
+msgstr ""
+"Erreur au téléchargement du fichier des prix :\n"
+" %s"
+
+#. module: edi_purchase_config
+#. odoo-python
+#: code:addons/edi_purchase_config/models/edi_config_system.py:0
+msgid ""
+"Error when pushing order file:\n"
+" %s"
+msgstr ""
+"Erreur dans l'envoi du fichier de la commande :\n"
+" %s"
+
+#. module: edi_purchase_config
+#: model_terms:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
+msgid "FTP Connection"
+msgstr "Connexion FTP"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__ftp_login
+msgid "FTP Login"
+msgstr "Login"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__ftp_password
+msgid "FTP Password"
+msgstr "Mot de passe"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__ftp_host
+msgid "FTP Server Host"
+msgstr "Hôte serveur FTP"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__ftp_port
+msgid "FTP Server Port"
+msgstr "Port"
+
+#. module: edi_purchase_config
+#. odoo-python
+#: code:addons/edi_purchase_config/models/edi_config_system.py:0
+msgid "FTP port must be numeric!"
+msgstr "Le port FTP doit être numérique!"
+
+#. module: edi_purchase_config
+#: model_terms:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
+msgid "Fields mapping"
+msgstr "Mapping des champs"
+
+#. module: edi_purchase_config
+#: model_terms:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
+msgid "File name"
+msgstr "Nom du fichier"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__fnmatch_filter
+msgid "Fnmatch Filter"
+msgstr "Filtre Fnmatch"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__message_follower_ids
+msgid "Followers"
+msgstr "Abonnés"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Abonnés (Partenaires)"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,help:edi_purchase_config.field_purchase_edi_log__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icône Font Awesome, par ex. fa-tasks"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__days
+msgid "Frequency check (days)"
+msgstr "Fréquence de vérification (jours)"
+
+#. module: edi_purchase_config
+#: model_terms:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
+msgid "General settings"
+msgstr "Paramétrages générals"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__has_message
+msgid "Has Message"
+msgstr "A des messages"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__header_code
+msgid "Header Code"
+msgstr "Code en-tête"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__id
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__id
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines__id
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__id
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__id
+msgid "ID"
+msgstr "ID"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__activity_exception_icon
+msgid "Icon"
+msgstr "Icône"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,help:edi_purchase_config.field_purchase_edi_log__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icône indiquant une activité en exception."
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,help:edi_purchase_config.field_purchase_edi_log__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si coché, de nouveaux messages nécessitent votre attention."
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,help:edi_purchase_config.field_purchase_edi_log__message_has_error
+#: model:ir.model.fields,help:edi_purchase_config.field_purchase_edi_log__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si coché, certains messages ont une erreur de livraison."
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__name
+msgid "Interface"
+msgstr "Interface"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__message_is_follower
+msgid "Is Follower"
+msgstr "Est Abonné"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__is_date
+msgid "Is a date?"
+msgstr "Est une date?"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_res_partner__is_edi
+#: model:ir.model.fields,field_description:edi_purchase_config.field_res_users__is_edi
+msgid "Is an EDI supplier"
+msgstr "Est un fournisseur EDI"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__is_numeric
+msgid "Is numeric ?"
+msgstr "Est un nombre?"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__write_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__write_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines__write_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__write_uid
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__write_uid
+msgid "Last Updated by"
+msgstr "Mis à jour par"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__write_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__write_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines__write_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__write_date
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__write_date
+msgid "Last Updated on"
+msgstr "Mis à jour le"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__lines_code
+msgid "Lines Code"
+msgstr "Code des lignes"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__log_date
+msgid "Log Date"
+msgstr "Date du log"
+
+#. module: edi_purchase_config
+#: model:ir.actions.act_window,name:edi_purchase_config.action_purchase_edi_logs
+#: model:ir.ui.menu,name:edi_purchase_config.menu_purchase_edi_logs
+msgid "Logs"
+msgstr "Journaux"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__mapping_ids
+msgid "Mapping"
+msgstr "Mapping"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__message_has_error
+msgid "Message Delivery error"
+msgstr "Erreur de livraison du message"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Mon échéance d’activité"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Échéance de la prochaine activité"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__activity_summary
+msgid "Next Activity Summary"
+msgstr "Résumé de la prochaine activité"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__activity_type_id
+msgid "Next Activity Type"
+msgstr "Type de la prochaine activité"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Nombre d’actions"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__message_has_error_counter
+msgid "Number of errors"
+msgstr "Nombre d’erreurs"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,help:edi_purchase_config.field_purchase_edi_log__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Nombre de messages nécessitant une action"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,help:edi_purchase_config.field_purchase_edi_log__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Nombre de messages avec erreur de livraison"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__position
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines__position
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__position
+msgid "Position"
+msgstr "Position"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__price_config_id
+msgid "Price Config"
+msgstr "Configuration de prix"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__price_mapping_ids
+msgid "Price Mapping"
+msgstr "Mapping des prix"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__mapping_field_id
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__mapping_field_id
+msgid "Prices mapping field"
+msgstr "Mapping champ Odoo"
+
+#. module: edi_purchase_config
+#: model_terms:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
+msgid "Prices update interface"
+msgstr "Interface MAJ prix"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__pricing_text_file_pattern
+msgid "Pricing File pattern"
+msgstr "Motif fichier MAJ prix"
+
+#. module: edi_purchase_config
+#: model:ir.model,name:edi_purchase_config.model_purchase_edi_log
+msgid "Purchase EDI Log"
+msgstr "Journal EDI des achats"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__po_text_file_pattern
+msgid "Purchase order File pattern"
+msgstr "Motif fichier commande achat"
+
+#. module: edi_purchase_config
+#: model_terms:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
+msgid "Purchase order interface"
+msgstr "Interface des commandes"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines__value
+msgid "Python code"
+msgstr "Code python"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__csv_relative_in_path
+msgid "Relative path for IN interfaces"
+msgstr "Chemin relatif des interfaces entrantes"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__csv_relative_out_path
+msgid "Relative path for OUT interfaces"
+msgstr "Chemin relatif des interfaces sortantes"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__activity_user_id
+msgid "Responsible User"
+msgstr "Utilisateur responsable"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Erreur de livraison SMS"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__sequence
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_mapping_lines__sequence
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__sequence
+msgid "Sequence"
+msgstr "Séquence"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__sequence_end
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__sequence_end
+msgid "Sequence End"
+msgstr "Fin de séquence"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__sequence_start
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__sequence_start
+msgid "Sequence Start"
+msgstr "Début de séquence"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,help:edi_purchase_config.field_purchase_edi_log__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Statut basé sur les activités\n"
+"En retard : la date d’échéance est dépassée\n"
+"Aujourd’hui : l’activité est prévue aujourd’hui\n"
+"Planifié : activités futures."
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__sent
+msgid "Successfull ?"
+msgstr "Opération reussie ?"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_res_partner__is_prices_interface
+#: model:ir.model.fields,field_description:edi_purchase_config.field_res_users__is_prices_interface
+msgid "Supports prices interface"
+msgstr "Supporte l'interface des prix"
+
+#. module: edi_purchase_config
+#: model_terms:ir.ui.view,arch_db:edi_purchase_config.view_edi_config_system_form
+msgid "Test"
+msgstr "Test"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,help:edi_purchase_config.field_purchase_edi_log__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Type de l’activité en exception sur l’enregistrement."
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,help:edi_purchase_config.field_edi_mapping_lines__value
+msgid ""
+"Use python code to generate your order file, using methods definedon the "
+"configuration system model"
+msgstr ""
+"Utilisez des expressions python pour générer la structure de fichier de "
+"votre commande fournisseur, en utilisant les fonctions python définies dans "
+"le modèle de configuration FTP, ou bien en y ajoutant de nouvelles."
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__user_id
+msgid "User"
+msgstr "Utilisateur"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_config_system__vrp_code
+msgid "VRP Code"
+msgstr "Code VRP"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_purchase_edi_log__website_message_ids
+msgid "Website Messages"
+msgstr "Messages du site web"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,help:edi_purchase_config.field_purchase_edi_log__website_message_ids
+msgid "Website communication history"
+msgstr "Historique des communications du site web"
+
+#. module: edi_purchase_config
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_ble_mapping__name
+#: model:ir.model.fields,field_description:edi_purchase_config.field_edi_price_mapping__name
+msgid "Zone description"
+msgstr "Description zone"
