@@ -5,9 +5,10 @@
 
 import os
 
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase, tagged
 
 
+@tagged("-at_install", "post_install")
 class EDIBackendTestMixin:
     @classmethod
     def _setup_context(cls, **kw):
